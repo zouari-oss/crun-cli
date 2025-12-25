@@ -27,14 +27,17 @@ find_package(cJSON REQUIRED)
 include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS})
 
 # Set sources files
-set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/main.c
-            ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun.c)
+set(SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/main.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_stacks_file_manager.c)
 
 # Set headers files
 set(HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/patterns.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/color.h)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/color.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_stacks_file_manager.h)
 
 # Generate Crun
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})

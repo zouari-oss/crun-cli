@@ -1,55 +1,101 @@
 /**
- * @file      Crun.cpp
+ * @file      crun.c
  * @author    @ZouariOmar (zouariomar20@gmail.com)
- * @brief     Crun source file
- * @version   0.1
- * @date      2025-01-10
+ * @brief     crun source file
+ * @version   0.2
+ * @date      2025-11-26
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/crun/project/src/Crun.cpp Crun.cpp @endlink
+ * @link https://github.com/ZouariOmar/crun/project/src/crun.c crun.c @endlink
  */
 
-//? Include prototype declaration part
-//* Include stander C++ header(s)
-#include <curl/curl.h>
-#include <stdio.h>
-#include <string.h>
-#ifdef WIN32
-#include <io.h>
-#define F_OK 0
-#define access _access
-#else
-#include <unistd.h>
-#endif
+// ########################
+// ### INC HEADERS PART ###
+// ########################
 
-//* Include custom header(s)
+// Include std c header(s)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Include json header(s)
+#include <cjson/cJSON.h>
+#include <unistd.h>
+
+// Include custom header(s)
 #include "../common/patterns.h"
 #include "../inc/crun.h"
+#include "../inc/crun_stacks_file_manager.h"
 
-//? Functions prototype dev part
+char **lang_map = NULL;
+size_t languages_number;
+struct CrunStackProjectStruct **crun_project_stacks = NULL;
+
+// #########################
+// ### FUNCTION DEV PART ###
+// #########################
+
+void free_all(void **ptrs, size_t len) {
+  if (!lang_map)
+    return;
+
+  for (size_t i = 0; i < len; ++i)
+    free(lang_map[i]);
+  free(lang_map);
+
+  for (size_t i = 0; i < len; ++i) {
+    free(ptrs[i]);
+    ptrs[i] = NULL;
+  }
+}
 
 void __init__() {
   CRUN_HEADER;
   CRUN_BANNER;
-  const char *crun_stacks_json_file_path = get_crun_stacks_json_path();
-  // char buff[100];
-  // PROJECT_MENU_FIELD(buff, 1, "java");
-  // PROJECT_MENU(buff);
 
-  if (is_file_exist(crun_stacks_json_file_path)) { // Download `crun_stacks_json`
-    printf("[WARR] %s not exist!\n", crun_stacks_json_file_path);
-    printf("[INFO] Downloading crun_stacks.json...\n");
+  crun_stacks_manager_init();
+  cJSON *root = get_root_json(read_crun_stacks_json_file());
 
-    if (!download_file(CRUN_STACKS_JSON_URL, crun_stacks_json_file_path))
-      fprintf(stdout, "[INFO] crun_stacks.json Downloaded successfully!\n");
-    else
-      fprintf(stderr, "[ERROR] crun_stacks.json Download failed!\n");
+  char *language_buffer = get_language_buffer(&lang_map, &languages_number, root);
+  if (!language_buffer || !strlen(language_buffer)) {
+    fprintf(stderr, "[ERROR] `language_buffer` is null/empty!");
+    free_all((void *[]){language_buffer, (void *)crun_stacks_json_file_path}, 2);
+    return;
   }
 
-  free((void *)crun_stacks_json_file_path);
+  int user_choice = -1;
+  get_user_choice(&user_choice,
+                  language_buffer,
+                  languages_number); // Get User language menu choice
+
+  char *projects_buffer = get_projects_buffer(lang_map[user_choice - 1], root);
+  if (!projects_buffer || !strlen(projects_buffer)) {
+    fprintf(stderr, "[ERROR] `language_buffer` is null/empty!");
+    free_all((void *[]){language_buffer, (void *)crun_stacks_json_file_path}, 2);
+    cJSON_Delete(root);
+    root = NULL;
+    return;
+  }
+
+  get_user_choice(&user_choice,
+                  projects_buffer,
+                  6); // Get User project menu choice
+
+  free_all((void *[]){language_buffer, (void *)crun_stacks_json_file_path}, 2);
+  cJSON_Delete(root);
+  root = NULL;
 }
 
-int is_file_exist(const char *file_path) {
-  return access(file_path, F_OK);
+void get_user_choice(int *user_choice, const char *menu, const int limiter) {
+  do {
+    PROJECT_MENU(menu); // Display language menu
+
+    if (scanf("%d", user_choice) != 1) { // invalid input
+      INVALID_OPTION_MSG;
+      *user_choice = -1;
+      while (getchar() != '\n') // clear input buffer
+        ;
+    }
+  } while (user_choice < 0 || *user_choice >= limiter);
 }
 
 int generate() {
@@ -57,54 +103,4 @@ int generate() {
 }
 
 void notify() {
-}
-
-size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream) {
-  return fwrite(ptr, size, nmemb, (FILE *)stream);
-}
-
-int download_file(const char *url, const char *out) {
-  CURL *curl = curl_easy_init();
-  if (!curl)
-    return EXIT_FAILURE; // Init failed
-
-  FILE *fp = fopen(out, "wb");
-  if (!fp) {
-    fprintf(stdout, "[WARR] Can't open/write %s\n", out);
-    curl_easy_cleanup(curl);
-    return EXIT_FAILURE; // File open failed
-  }
-  CURLcode res;
-  curl_easy_setopt(curl, CURLOPT_URL, url);
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-  curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
-  curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
-
-  res = curl_easy_perform(curl);
-
-  fclose(fp);
-  curl_easy_cleanup(curl);
-
-  return res != CURLE_OK;
-}
-
-char *get_crun_stacks_json_path() {
-  const char *home = OS_HOME;
-  if (!OS_HOME)
-    return NULL;
-
-#ifdef _WIN32
-  const char *suffix = "\\crun\\crun_stacks.json";
-#else
-  const char *suffix = "/.local/share/crun/crun_stacks.json";
-#endif
-
-  size_t len = strlen(home) + strlen(suffix) + 1;
-  char *path = (char *)malloc(len);
-  if (!path)
-    return NULL;
-
-  snprintf(path, len, "%s%s", home, suffix);
-  return path;
 }

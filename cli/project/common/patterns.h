@@ -14,7 +14,7 @@
 //? Menus patterns
 #ifdef _WIN32
 #define CRUN_HEADER \
-  system("cmd /c echo [Crun - V1.3]");
+  system("cmd /c echo [Crun - V1.4]");
 #else
 #define CRUN_HEADER                                                            \
   system("echo \"\033[0;32m$(figlet -w $(tput cols) '                        " \
@@ -28,6 +28,8 @@
          "https://github.com/ZouariOmar ====%s\n\n",                  \
          bleu, def)
 
+#define PROJECT_MENU_FIELD_LENGTH(i, field) snprintf(NULL, 0, "\t\t\t[%d] %s\n", i, field)
+
 #define PROJECT_MENU_FIELD(buff, i, field) sprintf(buff, "\t\t\t[%d] %s\n", i, field)
 
 #define PROJECT_MENU(fileds)                                                                                  \
@@ -40,41 +42,6 @@
          "...%s",                                                                                             \
          yellow, red, yellow, fileds, red, yellow, def)
 
-#define CX_MENU                                                                                               \
-  printf("%s\t\t------------------------------------------------------------------------------------------\n" \
-         "%s\t\tC Projects:\n"                                                                                \
-         "%s\t\t\t[1] C Code Practice      [2] C Contest         [3] Quick C Project\n"                       \
-         "\t\t\t[4] Normal C Project     [5] SDL C Project     [6] Arduino C Project\n"                       \
-         "\t\t\t[0] Exit\n"                                                                                   \
-         "%s\t\tVisit https://github.com/ZouariOmar/crun for more info\n"                                     \
-         "%s\t\t------------------------------------------------------------------------------------------\n" \
-         "...%s\n",                                                                                           \
-         yellow, red, yellow, red, yellow, def)
-
-#define CXX_MENU                                                                                              \
-  printf("%s\t\t------------------------------------------------------------------------------------------\n" \
-         "%s\t\tC++ Projects:\n"                                                                              \
-         "%s\t\t\t[1] C++ Code Practice    [2] C++ Contest       [3] Quick C++ Project\n"                     \
-         "\t\t\t[4] Normal C++ Project   [5] SDL C++ Project   [6] Qt C++ Project\n"                          \
-         "\t\t\t[7] Arduino C++ Project\n"                                                                    \
-         "\t\t\t[0] Exit\n"                                                                                   \
-         "%s\t\tVisit https://github.com/ZouariOmar/crun for more info\n"                                     \
-         "%s\t\t------------------------------------------------------------------------------------------\n" \
-         "...%s\n",                                                                                           \
-         yellow, red, yellow, red, yellow, def)
-
-#define JAVA_MENU                                                                                             \
-  printf("%s\t\t------------------------------------------------------------------------------------------\n" \
-         "%s\t\tJava Projects:\n"                                                                             \
-         "%s\t\t\t[1] Java Code Practice\n"                                                                   \
-         "\t\t\t[2] Java Contest\n"                                                                           \
-         "\t\t\t[3] Java Project (maven)\n"                                                                   \
-         "\t\t\t[0] Exit\n"                                                                                   \
-         "%s\t\tVisit https://github.com/ZouariOmar/crun for more info\n"                                     \
-         "%s\t\t------------------------------------------------------------------------------------------\n" \
-         "...%s\n",                                                                                           \
-         yellow, red, yellow, red, yellow, def)
-
 #define PROJECT_NAME printf("%s\n\nProject Name...\n%s", yellow, def)
 
 //? Messages patterns
@@ -85,14 +52,11 @@
          "  --name <NAME>           Set the user name (only letters A-Z, a-z)\n"            \
          "  --help                  Display this help message\n",                           \
          yellow, def)
-
 #define INVALID_OPTION_MSG printf("%s\n\n[WARR] Invalid Option !\n\n%s", red, def)
 
 #define EXIT_SUCCESS_MSG printf("%s\n\n[SUCCESS] See You Next Time !\n\n%s", green, def)
 
 #define INSTALLATION_COMPLETE_MSG printf("%sInstallation Complete!\nHAPPY CODING ⚡️\n%s", green, def)
-
-#define Debug(x, y, z) fprintf(stderr, "%s --- %s --- %s\n", x, y, z)
 
 //? REGEX `crun` patterns
 #define CRUN_LANGUAGE_REGEX_PATTERN "--language([1-9]+)"
@@ -109,12 +73,3 @@
 #else
 #define OS_HOME getenv("HOME")
 #endif
-
-//? Command's patterns
-#define _GET(x)                                                              \
-  "wget https://github.com/ZouariOmar/cpkg/raw/refs/heads/main/templates/" + \
-      x + ".zip";
-#define _UNZIP(x) "unzip " + x;
-#define _DEL_ZIP(x) "rm " + x + ".zip";
-#define _SET_NAME(x, y) \
-  "mv " + x + " '" + y + "'";

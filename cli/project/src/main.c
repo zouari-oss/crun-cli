@@ -1,15 +1,16 @@
 /**
- * @file      main.cpp
+ * @file      main.c
  * @author    @ZouariOmar (zouariomar20@gmail.com)
  * @brief     Main source file
- * @version   0.1
- * @date      2025-04-28
+ * @version   0.2
+ * @date      2025-11-26
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/Crun/project/src/main.cpp main.cpp @endlink
+ * @link https://github.com/ZouariOmar/Crun/project/src/main.c main.c @endlink
  */
 
 //? Include prototype declaration part
 #include "../inc/crun.h"
+#include <stdlib.h>
 
 //? Main function prototype dev part
 
