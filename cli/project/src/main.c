@@ -17,11 +17,8 @@
 /**
  * @fn         main(int, const char **)
  * @brief      The main `crun` function
- * @param argc int
- * @param argv {const char **}
  * @return     int
  */
-int main(int argc, const char **argv) {
-  __init__();
-  return EXIT_SUCCESS;
+int main(void) {
+  return crun(), EXIT_SUCCESS;
 }

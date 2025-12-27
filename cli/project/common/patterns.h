@@ -52,9 +52,12 @@
          "  --name <NAME>           Set the user name (only letters A-Z, a-z)\n"            \
          "  --help                  Display this help message\n",                           \
          yellow, def)
-#define INVALID_OPTION_MSG printf("%s\n\n[WARR] Invalid Option !\n\n%s", red, def)
 
-#define EXIT_SUCCESS_MSG printf("%s\n\n[SUCCESS] See You Next Time !\n\n%s", green, def)
+#define INVALID_OPTION_MSG printf("%s\n\n[WARR]%s Invalid Option !\n\n", yellow, def)
+
+#define UNACCEPTED_INPUT_MSG printf("%s\n\n[ERROR]%s Unaccepted Input !\n\n", red, def)
+
+#define EXIT_SUCCESS_MSG printf("%s\n\n[SUCCESS] See You Next Time !%s\n\n", green, def)
 
 #define INSTALLATION_COMPLETE_MSG printf("%sInstallation Complete!\nHAPPY CODING ⚡️\n%s", green, def)
 
@@ -63,13 +66,3 @@
 #define CRUN_PROJECT_REGEX_PATTERN "--project([1-9]+)"
 #define CRUN_NAME_REGEX_PATTERN "--name([A-Za-z]+)"
 #define CRUN_HELP_REGEX_PATTERN "--help"
-
-//? `crun` files
-#define CRUN_STACKS_JSON_URL "https://raw.githubusercontent.com/ZouariOmar/cpkg/refs/heads/main/crun/crun_stacks.json"
-
-//? OS Info
-#ifdef _WIN32
-#define OS_HOME getenv("APPDATA")
-#else
-#define OS_HOME getenv("HOME")
-#endif

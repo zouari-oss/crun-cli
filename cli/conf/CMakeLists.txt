@@ -30,14 +30,18 @@ include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS})
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_stacks_file_manager.c)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_libcurl.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_json_manager.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_file_manager.c)
 
 # Set headers files
 set(HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/patterns.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/color.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_stacks_file_manager.h)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_libcurl.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_json_manager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_file_manager.h)
 
 # Generate Crun
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
