@@ -8,9 +8,9 @@
  * @link      https://github.com/ZouariOmar/crun/project/src/crun_file_manager.c crun_file_manager.c @endlink
  */
 
-// ########################
-// ### INC HEADERS PART ###
-// ########################
+// ############################
+// ### HEADERS INCLUDE PART ###
+// ############################
 
 // Include std header(s)
 #include <stdio.h>

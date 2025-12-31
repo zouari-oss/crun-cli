@@ -1,0 +1,106 @@
+/**
+ * @file      crun_zip_manager.c
+ * @author    @ZouariOmar <zouariomar20@gmail.com>
+ * @brief     crun_zip_manager source file
+ * @version   0.1
+ * @date      2026-01-01
+ * @copyright Copyright (c) 2025
+ * @link      https://github.com/ZouariOmar/crun/project/src/crun_zip_manager.c crun_zip_manager.c @endlink
+ * @link      https://chromium.googlesource.com/external/github.com/nmoinvaz/minizip/+/2.7.1/README.md README.md @endlink
+ */
+
+// ############################
+// ### HEADERS INCLUDE PART ###
+// ############################
+
+// Inlcude stander header(s)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+
+// Include zip header(s)
+#include <minizip/unzip.h>
+
+// Include custom header(s)
+#include "../inc/crun_zip_manager.h"
+
+// ##############################
+// ### ZIP FUNCTIONS DEV PART ###
+// ##############################
+
+static void ensure_dir(const char *path) {
+  char tmp[1024];
+  snprintf(tmp, sizeof(tmp), "%s", path);
+
+  for (char *p = tmp + 1; *p; p++) {
+    if (*p == '/' || *p == '\\') {
+      char old = *p;
+      *p = '\0';
+      MKDIR(tmp);
+      *p = old;
+    }
+  }
+}
+
+static int is_safe_path(const char *path) {
+  return strstr(path, "..") == NULL;
+}
+
+int extract_zip(const char *zip_path, const char *out_dir) {
+  unzFile zip = unzOpen(zip_path);
+  if (!zip)
+    return EXIT_FAILURE;
+
+  unz_global_info info;
+  if (unzGetGlobalInfo(zip, &info) != UNZ_OK) {
+    unzClose(zip);
+    return EXIT_FAILURE;
+  }
+
+  for (uLong i = 0; i < info.number_entry; i++) {
+    unz_file_info file_info;
+    char name[512];
+
+    if (unzGetCurrentFileInfo(zip, &file_info,
+                              name, sizeof(name),
+                              NULL, 0, NULL, 0) != UNZ_OK)
+      break;
+
+    if (!is_safe_path(name)) {
+      unzClose(zip);
+      return EXIT_FAILURE;
+    }
+
+    char out_path[1024];
+    snprintf(out_path, sizeof(out_path),
+             "%s%c%s", out_dir, PATH_SEP, name);
+
+    if (name[strlen(name) - 1] == '/') {
+      MKDIR(out_path);
+    } else {
+      ensure_dir(out_path);
+
+      if (unzOpenCurrentFile(zip) != UNZ_OK)
+        break;
+
+      FILE *fp = fopen(out_path, "wb");
+      if (!fp)
+        break;
+
+      char buf[8192];
+      int read;
+      while ((read = unzReadCurrentFile(zip, buf, sizeof(buf))) > 0)
+        fwrite(buf, 1, read, fp);
+
+      fclose(fp);
+      unzCloseCurrentFile(zip);
+    }
+
+    if (i + 1 < info.number_entry)
+      unzGoToNextFile(zip);
+  }
+
+  unzClose(zip);
+  return EXIT_SUCCESS;
+}

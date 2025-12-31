@@ -41,6 +41,7 @@ int download_file(const char *url, const char *out) {
   curl_easy_setopt(curl, CURLOPT_URL, url);
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+  curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // NOTE: packages follow other routes ==> I NEED THIS LINE
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
 
@@ -52,5 +53,5 @@ int download_file(const char *url, const char *out) {
   curl_easy_cleanup(curl);
   curl = NULL;
 
-  return res != CURLE_OK;
+  return EXIT_FAILURE;
 }

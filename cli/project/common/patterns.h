@@ -42,7 +42,7 @@
          "...%s",                                                                                             \
          yellow, red, yellow, fileds, red, yellow, def)
 
-#define PROJECT_NAME printf("%s\n\nProject Name...\n%s", yellow, def)
+#define PROJECT_NAME printf("%s\n\nProject Name...%s", yellow, def)
 
 //? Messages patterns
 #define HELP_MSG                                                                            \

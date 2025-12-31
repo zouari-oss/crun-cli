@@ -23,8 +23,12 @@ set(CMAKE_BUILD_TYPE Release)
 find_package(CURL REQUIRED)
 find_package(cJSON REQUIRED)
 
+# Find modules
+pkg_check_modules(MINIZIP REQUIRED minizip)
+
 # Include packages
-include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS})
+include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS}
+                    ${MINIZIP_INCLUDE_DIRS})
 
 # Set sources files
 set(SOURCES
@@ -32,7 +36,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_libcurl.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_json_manager.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_file_manager.c)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_file_manager.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_zip_manager.c)
 
 # Set headers files
 set(HEADERS
@@ -41,10 +46,12 @@ set(HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/color.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_libcurl.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_json_manager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_file_manager.h)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_file_manager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_zip_manager.h)
 
 # Generate Crun
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 # Link packages after creating the executable
-target_link_libraries(${PROJECT_NAME} PRIVATE CURL::libcurl ${CJSON_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE CURL::libcurl ${CJSON_LIBRARIES}
+                                              ${MINIZIP_LIBRARIES})

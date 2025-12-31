@@ -8,9 +8,9 @@
  * @link https://github.com/ZouariOmar/crun/project/src/crun_json_manager.c crun_json_manager.c @endlink
  */
 
-// ########################
-// ### INC HEADERS PART ###
-// ########################
+// ############################
+// ### HEADERS INCLUDE PART ###
+// ############################
 
 // Include curl header(s)
 #include <cjson/cJSON.h>

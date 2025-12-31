@@ -18,6 +18,17 @@
 #include <cjson/cJSON.h>
 #include <stdio.h>
 
+#ifdef _WIN32
+#include <direct.h>
+#define __get_current_dir _getcwd
+#else
+#include <unistd.h>
+#define __get_current_dir getcwd
+#endif
+
+// ################################
+// ### STRUCTS DECLARATION PART ###
+// ################################
 struct CrunLanguage {
   char *name;
 };
@@ -37,7 +48,10 @@ extern size_t packages_map_length;
 // #################################
 void crun();
 void crun_stacks_json_checker(const char *);
+char ask_yes_no(const char *);
+char *get_user_project_name();
 void get_user_choice(int *, const char *, const int);
+const char *download_crun_package(const struct CrunPackage *);
 char *get_language_buffer(cJSON *);
 char *get_packages_buffer(cJSON *, const char *);
 void free_all(void **, const size_t);

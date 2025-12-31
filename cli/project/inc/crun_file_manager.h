@@ -18,18 +18,20 @@
 // Include std header(s)
 #include <stdio.h>
 
-#define CRUN_STACKS_JSON_FILE_URL "https://raw.githubusercontent.com/ZouariOmar/cpkg/refs/heads/main/crun/crun_stacks.json"
 #ifdef _WIN32
 #include <io.h>
 #define OS_HOME getenv("APPDATA")
 #define F_OK 0
 #define access _access
-#define CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX "\\crun\\crun_stacks.json"
+#define CRUN_DEFAULT_SUFFIX_DIRECTORY "\\crun\\"
 #else
 #include <unistd.h>
 #define OS_HOME getenv("HOME")
-#define CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX "/.local/share/crun/crun_stacks.json"
+#define CRUN_DEFAULT_SUFFIX_DIRECTORY "/.local/share/crun/"
 #endif
+
+#define CRUN_STACKS_JSON_FILE_URL "https://raw.githubusercontent.com/ZouariOmar/cpkg/refs/heads/main/crun/crun_stacks.json"
+#define CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX CRUN_DEFAULT_SUFFIX_DIRECTORY "crun_stacks.json"
 
 // #################################
 // ### FUNCTION DECLARATION PART ###

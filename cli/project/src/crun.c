@@ -8,12 +8,13 @@
  * @link https://github.com/ZouariOmar/crun/project/src/crun.c crun.c @endlink
  */
 
-// ########################
-// ### INC HEADERS PART ###
-// ########################
+// ############################
+// ### HEADERS INCLUDE PART ###
+// ############################
 
 // Include std c header(s)
 #include <cjson/cJSON.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,6 +25,7 @@
 #include "../inc/crun_file_manager.h"
 #include "../inc/crun_json_manager.h"
 #include "../inc/crun_libcurl.h"
+#include "../inc/crun_zip_manager.h"
 
 // Declare and define the shared vars
 struct CrunLanguage *languages_map = NULL;
@@ -66,14 +68,13 @@ void crun() {
   // Get language projects
   char *packages_buffer = get_packages_buffer(json_root, languages_map[user_choice - 1].name);
   if (!packages_buffer || !strlen(packages_buffer)) {
-    fprintf(stderr, "[ERROR] `packages_buffer` is null/empty!\n");
+    fprintf(stderr, "[ERROR] crun.c :: crun :: `packages_buffer` is null/empty!\n");
     free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path}, 2);
-    cJSON_Delete(json_root);
-    json_root = NULL;
+    cJSON_Delete(json_root), json_root = NULL;
     return;
   }
 
-  // === Get User project menu choice ===
+  // === Get user project menu choice ===
   get_user_choice(&user_choice,
                   packages_buffer,
                   packages_map_length);
@@ -83,21 +84,126 @@ void crun() {
     return;
   }
 
-  // == Get User file/project name (input i/o)
-  // TODO: Generate the project
-  // See if the project exist first, otherwise download the pkg (ask the usr for that)
-  // Get user file/project name (input i/o)
-  // Copy the pkg into the current directory
-  // Exctract the pkg content using `zip.h` (see https://stackoverflow.com/questions/10440113/simple-way-to-unzip-a-zip-file-using-zlib)
-  // Delete the `.zip` package
-  // Rename the exctracted pkg (file/directory)
-  // Notify the user
+  // See if the project exist first, otherwise download the pkg
+  const char *crun_package_file_path = download_crun_package(&packages_map[user_choice - 1]); // Free this ptr
+  if (!crun_package_file_path) {
+    fprintf(stderr, "[WARR] crun.c :: crun :: %s.zip Download failed!\n", packages_map[user_choice - 1].name);
+    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path}, 2);
+    cJSON_Delete(json_root), json_root = NULL;
+    return;
+  }
 
-  printf("%s\n%s\n%s\n", packages_map[user_choice - 1].name, packages_map[user_choice - 1].description, packages_map[user_choice - 1].url);
+  // === Generate the project ===
+
+  // Get user file/project name (input i/o)
+  char *user_project_name = get_user_project_name(); //! Free this ptr
+
+  // Exctract the pkg content using `zip.h` (see https://stackoverflow.com/questions/10440113/simple-way-to-unzip-a-zip-file-using-zlib)
+  char user_current_dirctory[FILENAME_MAX];
+  __get_current_dir(user_current_dirctory, FILENAME_MAX);
+  extract_zip(crun_package_file_path, user_current_dirctory);
+
+  // TODO: Rename the exctracted pkg (file/directory)
+  // [NOT RECOMMANDED] We can work with flags [PACKAGE_TYPE=FILE|DIRECTORY]
+  // [FEATURE] Or with `__init__.sh` `__init__.bat` for each project
+  // [BEST] Or we detect the extracted zip if it is a file or directory
+  // Her...
+
+  // TODO: Notify the user
+  // Her...
+
+  // TEST:
+  // printf("%s\n%s\n%s\n", packages_map[user_choice - 1].name, packages_map[user_choice - 1].description, packages_map[user_choice - 1].url);
 
   free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path}, 2);
   cJSON_Delete(json_root);
   json_root = NULL;
+}
+
+const char *download_crun_package(const struct CrunPackage *crun_package_map) {
+  const char *package_name = crun_package_map->name,
+             *package_url = crun_package_map->url,
+             *crun_package_file_path = NULL;
+
+  size_t dir_len = strlen(CRUN_DEFAULT_SUFFIX_DIRECTORY),
+         pkg_len = strlen(package_name),
+         ext_len = strlen(".zip"),
+         crun_package_file_suffix_len = dir_len + pkg_len + ext_len + 1;
+
+  char *crun_package_file_suffix = (char *)malloc(crun_package_file_suffix_len);
+
+  if (!crun_package_file_suffix) {
+    fprintf(stderr, "[ERROR] crun.c :: download_crun_package :: Can't allocate `crun_package_file_suffix`!\n");
+    return NULL;
+  }
+
+  snprintf(crun_package_file_suffix,
+           crun_package_file_suffix_len,
+           "%s%s.zip",
+           CRUN_DEFAULT_SUFFIX_DIRECTORY,
+           package_name);
+
+  crun_package_file_path = get_file_home_path(crun_package_file_suffix);
+  free(crun_package_file_suffix), crun_package_file_suffix = NULL; // Free `crun_package_file_suffix`
+
+  if (!is_file_exist(crun_package_file_path)) {
+    fprintf(stderr, "[WARR] crun.c :: %s not exist!\n", crun_package_file_path);
+    fprintf(stdout, "[INFO] crun.c :: Downloading %s.zip...\n", package_name);
+
+    const int download_res = download_file(package_url, crun_package_file_path);
+    download_res ? fprintf(stdout, "[INFO] crun.c :: %s.zip Downloaded successfully!\n", package_name)
+                 : fprintf(stderr, "[WARR] crun.c :: %s.zip Download failed!\n", package_name);
+
+    return download_res ? crun_package_file_path : NULL;
+  }
+
+  fprintf(stdout, "[INFO] crun.c :: crun :: Detecting %s!\n", crun_package_file_path);
+  return crun_package_file_path;
+}
+
+char ask_yes_no(const char *question) {
+  char choice = '\0';
+
+  do {
+    printf("%s (y/n): ", question);
+    if (scanf(" %c", &choice) != 1) {
+      UNACCEPTED_INPUT_MSG;
+      while (getchar() != '\n')
+        ;
+    } else {
+      choice = tolower(choice);
+    }
+  } while (choice != 'y' && choice != 'n');
+
+  return choice;
+}
+
+char *get_user_project_name() {
+  char buffer[256];
+
+  while (1) {
+    PROJECT_NAME;
+
+    while (getchar() != '\n')
+      ;
+
+    if (!fgets(buffer, sizeof(buffer), stdin)) {
+      UNACCEPTED_INPUT_MSG;
+      continue;
+    }
+
+    char *project_name = malloc(strlen(buffer) + 1);
+    if (!project_name) {
+      fprintf(stderr, "[ERROR] crun.c :: Can't allocate `project_name`!\n");
+      return NULL;
+    }
+
+    strcpy(project_name, buffer);
+
+    return project_name;
+  }
+
+  return NULL;
 }
 
 void get_user_choice(int *user_choice, const char *menu, const int limiter) {
@@ -130,13 +236,13 @@ void get_user_choice(int *user_choice, const char *menu, const int limiter) {
  */
 void crun_stacks_json_checker(const char *crun_stacks_json_file_path) {
   if (!is_file_exist(crun_stacks_json_file_path)) { // Download `crun_stacks_json`
-    printf("[WARR] %s not exist!\n", crun_stacks_json_file_path);
-    printf("[INFO] Downloading crun_stacks.json...\n");
+    printf("[WARR] crun.c :: crun_stacks_json_checker :: %s not exist!\n", crun_stacks_json_file_path);
+    printf("[INFO] crun.c :: crun_stacks_json_checker :: Downloading crun_stacks.json...\n");
 
     if (download_file(CRUN_STACKS_JSON_FILE_URL, crun_stacks_json_file_path))
-      fprintf(stderr, "[WARR] crun_json_manager.c :: crun_stacks.json Download failed!\n");
+      fprintf(stderr, "[WARR] crun.c :: crun_stacks_json_checker :: crun_stacks.json Download failed!\n");
     else
-      fprintf(stdout, "[INFO] crun_stacks.json Downloaded successfully!\n");
+      fprintf(stdout, "[INFO] crun.c :: crun_stacks_json_checker :: crun_stacks.json Downloaded successfully!\n");
   }
 }
 
