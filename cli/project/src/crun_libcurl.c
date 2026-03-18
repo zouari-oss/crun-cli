@@ -16,6 +16,7 @@
 #include <curl/curl.h>
 
 // Include custom header(s)
+#include "../inc/crun_audit.h"
 #include "../inc/crun_libcurl.h"
 
 // ##################################
@@ -24,6 +25,24 @@
 
 size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream) {
   return fwrite(ptr, size, nmemb, (FILE *)stream);
+}
+
+static int download_progress_cb(void *clientp,
+                                curl_off_t dltotal,
+                                curl_off_t dlnow,
+                                curl_off_t ultotal,
+                                curl_off_t ulnow) {
+  (void)clientp;
+  (void)ultotal;
+  (void)ulnow;
+
+  if (dltotal <= 0)
+    return 0;
+
+  int percent = (int)((dlnow * 100) / dltotal);
+  fprintf(stdout, "\r[INFO] Download progress: %3d%%", percent);
+  fflush(stdout);
+  return 0;
 }
 
 int download_file(const char *url, const char *out) {
@@ -44,8 +63,13 @@ int download_file(const char *url, const char *out) {
   curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // NOTE: packages follow other routes ==> I NEED THIS LINE
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+  curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
+  curl_easy_setopt(curl, CURLOPT_XFERINFOFUNCTION, download_progress_cb);
+
+  crun_audit_info("Download started: %s", url);
 
   CURLcode res = curl_easy_perform(curl);
+  fprintf(stdout, "\n");
 
   // Cleaning
   fclose(fp);
@@ -53,5 +77,11 @@ int download_file(const char *url, const char *out) {
   curl_easy_cleanup(curl);
   curl = NULL;
 
-  return EXIT_FAILURE;
+  if (res != CURLE_OK) {
+    crun_audit_error("Download failed (%s): %s", curl_easy_strerror(res), url);
+    return EXIT_FAILURE;
+  }
+
+  crun_audit_info("Download completed successfully: %s", out);
+  return EXIT_SUCCESS;
 }

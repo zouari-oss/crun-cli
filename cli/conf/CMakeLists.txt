@@ -35,6 +35,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_libcurl.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_audit.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_json_manager.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_file_manager.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_zip_manager.c)
@@ -45,6 +46,7 @@ set(HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/patterns.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/color.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_libcurl.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_audit.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_json_manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_file_manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_zip_manager.h)

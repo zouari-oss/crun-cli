@@ -14,6 +14,8 @@
 // ################################
 // ### HEADERS DECLARATION PART ###
 // ################################
+#include <stddef.h>
+
 // Include stander header(s)
 #ifdef _WIN32
 #include <direct.h>
@@ -30,6 +32,6 @@
 // ##################################
 static void ensure_dir(const char *);
 static int is_safe_path(const char *);
-int extract_zip(const char *, const char *);
+int extract_zip(const char *, const char *, char *, size_t);
 
 #endif // __CRUN_ZIP_MANAGER_H__

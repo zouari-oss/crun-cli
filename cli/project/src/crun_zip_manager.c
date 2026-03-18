@@ -47,7 +47,37 @@ static int is_safe_path(const char *path) {
   return strstr(path, "..") == NULL;
 }
 
-int extract_zip(const char *zip_path, const char *out_dir) {
+static const char *get_expected_init_script_name() {
+#ifdef _WIN32
+  return "__init__.bat";
+#else
+  return "__init__.sh";
+#endif
+}
+
+static void maybe_capture_init_script(const char *zip_entry_name,
+                                      const char *out_path,
+                                      char *init_script_path,
+                                      size_t init_script_path_size) {
+  if (!init_script_path || !init_script_path_size || init_script_path[0] != '\0')
+    return;
+
+  const char *entry_basename = strrchr(zip_entry_name, '/');
+  if (!entry_basename)
+    entry_basename = strrchr(zip_entry_name, '\\');
+
+  entry_basename = entry_basename ? entry_basename + 1 : zip_entry_name;
+  if (!strcmp(entry_basename, get_expected_init_script_name()))
+    snprintf(init_script_path, init_script_path_size, "%s", out_path);
+}
+
+int extract_zip(const char *zip_path,
+                const char *out_dir,
+                char *init_script_path,
+                size_t init_script_path_size) {
+  if (init_script_path && init_script_path_size)
+    init_script_path[0] = '\0';
+
   unzFile zip = unzOpen(zip_path);
   if (!zip)
     return EXIT_FAILURE;
@@ -79,6 +109,7 @@ int extract_zip(const char *zip_path, const char *out_dir) {
     if (name[strlen(name) - 1] == '/') {
       MKDIR(out_path);
     } else {
+      maybe_capture_init_script(name, out_path, init_script_path, init_script_path_size);
       ensure_dir(out_path);
 
       if (unzOpenCurrentFile(zip) != UNZ_OK)
