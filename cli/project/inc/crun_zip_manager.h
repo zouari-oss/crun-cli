@@ -19,12 +19,10 @@
 #include <direct.h>
 #define MKDIR(path) _mkdir(path)
 #define PATH_SEP '\\'
-#define __get_current_dir _getcwd
 #else
 #include <unistd.h>
 #define MKDIR(path) mkdir(path, 0755)
 #define PATH_SEP '/'
-#define __get_current_dir getcwd
 #endif
 
 // ##################################

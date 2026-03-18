@@ -31,17 +31,11 @@
 // ################################
 struct CrunLanguage {
   char *name;
-};
+}; // CrunLanguage Structure
 
 struct CrunPackage {
   char *name, *description, *url;
-};
-
-// Shared Vars
-extern struct CrunLanguage *languages_map;
-extern size_t languages_map_length;
-extern struct CrunPackage *packages_map;
-extern size_t packages_map_length;
+}; // CrunPackage Structure
 
 // #################################
 // ### FUNCTION DECLARATION PART ###

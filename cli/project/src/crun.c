@@ -74,7 +74,7 @@ void crun() {
     return;
   }
 
-  // === Get user project menu choice ===
+  // === Get user package choice ===
   get_user_choice(&user_choice,
                   packages_buffer,
                   packages_map_length);
@@ -125,10 +125,10 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
              *package_url = crun_package_map->url,
              *crun_package_file_path = NULL;
 
-  size_t dir_len = strlen(CRUN_DEFAULT_SUFFIX_DIRECTORY),
-         pkg_len = strlen(package_name),
-         ext_len = strlen(".zip"),
-         crun_package_file_suffix_len = dir_len + pkg_len + ext_len + 1;
+  size_t crun_package_file_suffix_len =
+      strlen(CRUN_DEFAULT_SUFFIX_DIRECTORY) +
+      strlen(package_name) +
+      strlen(".zip") + 1;
 
   char *crun_package_file_suffix = (char *)malloc(crun_package_file_suffix_len);
 
@@ -147,17 +147,17 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
   free(crun_package_file_suffix), crun_package_file_suffix = NULL; // Free `crun_package_file_suffix`
 
   if (!is_file_exist(crun_package_file_path)) {
-    fprintf(stderr, "[WARR] crun.c :: %s not exist!\n", crun_package_file_path);
-    fprintf(stdout, "[INFO] crun.c :: Downloading %s.zip...\n", package_name);
+    fprintf(stderr, "[WARR] crun.c :: download_crun_package :: %s not exist!\n", crun_package_file_path);
+    fprintf(stdout, "[INFO] crun.c :: download_crun_package :: Downloading %s.zip...\n", package_name);
 
     const int download_res = download_file(package_url, crun_package_file_path);
-    download_res ? fprintf(stdout, "[INFO] crun.c :: %s.zip Downloaded successfully!\n", package_name)
-                 : fprintf(stderr, "[WARR] crun.c :: %s.zip Download failed!\n", package_name);
+    download_res ? fprintf(stdout, "[INFO] crun.c :: download_crun_package :: %s.zip Downloaded successfully!\n", package_name)
+                 : fprintf(stderr, "[WARR] crun.c :: download_crun_package :: %s.zip Download failed!\n", package_name);
 
     return download_res ? crun_package_file_path : NULL;
   }
 
-  fprintf(stdout, "[INFO] crun.c :: crun :: Detecting %s!\n", crun_package_file_path);
+  fprintf(stdout, "[INFO] crun.c :: download_crun_package :: Detecting %s!\n", crun_package_file_path);
   return crun_package_file_path;
 }
 
