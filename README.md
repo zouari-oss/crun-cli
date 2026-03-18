@@ -1,96 +1,134 @@
 <!-- PROJECT SHIELDS -->
 
-[![Contributors](https://img.shields.io/badge/CONTRIBUTORS-01-blue?style=plastic)](https://github.com/ZouariOmar/Crun/graphs/contributors)
-[![Forks](https://img.shields.io/badge/FORKS-00-blue?style=plastic)](https://github.com/ZouariOmar/Crun/network/members)
-[![Stargazers](https://img.shields.io/badge/STARS-01-blue?style=plastic)](https://github.com/ZouariOmar/Crun/stargazers)
-[![Issues](https://img.shields.io/badge/ISSUES-00-blue?style=plastic)](https://github.com/ZouariOmar/Crun/issues)
-[![MIT License](https://img.shields.io/badge/LICENSE-MIT-blue?style=plastic)](LICENSE)
-[![Linkedin](https://img.shields.io/badge/Linkedin-5.1k-blue?style=plastic)](https://www.linkedin.com/in/zouari-omar-143239283)
+[![Contributors](https://img.shields.io/badge/CONTRIBUTORS-01-blue?style=plastic)](https://github.com/zouari-oss/crun/graphs/contributors)
+[![Forks](https://img.shields.io/badge/FORKS-00-blue?style=plastic)](https://github.com/zouari-oss/crun/network/members)
+[![Stargazers](https://img.shields.io/badge/STARS-01-blue?style=plastic)](https://github.com/zouari-oss/crun/stargazers)
+[![Issues](https://img.shields.io/badge/ISSUES-00-blue?style=plastic)](https://github.com/zouari-oss/crun/issues)
+[![GPL3.0 License](https://img.shields.io/badge/LICENSE-GPL3.0-blue?style=plastic)](LICENSE)
+[![Linkedin](https://img.shields.io/badge/Linkedin-6.9k-blue?style=plastic)](https://www.linkedin.com/in/zouari-omar)
 
-<h1 align="center">
-  <br>
-  <a href="https://github.com/ZouariOmar/Crun"><img src="imgs/Crun.ico" alt="Crun" width="200"></a>
-  <br>
-  Crun
-  <br>
-</h1>
+<!-- PROJECT HEADER -->
+<div align="center">
+  <a href="https://github.com/zouari-oss/crun">
+    <img src="res/img/logo.ico" alt="crun-logo" width="300">
+  </a>
+  <h1>Crun CLI</h1>
+  <h6>C-based project scaffolding CLI</h6>
+  <br />
+</div>
 
-<h5 align="center">A simple program to automate the setup of new C/C++ projects using templates from Cpkg repo.</h5>
+<!-- PROJECT LINKS -->
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" alt="C"></a>
-  <a href="#"><img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++"></a>
-  <a href="#"><img src="https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white" alt="Bash Script"></a>
-  <a href="#"><img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" alt="Git"></a>
-    <a href="#"><img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux"></a>
+  <a href="#overview">Overview</a> •
+  <a href="#key-features">Key Features</a> •
+  <a href="#requirements">Requirements</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#runtime-flow">Runtime Flow</a> •
+  <a href="#template-sources">Template Sources</a> •
+  <a href="#download">Download</a> •
+  <a href="#emailware">Emailware</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#license">License</a> •
+  <a href="#contact">Contact</a> •
+  <a href="#acknowledgments">Acknowledgments</a>
 </p>
 
+<!-- PROJECT TAGS -->
+
 <p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#related">Related</a> •
-  <a href="#license">License</a>
+  <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white"/>
+  <img src="https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CLI-Command%20Line-informational?style=for-the-badge&logo=gnubash&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Cross--Platform-Yes-success?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Open%20Source-3DA639?style=for-the-badge&logo=opensourceinitiative&logoColor=white"/>
 </p>
 
 ![screenshot](imgs/crun.png)
 
+## Overview
+
+**crun-cli** fetches template metadata, lets you choose a language/template, downloads or reuses cached archives, executes optional init scripts, and copies the extracted scaffold into your current directory.
+
 ## Key Features
 
-- **Project Bootstrapper**
-  - Instantly clone and initialize a new C/C++ project from [@ZouariOmar](https://github.com/ZouariOmar/Cpkg) template repositories.
-- **Minimal Setup**
-  - Just run `crun` and start coding.
+- Interactive language/template menus
+- Template cache in `~/.local/share/crun/`
+- Hidden extraction workspace in `~/.local/share/crun/tmp/`
+- Optional init execution:
+  - `__init__.sh` (Unix)
+  - `__init__.bat` (Windows)
+- Init script cleanup after execution
+- Copy extracted output only (zip artifacts are excluded)
+- Timestamped audit logs in CLI and `~/.local/share/crun/audit.log`
 
-## How To Use
+## Requirements
 
-To use Crun, you'll need [Git](https://git-scm.com).
+- [CMake](https://cmake.org)
+- [Ninja](https://github.com/ninja-build/ninja)
+- [libcurl](https://github.com/curl/curl)
+- [cJSON](https://github.com/DaveGamble/cJSON)
+- [minizip](https://github.com/domoticz/minizip)
+
+## Usage
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/ZouariOmar/Crun
+git clone https://github.com/zouari-oss/crun-cli
+cd crun-cli/project
 
-# Go into the repository (cli app)
-$ cd Crun/Cli
-
-# Make the builder script executable
-$ chmod u+x run.sh
-
-# Build crun cli (run.sh will build with Ninja)
-$ ./run.sh build --root
-
-# Move crun to global env
-$ sudo mv bin/build/crun /usr/local/bin
+./run rb   # configure
+./run i    # build
+./run r    # run crun
 ```
+
+### Install Binary (optional)
+
+```bash
+sudo cp bin/build/crun /usr/local/bin/crun
+```
+
+## Runtime Flow
+
+1. Load `crun_stacks.json` (download if missing)
+2. Select language and template
+3. Resolve template archive (cache hit or download)
+4. Extract into hidden temp workspace
+5. Run init script if present
+6. Remove `__init__.sh` / `__init__.bat`
+7. Copy output to current directory (excluding `*.zip`)
+8. Clean temporary workspace
+
+## Template Sources
+
+- [cpkg templates](https://github.com/zouari-oss/cpkg/tree/main/templates)
 
 ## Download
 
-You can [download](https://github.com/ZouariOmar/Crun/releases) the latest release of Crun for Linux.
-
-> Or you can download Crun bin version from [Her](https://www.mediafire.com/file/odntbc42r4as8n2/Crun.zip/file)
+You can [download](https://github.com/zouari-oss/crun-cli/releases) the latest installable version of crun-cli for Windows, macOS and Linux.
 
 ## Emailware
 
-Crun is an [emailware](https://en.wiktionary.org/wiki/emailware). If you find it useful, consider sending a quick note to <zouariomar20@gmail.com> — your feedback matters!
+crun-cli is an emailware. Meaning, if you liked using this app or it has helped you in any way,
+would like you send as an email at <zouariomar20@gmail.com> about anything you'd want to say about
+this software. I'd really appreciate it!
 
-## Credits
+## Contributing
 
-This tool pulls templates from:
-
-- [Cpkg](https://github.com/ZouariOmar/Cpkg)
-- [Projects Templates](https://github.com/ZouariOmar/Cpkg/tree/main/templates)
-
-## Related
-
-- [Cpkg](https://github.com/ZouariOmar/Cpkg) - A simple C/C++ package manager
-- [Astra](https://github.com/ZouariOmar/Astra) - Desktop mall management system
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT
+This repository is licensed under the **GPL-3.0 License**. You are free to use, modify, and distribute the content. See the [LICENSE](LICENSE) file for details.
 
----
+## Contact
 
-> Linkedin [Zouari Omar](https://www.linkedin.com/in/zouari-omar-143239283) &nbsp;&middot;&nbsp;
-> GitHub [@ZouariOmar](https://github.com/ZouariOmar)
+For questions or suggestions, feel free to reach out:
+
+- **GitHub**: [ZouariOmar](https://github.com/ZouariOmar)
+- **Email**: [zouariomar20@gmail.com](mailto:zouariomar20@gmail.com)
+- **LinkedIn**: [Zouari Omar](https://www.linkedin.com/in/zouari-omar)
+
+## Acknowledgments
+
+Built with ❤️ for the open-source community.
