@@ -1,12 +1,13 @@
 /**
  * @file      crun_audit.c
- * @author    @ZouariOmar
- * @brief     crun audit/logging helpers
+ * @author    @ZouariOmar (zouariomar20@gmail.com)
+ * @brief     crun audit/logging helpers implementation.
  */
 
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #ifdef _WIN32
@@ -20,6 +21,40 @@
 #include "../inc/crun_audit.h"
 #include "../inc/crun_file_manager.h"
 
+/**
+ * @brief Lazily build/cached audit file path and ensure parent directory exists.
+ *
+ * @return const char* Cached path to audit log file, or NULL on failure.
+ */
+static const char *get_audit_file_path() {
+  static char *cached_audit_file_path = NULL;
+  static int initialized = 0;
+
+  if (initialized)
+    return cached_audit_file_path;
+
+  initialized = 1;
+
+  const char *audit_dir = get_file_home_path(CRUN_DEFAULT_SUFFIX_DIRECTORY);
+  if (!audit_dir)
+    return NULL;
+
+  if (!is_file_exist(audit_dir))
+    __mkdir(audit_dir);
+
+  const char *audit_file = get_file_home_path(CRUN_DEFAULT_SUFFIX_DIRECTORY "audit.log");
+  free((void *)audit_dir);
+  if (!audit_file)
+    return NULL;
+
+  cached_audit_file_path = strdup(audit_file);
+  free((void *)audit_file);
+  return cached_audit_file_path;
+}
+
+/**
+ * @brief Format and emit one audit event to CLI and file sink.
+ */
 static void crun_audit_log(const char *level, FILE *stream, const char *fmt, va_list args) {
   char msg_buffer[1024];
   vsnprintf(msg_buffer, sizeof(msg_buffer), fmt, args);
@@ -31,29 +66,20 @@ static void crun_audit_log(const char *level, FILE *stream, const char *fmt, va_
 
   fprintf(stream, "[%s] [%s] %s\n", timestamp, level, msg_buffer);
 
-  const char *audit_dir = get_file_home_path(CRUN_DEFAULT_SUFFIX_DIRECTORY);
-  if (!audit_dir)
+  const char *audit_file = get_audit_file_path();
+  if (!audit_file)
     return;
-
-  if (!is_file_exist(audit_dir))
-    __mkdir(audit_dir);
-
-  const char *audit_file = get_file_home_path(CRUN_DEFAULT_SUFFIX_DIRECTORY "audit.log");
-  if (!audit_file) {
-    free((void *)audit_dir);
-    return;
-  }
 
   FILE *fp = fopen(audit_file, "a");
   if (fp) {
     fprintf(fp, "[%s] [%s] %s\n", timestamp, level, msg_buffer);
     fclose(fp);
   }
-
-  free((void *)audit_file);
-  free((void *)audit_dir);
 }
 
+/**
+ * @brief @copybrief crun_audit_info
+ */
 void crun_audit_info(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
@@ -61,6 +87,9 @@ void crun_audit_info(const char *fmt, ...) {
   va_end(args);
 }
 
+/**
+ * @brief @copybrief crun_audit_warn
+ */
 void crun_audit_warn(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
@@ -68,6 +97,9 @@ void crun_audit_warn(const char *fmt, ...) {
   va_end(args);
 }
 
+/**
+ * @brief @copybrief crun_audit_error
+ */
 void crun_audit_error(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);

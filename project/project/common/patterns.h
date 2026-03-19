@@ -5,7 +5,7 @@
  * @version   0.1
  * @date      2024-10-19
  * @copyright Copyright (c) 2024
- * @link https://github.com/ZouariOmar/crun/project/import/patterns.hpp patterns.hpp @endlink
+ * @link      https://github.com/zouari-oss/crun-cli/projec/common/patterns.h @endlink
  */
 
 // Custom include files
@@ -25,7 +25,7 @@
   printf("%s\t\t\t\t=================== Crun Project "                \
          "===================\n\t\t\t\t================== By "        \
          "@ZouariOmar ==================\n\t\t\t\t==== Visit Us In: " \
-         "https://github.com/ZouariOmar ====%s\n\n",                  \
+         "https://github.com/zouari-oss ====%s\n\n",                  \
          bleu, def)
 
 #define PROJECT_MENU_FIELD_LENGTH(i, field) snprintf(NULL, 0, "\t\t\t[%d] %s\n", i, field)
@@ -37,32 +37,20 @@
          "%s\t\tProject Language:\n"                                                                          \
          "%s%s"                                                                                               \
          "\t\t\t[0] Exit\n"                                                                                   \
-         "%s\t\tVisit https://github.com/ZouariOmar/crun for more info\n"                                     \
+         "%s\t\tVisit https://github.com/zouari-oss/crun-cli for more info\n"                                 \
          "%s\t\t------------------------------------------------------------------------------------------\n" \
          "...%s",                                                                                             \
          yellow, red, yellow, fileds, red, yellow, def)
 
-#define PROJECT_NAME printf("%s\n\nProject Name...%s", yellow, def)
-
 //? Messages patterns
-#define HELP_MSG                                                                            \
-  printf("%sUsage:\n%s"                                                                     \
-         "  --language <c|cpp|java> Set the language (c = 1, cpp = 2, java = 3)\n"          \
-         "  --project <N>           Set the project ID (N must be a number from 1 to 9+)\n" \
-         "  --name <NAME>           Set the user name (only letters A-Z, a-z)\n"            \
-         "  --help                  Display this help message\n",                           \
-         yellow, def)
+#define HELP_MSG                                                                       \
+  printf("%scrun usage:%s\n"                                                           \
+         "  crun                 Run interactive template selection flow\n"            \
+         "  crun --help | -h     Show this help message\n"                             \
+         "  crun --update        Refresh local stacks metadata (crun_stacks.json)\n\n" \
+         "%sNotes:%s\n"                                                                \
+         "  - Templates are cached under ~/.local/share/crun/ (Linux).\n"              \
+         "  - Audit logs are written to ~/.local/share/crun/audit.log.\n",             \
+         yellow, def, yellow, def)
 
-#define INVALID_OPTION_MSG printf("%s\n\n[WARR]%s Invalid Option !\n\n", yellow, def)
-
-#define UNACCEPTED_INPUT_MSG printf("%s\n\n[ERROR]%s Unaccepted Input !\n\n", red, def)
-
-#define EXIT_SUCCESS_MSG printf("%s\n\n[SUCCESS] See You Next Time !%s\n\n", green, def)
-
-#define INSTALLATION_COMPLETE_MSG printf("%sInstallation Complete!\nHAPPY CODING ⚡️\n%s", green, def)
-
-//? REGEX `crun` patterns
-#define CRUN_LANGUAGE_REGEX_PATTERN "--language([1-9]+)"
-#define CRUN_PROJECT_REGEX_PATTERN "--project([1-9]+)"
-#define CRUN_NAME_REGEX_PATTERN "--name([A-Za-z]+)"
-#define CRUN_HELP_REGEX_PATTERN "--help"
+#define INSTALLATION_COMPLETE_MSG printf("%sInstallation Complete!\nHAPPY CODING :)\n%s", green, def)

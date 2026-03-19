@@ -14,7 +14,6 @@
 
 // Include std c header(s)
 #include <cjson/cJSON.h>
-#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,10 +39,16 @@
 
 // Declare and define the shared vars
 struct CrunLanguage *languages_map = NULL;
-size_t languages_map_length;
+size_t languages_map_length = 1;
 struct CrunPackage *packages_map = NULL;
-size_t packages_map_length;
+size_t packages_map_length = 1;
 
+/**
+ * @brief Run the detected init script in its own directory.
+ *
+ * @param init_script_path Absolute script path.
+ * @return int EXIT_SUCCESS when script exits with 0, EXIT_FAILURE otherwise.
+ */
 static int run_init_script(const char *init_script_path) {
   if (!init_script_path || !strlen(init_script_path))
     return EXIT_FAILURE;
@@ -72,6 +77,12 @@ static int run_init_script(const char *init_script_path) {
   return run_res == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
+/**
+ * @brief Ensure a directory exists.
+ *
+ * @param path Absolute directory path.
+ * @return int EXIT_SUCCESS if directory exists/created, EXIT_FAILURE otherwise.
+ */
 static int ensure_directory(const char *path) {
   if (is_file_exist(path))
     return EXIT_SUCCESS;
@@ -79,15 +90,20 @@ static int ensure_directory(const char *path) {
   return MKDIR(path) == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
+/**
+ * @brief Build a unique temporary workspace under crun data directory.
+ *
+ * @return const char* Allocated workspace path, or NULL on failure.
+ */
 static const char *build_hidden_extract_directory() {
   char tmp_suffix[FILENAME_MAX] = {0};
   char workspace_suffix[FILENAME_MAX] = {0};
 
-  snprintf(tmp_suffix, sizeof(tmp_suffix), "%stmp", CRUN_DEFAULT_SUFFIX_DIRECTORY);
+  snprintf(tmp_suffix, sizeof(tmp_suffix), "%s", CRUN_TMP_DIRECTORY_SUFFIX);
   snprintf(workspace_suffix,
            sizeof(workspace_suffix),
-           "%stmp%cworkspace_%ld_%ld",
-           CRUN_DEFAULT_SUFFIX_DIRECTORY,
+           "%s%cworkspace_%ld_%ld",
+           CRUN_TMP_DIRECTORY_SUFFIX,
            PATH_SEP,
            (long)time(NULL),
            (long)__get_pid());
@@ -124,6 +140,13 @@ static const char *build_hidden_extract_directory() {
   return workspace_directory;
 }
 
+/**
+ * @brief Copy extracted template output into target directory.
+ *
+ * @param source_directory Workspace directory.
+ * @param target_directory User current directory.
+ * @return int EXIT_SUCCESS on success, EXIT_FAILURE otherwise.
+ */
 static int copy_extract_output_to_directory(const char *source_directory,
                                             const char *target_directory) {
   char cmd[(FILENAME_MAX * 4) + 256];
@@ -145,6 +168,11 @@ static int copy_extract_output_to_directory(const char *source_directory,
   return system(cmd) == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
+/**
+ * @brief Remove workspace and best-effort cleanup of parent tmp directory.
+ *
+ * @param hidden_extract_directory Workspace path.
+ */
 static void cleanup_hidden_workspace(const char *hidden_extract_directory) {
   if (!hidden_extract_directory || !strlen(hidden_extract_directory))
     return;
@@ -174,14 +202,24 @@ static void cleanup_hidden_workspace(const char *hidden_extract_directory) {
   system(cmd);
 }
 
+/**
+ * @brief Remove file if it exists.
+ *
+ * @param file_path Absolute file path.
+ */
 static void remove_if_exist(const char *file_path) {
   if (!file_path || !is_file_exist(file_path))
     return;
 
   if (remove(file_path))
-    fprintf(stderr, "[WARR] crun.c :: remove_if_exist :: Can't remove %s\n", file_path);
+    crun_audit_warn("Unable to remove temporary file '%s'.", file_path);
 }
 
+/**
+ * @brief Remove init scripts from workspace after execution.
+ *
+ * @param init_script_path Absolute path of detected init script.
+ */
 static void cleanup_init_scripts(const char *init_script_path) {
   if (!init_script_path || !strlen(init_script_path))
     return;
@@ -206,6 +244,67 @@ static void cleanup_init_scripts(const char *init_script_path) {
   remove_if_exist(init_bat_file_path);
 }
 
+/**
+ * @brief Cleanup helper for regular flow (without workspace).
+ */
+static void cleanup_base_state(char *languages_buffer,
+                               const char *json_root_buffer,
+                               const char *stacks_path,
+                               cJSON *json_root) {
+  free_all((void *[]){languages_buffer, (void *)json_root_buffer, (void *)stacks_path}, 3);
+  cJSON_Delete(json_root);
+}
+
+/**
+ * @brief Cleanup helper for workspace flow.
+ */
+static void cleanup_workspace_state(char *languages_buffer,
+                                    const char *json_root_buffer,
+                                    const char *stacks_path,
+                                    const char *workspace_path,
+                                    cJSON *json_root) {
+  cleanup_hidden_workspace(workspace_path);
+  free_all((void *[]){languages_buffer, (void *)json_root_buffer, (void *)stacks_path, (void *)workspace_path}, 4);
+  cJSON_Delete(json_root);
+}
+
+void crun_help() {
+  HELP_MSG;
+}
+
+int crun_update() {
+  const char *stacks_path = get_file_home_path(CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX);
+  if (!stacks_path) {
+    crun_audit_error("Unable to resolve stacks metadata path.");
+    return EXIT_FAILURE;
+  }
+
+  const char *crun_root_directory = get_file_home_path(CRUN_DEFAULT_SUFFIX_DIRECTORY);
+  if (!crun_root_directory) {
+    free((void *)stacks_path);
+    crun_audit_error("Unable to resolve crun data directory.");
+    return EXIT_FAILURE;
+  }
+
+  if (ensure_directory(crun_root_directory) != EXIT_SUCCESS) {
+    free((void *)stacks_path);
+    free((void *)crun_root_directory);
+    crun_audit_error("Unable to prepare crun data directory.");
+    return EXIT_FAILURE;
+  }
+  free((void *)crun_root_directory);
+
+  crun_audit_info("Updating stacks metadata...");
+  const int update_res = download_file(CRUN_STACKS_JSON_FILE_URL, stacks_path);
+  if (update_res == EXIT_SUCCESS)
+    crun_audit_info("Stacks metadata updated successfully.");
+  else
+    crun_audit_error("Stacks metadata update failed.");
+
+  free((void *)stacks_path);
+  return update_res;
+}
+
 // #########################
 // ### FUNCTION DEV PART ###
 // #########################
@@ -215,14 +314,29 @@ void crun() {
   CRUN_BANNER;
 
   const char *crun_stacks_json_file_path = get_file_home_path(CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX); //! Free this ptr
+  if (!crun_stacks_json_file_path) {
+    crun_audit_error("Unable to resolve stacks metadata path.");
+    return;
+  }
+
   crun_stacks_json_checker(crun_stacks_json_file_path);
   const char *json_root_buffer = get_file_data(crun_stacks_json_file_path); //! Free this ptr
-  cJSON *json_root = get_json_root(json_root_buffer);                       //! Free this ptr
+  if (!json_root_buffer) {
+    crun_audit_error("Unable to read stacks metadata file.");
+    free((void *)crun_stacks_json_file_path);
+    return;
+  }
+
+  cJSON *json_root = get_json_root(json_root_buffer); //! Free this ptr
+  if (!json_root) {
+    free_all((void *[]){(void *)json_root_buffer, (void *)crun_stacks_json_file_path}, 2);
+    return;
+  }
 
   char *languages_buffer = get_language_buffer(json_root); //! Free this ptr
   if (!languages_buffer || !strlen(languages_buffer)) {
     crun_audit_error("No languages available in stacks metadata.");
-    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path}, 2);
+    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
     return;
   }
 
@@ -234,7 +348,8 @@ void crun() {
                   languages_map_length);
 
   if (!user_choice) { // EXIT_SUCCESS
-    EXIT_SUCCESS_MSG;
+    crun_audit_info("User exited language selection.");
+    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
     return;
   }
 
@@ -243,9 +358,8 @@ void crun() {
   // Get language projects
   char *packages_buffer = get_packages_buffer(json_root, selected_language_name);
   if (!packages_buffer || !strlen(packages_buffer)) {
-    crun_audit_error("Unable to load package templates for language '%s'.", languages_map[user_choice - 1].name);
-    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path}, 2);
-    cJSON_Delete(json_root), json_root = NULL;
+    crun_audit_error("Unable to load package templates for language '%s'.", selected_language_name);
+    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
     return;
   }
 
@@ -255,7 +369,8 @@ void crun() {
                   packages_map_length);
 
   if (!user_choice) { // EXIT_SUCCESS
-    EXIT_SUCCESS_MSG;
+    crun_audit_info("User exited template selection.");
+    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
     return;
   }
 
@@ -267,8 +382,7 @@ void crun() {
   const char *crun_package_file_path = download_crun_package(&packages_map[user_choice - 1]); // Free this ptr
   if (!crun_package_file_path) {
     crun_audit_error("Failed to retrieve package archive '%s.zip'.", packages_map[user_choice - 1].name);
-    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path}, 2);
-    cJSON_Delete(json_root), json_root = NULL;
+    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
     return;
   }
 
@@ -277,25 +391,21 @@ void crun() {
   char user_current_directory[FILENAME_MAX] = {0};
   if (!__get_current_dir(user_current_directory, FILENAME_MAX)) {
     crun_audit_error("Unable to resolve current working directory.");
-    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path}, 2);
-    cJSON_Delete(json_root), json_root = NULL;
+    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
     return;
   }
 
   const char *hidden_extract_directory = build_hidden_extract_directory();
   if (!hidden_extract_directory || !strlen(hidden_extract_directory)) {
     crun_audit_error("Unable to prepare temporary extraction workspace.");
-    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path, (void *)hidden_extract_directory}, 3);
-    cJSON_Delete(json_root), json_root = NULL;
+    cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
     return;
   }
 
   char init_script_path[FILENAME_MAX] = {0};
   if (extract_zip(crun_package_file_path, hidden_extract_directory, init_script_path, sizeof(init_script_path)) != EXIT_SUCCESS) {
     crun_audit_error("Failed to extract archive '%s'.", crun_package_file_path);
-    cleanup_hidden_workspace(hidden_extract_directory);
-    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path, (void *)hidden_extract_directory}, 3);
-    cJSON_Delete(json_root), json_root = NULL;
+    cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
     return;
   }
 
@@ -305,29 +415,23 @@ void crun() {
 
     if (init_res != EXIT_SUCCESS) {
       crun_audit_error("Init script execution failed: %s", init_script_path);
-      cleanup_hidden_workspace(hidden_extract_directory);
-      free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path, (void *)hidden_extract_directory}, 3);
-      cJSON_Delete(json_root), json_root = NULL;
+      cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
       return;
     }
+  } else {
+    crun_audit_info("No init script detected. Continuing with extracted output.");
   }
 
   if (copy_extract_output_to_directory(hidden_extract_directory, user_current_directory) != EXIT_SUCCESS) {
     crun_audit_error("Failed to copy extracted output into current directory.");
-    cleanup_hidden_workspace(hidden_extract_directory);
-    free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path, (void *)hidden_extract_directory}, 3);
-    cJSON_Delete(json_root), json_root = NULL;
+    cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
     return;
   }
-
-  cleanup_hidden_workspace(hidden_extract_directory);
 
   crun_audit_info("Project scaffold ready.");
   INSTALLATION_COMPLETE_MSG;
 
-  free_all((void *[]){languages_buffer, (void *)crun_stacks_json_file_path, (void *)hidden_extract_directory}, 3);
-  cJSON_Delete(json_root);
-  json_root = NULL;
+  cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
 }
 
 const char *download_crun_package(const struct CrunPackage *crun_package_map) {
@@ -370,63 +474,18 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
   return crun_package_file_path;
 }
 
-char ask_yes_no(const char *question) {
-  char choice = '\0';
-
-  do {
-    printf("%s (y/n): ", question);
-    if (scanf(" %c", &choice) != 1) {
-      UNACCEPTED_INPUT_MSG;
-      while (getchar() != '\n')
-        ;
-    } else {
-      choice = tolower(choice);
-    }
-  } while (choice != 'y' && choice != 'n');
-
-  return choice;
-}
-
-char *get_user_project_name() {
-  char buffer[256];
-
-  while (1) {
-    PROJECT_NAME;
-
-    while (getchar() != '\n')
-      ;
-
-    if (!fgets(buffer, sizeof(buffer), stdin)) {
-      UNACCEPTED_INPUT_MSG;
-      continue;
-    }
-
-    char *project_name = malloc(strlen(buffer) + 1);
-    if (!project_name) {
-      fprintf(stderr, "[ERROR] crun.c :: Can't allocate `project_name`!\n");
-      return NULL;
-    }
-
-    strcpy(project_name, buffer);
-
-    return project_name;
-  }
-
-  return NULL;
-}
-
 void get_user_choice(int *user_choice, const char *menu, const int limiter) {
   while (1) {
     PROJECT_MENU(menu);
 
     if (scanf("%d", user_choice) != 1) { // invalid input
-      UNACCEPTED_INPUT_MSG;
+      crun_audit_error("Invalid input. Please enter a numeric option.");
       *user_choice = -1;
       while (getchar() != '\n')
         ;
 
     } else if (*user_choice < 0 || *user_choice >= limiter) {
-      INVALID_OPTION_MSG;
+      crun_audit_warn("Invalid option. Select a number between 0 and %d.", limiter - 1);
 
     } else
       break;
@@ -606,27 +665,34 @@ char *get_packages_buffer(cJSON *root, const char *language_name) {
  */
 void free_all(void **ptrs, size_t len) {
   // Free `languages_map` items
-  for (size_t i = 0; i < languages_map_length - 1; ++i)
-    if (languages_map[i].name)
-      free(languages_map[i].name), languages_map[i].name = NULL;
+  if (languages_map && languages_map_length > 0) {
+    for (size_t i = 0; i < languages_map_length - 1; ++i) {
+      if (languages_map[i].name)
+        free(languages_map[i].name), languages_map[i].name = NULL;
+    }
+  }
 
   // Free `languages_map`
   if (languages_map)
     free(languages_map), languages_map = NULL;
+  languages_map_length = 1;
 
   // Free `packages_map` items
-  for (size_t i = 0; i < packages_map_length - 1; ++i) {
-    if (packages_map[i].name)
-      free(packages_map[i].name), packages_map[i].name = NULL;
-    if (packages_map[i].description)
-      free(packages_map[i].description), packages_map[i].description = NULL;
-    if (packages_map[i].url)
-      free(packages_map[i].url), packages_map[i].url = NULL;
+  if (packages_map && packages_map_length > 0) {
+    for (size_t i = 0; i < packages_map_length - 1; ++i) {
+      if (packages_map[i].name)
+        free(packages_map[i].name), packages_map[i].name = NULL;
+      if (packages_map[i].description)
+        free(packages_map[i].description), packages_map[i].description = NULL;
+      if (packages_map[i].url)
+        free(packages_map[i].url), packages_map[i].url = NULL;
+    }
   }
 
   // Free `packages_map`
   if (packages_map)
     free(packages_map), packages_map = NULL;
+  packages_map_length = 1;
 
   // Free Other ptr(s)
   for (size_t i = 0; i < len; ++i)

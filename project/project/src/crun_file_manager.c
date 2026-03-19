@@ -18,6 +18,7 @@
 #include <string.h>
 
 // Include custom header(s)
+#include "../inc/crun_audit.h"
 #include "../inc/crun_file_manager.h"
 
 // ##########################
@@ -25,21 +26,36 @@
 // ##########################
 
 char *get_file_data(const char *filename) {
-  FILE *fp = fopen(filename, "r");
+  if (!filename || !strlen(filename))
+    return NULL;
+
+  FILE *fp = fopen(filename, "rb");
   if (!fp) {
-    fprintf(stderr, "[ERROR] crun_file_manager.c :: Unable to open '%s' file!\n", filename);
+    crun_audit_error("Unable to open file: %s", filename);
     return NULL;
   }
 
   const long file_size = get_file_size(fp);
+  if (file_size < 0) {
+    fclose(fp), fp = NULL;
+    crun_audit_error("Unable to determine size for file: %s", filename);
+    return NULL;
+  }
 
   char *buffer = (char *)malloc((file_size * sizeof(char)) + 1);
   if (!buffer) {
-    fprintf(stderr, "[ERROR] crun_file_manager.c :: Can't Allocate the `buffer`!");
+    crun_audit_error("Memory allocation failed while reading file: %s", filename);
     return fclose(fp), fp = NULL, NULL;
   }
 
   size_t len = fread(buffer, 1, file_size, fp);
+  if (ferror(fp)) {
+    free(buffer), buffer = NULL;
+    fclose(fp), fp = NULL;
+    crun_audit_error("I/O error while reading file: %s", filename);
+    return NULL;
+  }
+
   buffer[len] = '\0';
 
   return fclose(fp), fp = NULL, buffer;
@@ -64,6 +80,9 @@ const char *get_file_home_path(const char *suffix) {
 }
 
 const long get_file_size(FILE *fp) {
+  if (!fp)
+    return -1;
+
   fseek(fp, 0, SEEK_END);
   long file_size = ftell(fp);
   rewind(fp);

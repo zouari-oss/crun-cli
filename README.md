@@ -82,6 +82,16 @@ cd crun-cli/project
 ./run r    # run crun
 ```
 
+### CLI Flags
+
+```bash
+./bin/build/crun --help
+./bin/build/crun --update
+```
+
+- `--help` prints CLI usage and notes.
+- `--update` refreshes local `crun_stacks.json` from the remote source.
+
 ### Install Binary (optional)
 
 ```bash

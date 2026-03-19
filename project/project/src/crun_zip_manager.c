@@ -23,6 +23,7 @@
 #include <minizip/unzip.h>
 
 // Include custom header(s)
+#include "../inc/crun_audit.h"
 #include "../inc/crun_zip_manager.h"
 
 // ##############################
@@ -79,25 +80,35 @@ int extract_zip(const char *zip_path,
     init_script_path[0] = '\0';
 
   unzFile zip = unzOpen(zip_path);
-  if (!zip)
+  if (!zip) {
+    crun_audit_error("Unable to open zip archive: %s", zip_path);
     return EXIT_FAILURE;
+  }
 
   unz_global_info info;
   if (unzGetGlobalInfo(zip, &info) != UNZ_OK) {
+    crun_audit_error("Unable to read zip metadata: %s", zip_path);
     unzClose(zip);
     return EXIT_FAILURE;
   }
 
+  int extract_res = EXIT_SUCCESS;
   for (uLong i = 0; i < info.number_entry; i++) {
     unz_file_info file_info;
     char name[512];
 
     if (unzGetCurrentFileInfo(zip, &file_info,
                               name, sizeof(name),
-                              NULL, 0, NULL, 0) != UNZ_OK)
+                              NULL, 0, NULL, 0) != UNZ_OK) {
+      extract_res = EXIT_FAILURE;
       break;
+    }
+
+    if (!strlen(name))
+      continue;
 
     if (!is_safe_path(name)) {
+      crun_audit_error("Unsafe zip entry detected: %s", name);
       unzClose(zip);
       return EXIT_FAILURE;
     }
@@ -112,20 +123,32 @@ int extract_zip(const char *zip_path,
       maybe_capture_init_script(name, out_path, init_script_path, init_script_path_size);
       ensure_dir(out_path);
 
-      if (unzOpenCurrentFile(zip) != UNZ_OK)
+      if (unzOpenCurrentFile(zip) != UNZ_OK) {
+        extract_res = EXIT_FAILURE;
         break;
+      }
 
       FILE *fp = fopen(out_path, "wb");
-      if (!fp)
+      if (!fp) {
+        unzCloseCurrentFile(zip);
+        extract_res = EXIT_FAILURE;
         break;
+      }
 
       char buf[8192];
       int read;
-      while ((read = unzReadCurrentFile(zip, buf, sizeof(buf))) > 0)
+      while ((read = unzReadCurrentFile(zip, buf, sizeof(buf))) > 0) {
         fwrite(buf, 1, read, fp);
+      }
+
+      if (read < 0)
+        extract_res = EXIT_FAILURE;
 
       fclose(fp);
       unzCloseCurrentFile(zip);
+
+      if (extract_res != EXIT_SUCCESS)
+        break;
     }
 
     if (i + 1 < info.number_entry)
@@ -133,5 +156,5 @@ int extract_zip(const char *zip_path,
   }
 
   unzClose(zip);
-  return EXIT_SUCCESS;
+  return extract_res;
 }

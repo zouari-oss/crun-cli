@@ -23,6 +23,11 @@
 // ### LIBCURL FUNCTIONS DEV PART ###
 // ##################################
 
+struct DownloadProgress {
+  int last_percent;
+  int started;
+};
+
 size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream) {
   return fwrite(ptr, size, nmemb, (FILE *)stream);
 }
@@ -32,7 +37,7 @@ static int download_progress_cb(void *clientp,
                                 curl_off_t dlnow,
                                 curl_off_t ultotal,
                                 curl_off_t ulnow) {
-  (void)clientp;
+  struct DownloadProgress *progress = (struct DownloadProgress *)clientp;
   (void)ultotal;
   (void)ulnow;
 
@@ -40,19 +45,29 @@ static int download_progress_cb(void *clientp,
     return 0;
 
   int percent = (int)((dlnow * 100) / dltotal);
+  if (progress && progress->last_percent == percent)
+    return 0;
+
+  if (progress) {
+    progress->last_percent = percent;
+    progress->started = 1;
+  }
+
   fprintf(stdout, "\r[INFO] Download progress: %3d%%", percent);
   fflush(stdout);
   return 0;
 }
 
 int download_file(const char *url, const char *out) {
+  struct DownloadProgress progress = {.last_percent = -1, .started = 0};
+
   CURL *curl = curl_easy_init();
   if (!curl)
     return EXIT_FAILURE;
 
   FILE *fp = fopen(out, "wb");
   if (!fp) {
-    fprintf(stderr, "[WARR] crun_libcurl.c :: Can't open/write %s\n", out);
+    crun_audit_error("Cannot open destination file for download: %s", out);
     curl_easy_cleanup(curl);
     return EXIT_FAILURE;
   }
@@ -65,11 +80,13 @@ int download_file(const char *url, const char *out) {
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
   curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
   curl_easy_setopt(curl, CURLOPT_XFERINFOFUNCTION, download_progress_cb);
+  curl_easy_setopt(curl, CURLOPT_XFERINFODATA, &progress);
 
   crun_audit_info("Download started: %s", url);
 
   CURLcode res = curl_easy_perform(curl);
-  fprintf(stdout, "\n");
+  if (progress.started)
+    fprintf(stdout, "\n");
 
   // Cleaning
   fclose(fp);

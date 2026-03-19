@@ -1,11 +1,11 @@
 /**
- * @file color.h
- * @author @ZouariOmar (zouariomar20@gmail.com)
- * @brief # Color define file
- * @version 0.1
- * @date 2025-01-10
+ * @file      color.h
+ * @author    @ZouariOmar (zouariomar20@gmail.com)
+ * @brief     ANSI Color header file
+ * @version   0.1
+ * @date      2025-01-10
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/cpkg cpkg @endlink
+ * @link      https://github.com/zouari-oss/cpkg cpkg @endlink
  */
 
 #ifndef __COLOR_H__

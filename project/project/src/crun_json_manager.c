@@ -14,14 +14,12 @@
 
 // Include curl header(s)
 #include <cjson/cJSON.h>
-#include <curl/curl.h>
 
 // Include std header(s)
-#include <stdio.h>
 #include <string.h>
 
 // Include custom header(s)
-#include "../common/patterns.h"
+#include "../inc/crun_audit.h"
 #include "../inc/crun_json_manager.h"
 
 // ##########################
@@ -29,16 +27,21 @@
 // ##########################
 
 cJSON *get_json_root(const char *json_bufferer) {
+  if (!json_bufferer || !strlen(json_bufferer)) {
+    crun_audit_error("JSON input buffer is empty.");
+    return NULL;
+  }
+
   cJSON *json = cJSON_Parse(json_bufferer);
 
   if (!json) {
-    fprintf(stderr, "[ERROR] crun_json_manager.c :: Can't Parse the json file!\n");
-    return cJSON_Delete(json), json = NULL, NULL;
+    crun_audit_error("Unable to parse JSON metadata.");
+    return NULL;
   }
 
   const char *error_ptr = cJSON_GetErrorPtr();
   if (error_ptr) {
-    fprintf(stderr, "[ERROR] crun_json_manager.c :: CJSON ERROR PTR: %s\n", error_ptr);
+    crun_audit_error("JSON parse error near: %s", error_ptr);
     return cJSON_Delete(json), json = NULL, NULL;
   }
 
@@ -46,10 +49,15 @@ cJSON *get_json_root(const char *json_bufferer) {
 }
 
 cJSON *get_json_object(cJSON *root, const char *obj_name) {
+  if (!root || !obj_name || !strlen(obj_name)) {
+    crun_audit_error("Invalid JSON object request.");
+    return NULL;
+  }
+
   cJSON *object = cJSON_GetObjectItemCaseSensitive(root, obj_name);
 
   if (!cJSON_IsObject(object)) {
-    fprintf(stderr, "[ERROR] crun_json_manager.c :: Invalid or missing object (%s)\n", obj_name);
+    crun_audit_error("Invalid or missing JSON object: %s", obj_name);
     return NULL;
   }
 
