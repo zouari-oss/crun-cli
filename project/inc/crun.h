@@ -1,34 +1,40 @@
 /**
  * @file      crun.h
- * @author    @ZouariOmar (zouariomar20@gmail.com)
+ * @author    ZouariOmar (zouariomar20@gmail.com)
  * @brief     Core crun CLI interfaces.
  * @version   0.3
  * @date      2026-03-18
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/crun/project/inc/crun.h crun.h @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/inc/crun.h">crun.h</a>
  */
 
 #ifndef __CRUN_H__
 #define __CRUN_H__
 
-// ################################
-// ### HEADERS DECLARATION PART ###
-// ################################
-// Include std header(s)
+// #########################################
+// ### HEADERS & MACROS DECLARATION PART ###
+// #########################################
+
 #include <cjson/cJSON.h>
 #include <stdio.h>
 
 #ifdef _WIN32
 #include <direct.h>
+#include <process.h>
 #define __get_current_dir _getcwd
+#define __get_pid _getpid
+
 #else
 #include <unistd.h>
 #define __get_current_dir getcwd
+#define __get_pid getpid
 #endif
 
 // ################################
 // ### STRUCTS DECLARATION PART ###
 // ################################
+
 struct CrunLanguage {
   char *name;
 }; // CrunLanguage Structure
@@ -45,6 +51,10 @@ struct CrunRuntimeContext {
   const char *workspace_path;
   cJSON *json_root;
 }; // CrunRuntimeContext Structure
+
+// ##################################
+// ### FUNCTIONS DECLARATION PART ###
+// ##################################
 
 /**
  * @brief Main CLI flow entrypoint.
@@ -108,7 +118,7 @@ char *get_packages_buffer(cJSON *, const char *);
  * @brief Release language/package maps and additional owned pointers.
  *
  * @param ptrs Extra pointers to free.
- * @param len Number of pointers in @p ptrs.
+ * @param len Number of pointers in ptrs.
  */
 void free_all(void **, const size_t);
 

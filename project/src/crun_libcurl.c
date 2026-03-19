@@ -1,27 +1,17 @@
 /**
  * @file      crun_libcurl.c
- * @author    @ZouariOmar <zouariomar20@gmail.com>
+ * @author    ZouariOmar <zouariomar20@gmail.com>
  * @brief     crun_libcurl source file
  * @version   0.1
  * @date      2025-12-26
  * @copyright Copyright (c) 2025
- * @link      https://github.com/ZouariOmar/crun/project/src/crun_libcurl.c crun_libcurl.c @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/src/crun_libcurl.c">crun_libcurl.c</a>
  */
 
-// ########################
-// ### INC HEADERS PART ###
-// ########################
-
-// Include curl header(s)
-#include <curl/curl.h>
-
-// Include custom header(s)
-#include "../inc/crun_audit.h"
 #include "../inc/crun_libcurl.h"
-
-// ##################################
-// ### LIBCURL FUNCTIONS DEV PART ###
-// ##################################
+#include "../inc/crun_audit.h"
+#include <curl/curl.h>
 
 struct DownloadProgress {
   int last_percent;

@@ -1,0 +1,7 @@
+<map id="get_packages_buffer" name="get_packages_buffer">
+<area shape="rect" id="Node000001" title="Build selectable package menu buffer for one language." alt="" coords="197,5,338,31"/>
+<area shape="rect" id="Node000002" href="$crun_8c.html#a4e78d8b08e65edd59c85df8fd8fb6c6f" title="Main CLI flow entrypoint." alt="" coords="103,5,149,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,18,149,21,149,16,184,18"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a217dbf8b442f20279ea00b898af96f52" title="CLI entry point with flag dispatch." alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,19,55,21,55,16,90,17"/>
+</map>

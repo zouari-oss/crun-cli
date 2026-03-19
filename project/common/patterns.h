@@ -5,13 +5,16 @@
  * @version   0.1
  * @date      2024-10-19
  * @copyright Copyright (c) 2024
- * @link      https://github.com/zouari-oss/crun-cli/projec/common/patterns.h @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/projec/common/patterns.h">patterns.h</a>
  */
 
-// Custom include files
+// #########################################
+// ### HEADERS & MACROS DECLARATION PART ###
+// #########################################
+
 #include "color.h"
 
-//? Menus patterns
 #ifdef _WIN32
 #define CRUN_HEADER \
   system("cmd /c echo [Crun - V1.4]");
@@ -42,7 +45,6 @@
          "...%s",                                                                                             \
          yellow, red, yellow, fileds, red, yellow, def)
 
-//? Messages patterns
 #define HELP_MSG                                                                       \
   printf("%scrun usage:%s\n"                                                           \
          "  crun                 Run interactive template selection flow\n"            \

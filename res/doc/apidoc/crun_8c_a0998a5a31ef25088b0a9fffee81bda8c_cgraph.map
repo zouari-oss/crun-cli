@@ -1,0 +1,10 @@
+<map id="get_packages_buffer" name="get_packages_buffer">
+<area shape="rect" id="Node000001" title="Build selectable package menu buffer for one language." alt="" coords="5,22,147,48"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="359,22,473,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,19,194,7,253,3,311,7,358,18,353,18,311,12,253,8,195,12,129,24"/>
+<area shape="rect" id="Node000003" href="$crun__audit_8c.html#ae2a7c70d91edd5e172813d7d2dde8dbd" title="Emit a warning audit event." alt="" coords="195,22,311,48"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,32,182,34,177,36,148,38"/>
+<area shape="rect" id="Node000004" href="$crun__json__manager_8c.html#a3c30ac4f7068e2bdc80a5017472f3c0d" title="Retrieve required JSON object child by name." alt="" coords="197,72,309,97"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="125,46,192,66,187,68,125,51"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="297,68,354,53,359,53,299,74"/>
+</map>

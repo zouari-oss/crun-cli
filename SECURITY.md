@@ -1,10 +1,8 @@
-<!-- @format -->
-
-# Security Policy for skinned-rat-orm
+# Security Policy for crun-cli
 
 ## Supported Versions
 
-The skinned-rat-orm project provides security updates for the following versions:
+The crun-cli project provides security updates for the following versions:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -13,21 +11,21 @@ The skinned-rat-orm project provides security updates for the following versions
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in skinned-rat-orm, we encourage responsible disclosure. To report a vulnerability:
+If you discover a security vulnerability in crun-cli, we encourage responsible disclosure. To report a vulnerability:
 
 1. **Contact us** via email at [zouariomar20@gmail.com](mailto:zouariomar20@gmail.com) with the details.
 2. Please provide a detailed description of the issue, including steps to reproduce it and, if available, a proof of concept.
 3. We aim to respond within **48 hours** and will work closely with you to resolve the issue.
 
-We appreciate the security community's efforts in helping us maintain skinned-rat-orm’s safety and integrity.
+We appreciate the security community's efforts in helping us maintain crun-cli’s safety and integrity.
 
 ## Security Practices
 
-skinned-rat-orm follows industry best practices for security to ensure safe transactions and protect user data:
+crun-cli follows industry best practices for security to ensure safe transactions and protect user data:
 
 ### 1. **Authentication and Authorization**
 
-- skinned-rat-orm uses secure methods for user authentication, including strong password hashing (e.g., bcrypt).
+- crun-cli uses secure methods for user authentication, including strong password hashing (e.g., bcrypt).
 - Access control is implemented to restrict unauthorized actions.
 
 ### 2. **Data Encryption**
@@ -66,7 +64,7 @@ skinned-rat-orm follows industry best practices for security to ensure safe tran
 
 ## Security Contributions
 
-Contributors can help enhance skinned-rat-orm's security by following these practices:
+Contributors can help enhance crun-cli's security by following these practices:
 
 - Adhere to secure coding standards and the above security practices when contributing.
 - Conduct thorough security testing before submitting a pull request.
@@ -79,4 +77,4 @@ For additional guidance on secure development, refer to:
 - [OWASP Secure Coding Practices Checklist](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Coding_Practices_Checklist.html)
 - [CWE Top 25 Most Dangerous Software Errors](https://cwe.mitre.org/top25/)
 
-Thank you for helping us make skinned-rat-orm secure for our users and the community!
+Thank you for helping us make crun-cli secure for our users and the community!

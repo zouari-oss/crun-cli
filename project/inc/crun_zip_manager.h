@@ -1,31 +1,37 @@
 /**
  * @file      crun_zip_manager.h
- * @author    @ZouariOmar <zouariomar20@gmail.com>
- * @brief     ZIP extraction helpers.
+ * @author    ZouariOmar <zouariomar20@gmail.com>
+ * @brief     ZIP extraction helpers
  * @version   0.2
  * @date      2026-03-18
  * @copyright Copyright (c) 2025
- * @link      https://github.com/ZouariOmar/crun/project/inc/crun_zip_manager.h crun_zip_manager.h @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/inc/crun_zip_manager.h">crun_zip_manager.h</a>
  */
 
 #ifndef __CRUN_ZIP_MANAGER_H__
 #define __CRUN_ZIP_MANAGER_H__
 
-// ################################
-// ### HEADERS DECLARATION PART ###
-// ################################
+// #########################################
+// ### HEADERS & MACROS DECLARATION PART ###
+// #########################################
+
 #include <stddef.h>
 
-// Include stander header(s)
 #ifdef _WIN32
 #include <direct.h>
 #define MKDIR(path) _mkdir(path)
 #define PATH_SEP '\\'
+
 #else
 #include <unistd.h>
 #define MKDIR(path) mkdir(path, 0755)
 #define PATH_SEP '/'
 #endif
+
+// ##################################
+// ### FUNCTIONS DECLARATION PART ###
+// ##################################
 
 /**
  * @brief Extract ZIP content safely into output directory.

@@ -1,0 +1,7 @@
+<map id="get_user_choice" name="get_user_choice">
+<area shape="rect" id="Node000001" title="Prompt for menu choice with validation." alt="" coords="5,31,122,56"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="171,5,285,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,32,158,29,153,30,123,37"/>
+<area shape="rect" id="Node000003" href="$crun__audit_8c.html#ae2a7c70d91edd5e172813d7d2dde8dbd" title="Emit a warning audit event." alt="" coords="170,55,286,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,49,157,56,152,57,122,55"/>
+</map>

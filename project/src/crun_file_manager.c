@@ -1,29 +1,19 @@
 /**
  * @file      crun_file_manager.c
- * @author    @ZouariOmar <zouariomar20@gmail.com>
+ * @author    ZouariOmar <zouariomar20@gmail.com>
  * @brief     crun_file_manager source file
  * @version   0.1
  * @date      2025-12-26
  * @copyright Copyright (c) 2025
- * @link      https://github.com/ZouariOmar/crun/project/src/crun_file_manager.c crun_file_manager.c @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/src/crun_file_manager.c">crun_file_manager.c</a>
  */
 
-// ############################
-// ### HEADERS INCLUDE PART ###
-// ############################
-
-// Include std header(s)
+#include "../inc/crun_file_manager.h"
+#include "../inc/crun_audit.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// Include custom header(s)
-#include "../inc/crun_audit.h"
-#include "../inc/crun_file_manager.h"
-
-// ##########################
-// ### FUNCTIONS DEV PART ###
-// ##########################
 
 char *get_file_data(const char *filename) {
   if (!filename || !strlen(filename))

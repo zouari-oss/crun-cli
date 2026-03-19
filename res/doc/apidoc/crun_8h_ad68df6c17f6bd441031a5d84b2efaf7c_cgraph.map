@@ -1,0 +1,15 @@
+<map id="crun_update" name="crun_update">
+<area shape="rect" id="Node000001" title="Refresh local stacks metadata from remote source." alt="" coords="5,80,98,106"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="327,5,441,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,77,104,57,145,40,187,29,231,22,314,17,309,19,231,27,188,34,147,45,106,62,73,82"/>
+<area shape="rect" id="Node000003" href="$crun__audit_8c.html#afef1fcff61b0a27e1c5ee5407bd16f49" title="Emit an informational audit event." alt="" coords="330,104,439,130"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="98,93,315,109,313,114,98,99"/>
+<area shape="rect" id="Node000004" href="$crun__libcurl_8c.html#ac4cfc4b4e26001d55c2c22b85025418c" title="Download a file from URL to a destination path." alt="" coords="163,55,262,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="97,83,150,76,145,79,99,88"/>
+<area shape="rect" id="Node000006" href="$crun__file__manager_8c.html#a83cee2369d526d83c62ba6687c4a7409" title="Build home&#45;based absolute path using suffix." alt="" coords="146,156,279,182"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="81,104,172,147,167,150,80,109"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="259,52,325,35,320,37,261,57"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="260,78,325,99,320,100,260,84"/>
+<area shape="rect" id="Node000005" href="$crun__libcurl_8c.html#a9e39a834923ce684a310d4aa2eee3689" title="libcurl write callback used when storing response data to a file." alt="" coords="344,55,425,80"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="262,65,331,67,326,68,263,70"/>
+</map>

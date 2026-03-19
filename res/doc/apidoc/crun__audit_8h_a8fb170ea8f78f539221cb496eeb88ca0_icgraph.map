@@ -1,0 +1,43 @@
+<map id="crun_audit_error" name="crun_audit_error">
+<area shape="rect" id="Node000001" title="Emit an error audit event." alt="" coords="586,221,700,247"/>
+<area shape="rect" id="Node000002" href="$crun_8c.html#a4e78d8b08e65edd59c85df8fd8fb6c6f" title="Main CLI flow entrypoint." alt="" coords="103,221,149,247"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="634,205,624,165,605,115,577,68,558,47,536,31,508,20,483,21,456,27,421,31,386,29,355,24,302,11,277,8,253,10,227,18,199,35,178,54,162,77,150,103,141,130,132,182,130,221,124,220,127,182,136,129,145,101,157,74,174,50,195,30,225,13,252,5,277,3,303,6,356,19,387,24,421,26,455,22,482,15,509,14,539,26,562,43,581,65,610,113,629,163,639,207"/>
+<area shape="rect" id="Node000004" href="$crun_8c.html#a88e359c112bcc1f3b2c2cb2935e3948a" title="Ensure stacks metadata file exists locally." alt="" coords="197,94,373,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="629,205,616,176,596,142,570,109,537,84,503,77,454,79,347,96,345,91,453,74,503,72,539,79,573,105,600,139,621,174,635,207"/>
+<area shape="rect" id="Node000005" href="$crun_8c.html#ad68df6c17f6bd441031a5d84b2efaf7c" title="Refresh local stacks metadata from remote source." alt="" coords="239,45,331,71"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="632,205,619,171,600,130,572,91,556,75,536,61,512,50,485,43,431,37,378,40,333,48,330,43,377,35,431,31,486,37,514,45,539,57,559,71,576,88,604,128,624,169,637,207"/>
+<area shape="rect" id="Node000006" href="$crun_8c.html#ac6dfb017ed4ffec3513f343f795a984a" title="Resolve package archive from cache or download it." alt="" coords="203,145,367,171"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="604,213,573,199,537,186,450,169,368,161,367,156,451,163,538,181,575,194,609,213"/>
+<area shape="rect" id="Node000007" href="$crun__libcurl_8c.html#ac4cfc4b4e26001d55c2c22b85025418c" title="Download a file from URL to a destination path." alt="" coords="430,94,529,120"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="616,210,580,177,536,141,508,123,508,118,539,137,583,173,621,210"/>
+<area shape="rect" id="Node000008" href="$crun__zip__manager_8c.html#a5167ef2aa7acdd40474e22ff41d60984" title="Extract ZIP content safely into output directory." alt="" coords="244,246,327,272"/>
+<area shape="poly" id="edge13_Node000001_Node000008" title=" " alt="" coords="568,241,328,259,326,254,572,237"/>
+<area shape="rect" id="Node000009" href="$crun__file__manager_8c.html#ab26a1397120fc6fa01de569bd6289cbb" title="Read full file content into a null&#45;terminated buffer." alt="" coords="432,297,527,323"/>
+<area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="602,253,510,299,508,294,597,255"/>
+<area shape="rect" id="Node000010" href="$crun__json__manager_8c.html#a3c30ac4f7068e2bdc80a5017472f3c0d" title="Retrieve required JSON object child by name." alt="" coords="423,398,536,424"/>
+<area shape="poly" id="edge17_Node000001_Node000010" title=" " alt="" coords="630,258,593,320,568,352,539,381,511,400,509,395,536,377,564,348,588,317,625,262"/>
+<area shape="rect" id="Node000011" href="$crun_8c.html#a58d2b1f863b37c0e608f16863201d767" title="Build selectable language menu buffer from JSON root." alt="" coords="216,348,354,373"/>
+<area shape="poly" id="edge24_Node000001_Node000011" title=" " alt="" coords="626,258,589,302,565,322,539,338,493,354,444,363,397,368,355,368,354,363,397,362,444,358,491,349,537,333,562,317,585,298,621,261"/>
+<area shape="rect" id="Node000012" href="$crun_8c.html#a0998a5a31ef25088b0a9fffee81bda8c" title="Build selectable package menu buffer for one language." alt="" coords="214,398,356,424"/>
+<area shape="poly" id="edge25_Node000001_Node000012" title=" " alt="" coords="639,260,629,304,610,353,581,401,561,422,539,439,511,452,480,458,449,460,418,457,360,444,315,427,315,422,361,439,419,452,449,454,480,453,509,447,536,434,558,418,576,398,605,351,623,302,635,264"/>
+<area shape="rect" id="Node000013" href="$crun__json__manager_8c.html#ab929e26af336601a8b6881a1d92e94b2" title="Parse JSON buffer into cJSON root object." alt="" coords="430,500,529,525"/>
+<area shape="poly" id="edge22_Node000001_Node000013" title=" " alt="" coords="638,260,627,308,607,366,579,427,540,482,514,502,512,497,536,479,574,424,602,364,622,307,634,264"/>
+<area shape="rect" id="Node000014" href="$crun_8c.html#aaa26c8fe53b684d3d2518e385a0590d6" title="Prompt for menu choice with validation." alt="" coords="421,196,538,221"/>
+<area shape="poly" id="edge26_Node000001_Node000014" title=" " alt="" coords="568,223,538,220,537,215,573,222"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a217dbf8b442f20279ea00b898af96f52" title="CLI entry point with flag dispatch." alt="" coords="5,196,55,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,225,56,217,54,213,90,222"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="204,129,199,135,177,155,159,178,135,222,130,219,154,176,173,151,195,130,207,125"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="222,73,198,84,152,111,109,143,47,197,43,194,106,139,149,107,196,79,226,69"/>
+<area shape="poly" id="edge8_Node000006_Node000002" title=" " alt="" coords="226,178,198,192,148,222,144,218,196,187,230,175"/>
+<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="412,108,375,110,373,105,416,106"/>
+<area shape="poly" id="edge11_Node000007_Node000005" title=" " alt="" coords="412,92,333,72,331,67,417,90"/>
+<area shape="poly" id="edge12_Node000007_Node000006" title=" " alt="" coords="412,125,339,147,336,142,417,122"/>
+<area shape="poly" id="edge14_Node000008_Node000002" title=" " alt="" coords="226,252,150,240,149,235,230,249"/>
+<area shape="poly" id="edge16_Node000009_Node000002" title=" " alt="" coords="414,315,312,312,253,303,196,287,164,269,141,250,140,245,167,265,198,282,254,298,312,307,419,312"/>
+<area shape="poly" id="edge18_Node000010_Node000011" title=" " alt="" coords="410,394,337,376,337,371,415,393"/>
+<area shape="poly" id="edge20_Node000010_Node000012" title=" " alt="" coords="405,412,357,414,356,408,410,411"/>
+<area shape="poly" id="edge19_Node000011_Node000002" title=" " alt="" coords="216,342,195,331,174,311,156,288,133,250,134,244,160,285,178,307,199,326,221,341"/>
+<area shape="poly" id="edge21_Node000012_Node000002" title=" " alt="" coords="200,390,195,388,166,354,146,314,134,276,129,250,130,244,139,275,151,312,171,351,199,384,206,390"/>
+<area shape="poly" id="edge23_Node000013_Node000002" title=" " alt="" coords="411,512,361,509,303,496,246,473,219,458,195,438,176,416,160,391,139,336,129,285,127,250,128,244,134,284,144,335,165,388,180,413,199,435,222,453,248,469,305,491,362,503,417,512"/>
+<area shape="poly" id="edge27_Node000014_Node000002" title=" " alt="" coords="405,216,150,235,149,230,407,211"/>
+</map>

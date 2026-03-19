@@ -1,31 +1,22 @@
 /**
  * @file      crun_audit.c
- * @author    @ZouariOmar (zouariomar20@gmail.com)
- * @brief     crun audit/logging helpers implementation.
+ * @author    ZouariOmar (zouariomar20@gmail.com)
+ * @brief     crun audit/logging helpers implementation
+ * @version   0.2
+ * @date      2025-11-26
+ * @copyright Copyright (c) 2025
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/src/crun_audit.c">crun_audit.c</a>
  */
 
+#include "../inc/crun_audit.h"
+#include "../inc/crun_file_manager.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-#ifdef _WIN32
-#include <direct.h>
-#define __mkdir(path) _mkdir(path)
-#else
-#include <sys/stat.h>
-#define __mkdir(path) mkdir(path, 0755)
-#endif
-
-#include "../inc/crun_audit.h"
-#include "../inc/crun_file_manager.h"
-
-/**
- * @brief Lazily build/cached audit file path and ensure parent directory exists.
- *
- * @return const char* Cached path to audit log file, or NULL on failure.
- */
 static const char *get_audit_file_path() {
   static char *cached_audit_file_path = NULL;
   static int initialized = 0;
@@ -52,9 +43,6 @@ static const char *get_audit_file_path() {
   return cached_audit_file_path;
 }
 
-/**
- * @brief Format and emit one audit event to CLI and file sink.
- */
 static void crun_audit_log(const char *level, FILE *stream, const char *fmt, va_list args) {
   char msg_buffer[1024];
   vsnprintf(msg_buffer, sizeof(msg_buffer), fmt, args);
@@ -77,9 +65,6 @@ static void crun_audit_log(const char *level, FILE *stream, const char *fmt, va_
   }
 }
 
-/**
- * @brief @copybrief crun_audit_info
- */
 void crun_audit_info(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
@@ -87,9 +72,6 @@ void crun_audit_info(const char *fmt, ...) {
   va_end(args);
 }
 
-/**
- * @brief @copybrief crun_audit_warn
- */
 void crun_audit_warn(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
@@ -97,9 +79,6 @@ void crun_audit_warn(const char *fmt, ...) {
   va_end(args);
 }
 
-/**
- * @brief @copybrief crun_audit_error
- */
 void crun_audit_error(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);

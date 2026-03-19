@@ -1,0 +1,17 @@
+<map id="crun_stacks_json_checker" name="crun_stacks_json_checker">
+<area shape="rect" id="Node000001" title="Ensure stacks metadata file exists locally." alt="" coords="5,104,182,130"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="394,5,508,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,101,163,69,195,53,229,40,305,23,381,18,376,20,306,28,230,45,197,58,165,74,115,106"/>
+<area shape="rect" id="Node000003" href="$crun__audit_8c.html#afef1fcff61b0a27e1c5ee5407bd16f49" title="Emit an informational audit event." alt="" coords="396,129,506,155"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,128,230,140,308,143,384,145,378,146,308,149,229,145,154,133"/>
+<area shape="rect" id="Node000004" href="$crun__audit_8c.html#ae2a7c70d91edd5e172813d7d2dde8dbd" title="Emit a warning audit event." alt="" coords="230,104,346,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="182,114,217,116,212,118,183,119"/>
+<area shape="rect" id="Node000005" href="$crun__libcurl_8c.html#ac4cfc4b4e26001d55c2c22b85025418c" title="Download a file from URL to a destination path." alt="" coords="238,55,338,80"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="146,101,225,82,221,85,148,106"/>
+<area shape="rect" id="Node000007" href="$crun__file__manager_8c.html#a7540e3ed5ae2867fab0a7ba6c152db7b" title="Check if file or directory exists." alt="" coords="244,205,332,231"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="121,128,250,196,246,199,120,133"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="332,52,394,35,389,37,334,57"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="322,78,347,89,413,122,408,122,345,94,322,84"/>
+<area shape="rect" id="Node000006" href="$crun__libcurl_8c.html#a9e39a834923ce684a310d4aa2eee3689" title="libcurl write callback used when storing response data to a file." alt="" coords="410,55,492,80"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="337,65,398,67,392,68,338,70"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="get_json_object" name="get_json_object">
+<area shape="rect" id="Node000001" title="Retrieve required JSON object child by name." alt="" coords="386,31,499,56"/>
+<area shape="rect" id="Node000002" href="$crun_8c.html#a58d2b1f863b37c0e608f16863201d767" title="Build selectable language menu buffer from JSON root." alt="" coords="199,5,336,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="368,33,337,31,337,26,373,33"/>
+<area shape="rect" id="Node000005" href="$crun_8c.html#a0998a5a31ef25088b0a9fffee81bda8c" title="Build selectable package menu buffer for one language." alt="" coords="197,55,338,80"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="373,53,339,60,339,55,368,54"/>
+<area shape="rect" id="Node000003" href="$crun_8c.html#a4e78d8b08e65edd59c85df8fd8fb6c6f" title="Main CLI flow entrypoint." alt="" coords="103,31,149,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="181,34,150,42,149,37,186,33"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#a217dbf8b442f20279ea00b898af96f52" title="CLI entry point with flag dispatch." alt="" coords="5,31,55,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,45,56,46,55,41,90,42"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="179,53,149,50,149,45,184,53"/>
+</map>

@@ -1,11 +1,12 @@
 /**
  * @file      crun_libcurl.h
- * @author    @ZouariOmar (zouariomar20@gmail.com)
- * @brief     Network download helpers built on top of libcurl.
+ * @author    ZouariOmar (zouariomar20@gmail.com)
+ * @brief     Network download helpers built on top of libcurl
  * @version   0.3
  * @date      2026-03-18
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/crun/project/inc/crun_libcurl.h crun_libcurl.h @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/inc/crun_libcurl.h">crun_libcurl.h</a>
  */
 
 #ifndef __CRUN_LIBCURL_H__
@@ -13,11 +14,15 @@
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
 
-// ################################
-// ### HEADERS DECLARATION PART ###
-// ################################
-// Include stander C header(s)
+// #########################################
+// ### HEADERS & MACROS DECLARATION PART ###
+// #########################################
+
 #include <stdio.h>
+
+// ##################################
+// ### FUNCTIONS DECLARATION PART ###
+// ##################################
 
 /**
  * @brief libcurl write callback used when storing response data to a file.

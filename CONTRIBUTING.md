@@ -1,6 +1,6 @@
-# Contributing to crun
+# Contributing to crun-cli
 
-Thank you for your interest in contributing to crun! Contributions from the community are welcome and appreciated.
+Thank you for your interest in contributing to crun-cli! Contributions from the community are welcome and appreciated.
 
 This document outlines the process for contributing, whether you're reporting bugs, suggesting enhancements, improving documentation, or submitting code.
 
@@ -20,7 +20,7 @@ This document outlines the process for contributing, whether you're reporting bu
 2. Clone your fork to your local machine:
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/crun.git
+   git clone https://github.com/YOUR_USERNAME/crun-cli.git
    ```
 
 3. Create a new branch for your feature or fix:
@@ -43,7 +43,7 @@ You can contribute in many ways:
 - Write tests
 - Review pull requests
 
-Please check the [issues](https://github.com/crun/issues) tab to see where help is needed.
+Please check the [issues](https://github.com/crun-cli/issues) tab to see where help is needed.
 
 ## Code Guidelines
 
@@ -78,7 +78,7 @@ We follow a [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming communit
 
 ## License
 
-By contributing to crun, you agree that your contributions will be licensed under the same license as the project.
+By contributing to crun-cli, you agree that your contributions will be licensed under the same license as the project.
 
 ---
 

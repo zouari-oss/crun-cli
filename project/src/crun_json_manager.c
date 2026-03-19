@@ -1,30 +1,18 @@
 /**
  * @file      crun_json_manager.c
- * @author    @ZouariOmar <zouariomar20@gmail.com>
+ * @author    ZouariOmar <zouariomar20@gmail.com>
  * @brief     crun_json_manager source file
  * @version   0.1
  * @date      2025-12-25
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/crun/project/src/crun_json_manager.c crun_json_manager.c @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/src/crun_json_manager.c">crun_json_manager.c</a>
  */
 
-// ############################
-// ### HEADERS INCLUDE PART ###
-// ############################
-
-// Include curl header(s)
-#include <cjson/cJSON.h>
-
-// Include std header(s)
-#include <string.h>
-
-// Include custom header(s)
-#include "../inc/crun_audit.h"
 #include "../inc/crun_json_manager.h"
-
-// ##########################
-// ### FUNCTIONS DEV PART ###
-// ##########################
+#include "../inc/crun_audit.h"
+#include <cjson/cJSON.h>
+#include <string.h>
 
 cJSON *get_json_root(const char *json_bufferer) {
   if (!json_bufferer || !strlen(json_bufferer)) {

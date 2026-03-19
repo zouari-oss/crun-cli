@@ -1,0 +1,13 @@
+<map id="get_file_home_path" name="get_file_home_path">
+<area shape="rect" id="Node000001" title="Build home&#45;based absolute path using suffix." alt="" coords="455,25,589,50"/>
+<area shape="rect" id="Node000002" href="$crun_8c.html#a4e78d8b08e65edd59c85df8fd8fb6c6f" title="Main CLI flow entrypoint." alt="" coords="126,25,172,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="454,21,407,15,325,8,243,15,206,22,173,32,171,27,205,17,243,10,325,3,408,10,459,20"/>
+<area shape="rect" id="Node000004" href="$crun_8c.html#ad68df6c17f6bd441031a5d84b2efaf7c" title="Refresh local stacks metadata from remote source." alt="" coords="103,74,195,100"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="455,54,408,65,293,79,196,87,195,82,293,74,407,60,450,55"/>
+<area shape="rect" id="Node000005" href="$crun_8c.html#ac6dfb017ed4ffec3513f343f795a984a" title="Resolve package archive from cache or download it." alt="" coords="243,25,407,50"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="437,38,408,40,407,35,442,37"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a217dbf8b442f20279ea00b898af96f52" title="CLI entry point with flag dispatch." alt="" coords="5,50,55,76"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="109,48,56,60,54,55,112,43"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="85,76,55,70,55,65,90,73"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="225,38,173,40,172,35,230,37"/>
+</map>

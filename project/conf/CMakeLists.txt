@@ -1,11 +1,11 @@
-# Set the cmake min version (current - 4.1.2)
-cmake_minimum_required(VERSION 4.1.2)
+# Set the cmake min version
+cmake_minimum_required(VERSION 4.2.3)
 
 # Set the project name
 project(
   crun
   DESCRIPTION
-    A-simple-program-to-automate-the-setup-of-new-projects-using-templates-from-cpkg-repo.
+    "C-based project scaffolding CLI"
   VERSION 1.4.0
   HOMEPAGE_URL https://github.com/ZouariOmar/crun
   LANGUAGES C CXX)

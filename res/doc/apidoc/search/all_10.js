@@ -1,0 +1,15 @@
+var searchData=
+[
+  ['get_5ffile_5fdata_0',['get_file_data',['../crun__file__manager_8h.html#a42ea48792a26623c3391cc9fdc79e881',1,'get_file_data(const char *):&#160;crun_file_manager.c'],['../crun__file__manager_8c.html#ab26a1397120fc6fa01de569bd6289cbb',1,'get_file_data(const char *filename):&#160;crun_file_manager.c']]],
+  ['get_5ffile_5fhome_5fpath_1',['get_file_home_path',['../crun__file__manager_8h.html#a9ca332c57c6964a87ce21e52ca311316',1,'get_file_home_path(const char *):&#160;crun_file_manager.c'],['../crun__file__manager_8c.html#a83cee2369d526d83c62ba6687c4a7409',1,'get_file_home_path(const char *suffix):&#160;crun_file_manager.c']]],
+  ['get_5ffile_5fsize_2',['get_file_size',['../crun__file__manager_8h.html#a7486ba8f268cf66da16182f761c311a6',1,'get_file_size(FILE *):&#160;crun_file_manager.c'],['../crun__file__manager_8c.html#a2731c9fe9cb74480470032277e70eb6a',1,'get_file_size(FILE *fp):&#160;crun_file_manager.c']]],
+  ['get_5fjson_5fobject_3',['get_json_object',['../crun__json__manager_8h.html#a3c30ac4f7068e2bdc80a5017472f3c0d',1,'get_json_object(cJSON *root, const char *obj_name):&#160;crun_json_manager.c'],['../crun__json__manager_8c.html#a3c30ac4f7068e2bdc80a5017472f3c0d',1,'get_json_object(cJSON *root, const char *obj_name):&#160;crun_json_manager.c']]],
+  ['get_5fjson_5froot_4',['get_json_root',['../crun__json__manager_8h.html#a3408dfa63d1177e133a8b314cf2dadcf',1,'get_json_root(const char *json_buffer):&#160;crun_json_manager.c'],['../crun__json__manager_8c.html#ab929e26af336601a8b6881a1d92e94b2',1,'get_json_root(const char *json_bufferer):&#160;crun_json_manager.c']]],
+  ['get_5flanguage_5fbuffer_5',['get_language_buffer',['../crun_8h.html#a4df561a06b882d45a48eef61f89b5992',1,'get_language_buffer(cJSON *):&#160;crun.c'],['../crun_8c.html#a58d2b1f863b37c0e608f16863201d767',1,'get_language_buffer(cJSON *root):&#160;crun.c']]],
+  ['get_5fpackages_5fbuffer_6',['get_packages_buffer',['../crun_8h.html#a8305694793d80a079c26f2c933a4aa01',1,'get_packages_buffer(cJSON *, const char *):&#160;crun.c'],['../crun_8c.html#a0998a5a31ef25088b0a9fffee81bda8c',1,'get_packages_buffer(cJSON *root, const char *language_name):&#160;crun.c']]],
+  ['get_5fuser_5fchoice_7',['get_user_choice',['../crun_8h.html#ad661aebae2a375ebe588dc1100de26bf',1,'get_user_choice(int *, const char *, const int):&#160;crun.c'],['../crun_8c.html#aaa26c8fe53b684d3d2518e385a0590d6',1,'get_user_choice(int *user_choice, const char *menu, const int limiter):&#160;crun.c']]],
+  ['getting_20started_8',['Getting Started',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2CONTRIBUTING.html#autotoc_md10',1,'']]],
+  ['gray_9',['gray',['../color_8h.html#aedfcdb6062c4b7ae552ab7889043f8e2',1,'color.h']]],
+  ['green_10',['green',['../color_8h.html#a7027592d032f7d20b38a1304ae3da2a2',1,'color.h']]],
+  ['guidelines_11',['Guidelines',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2CONTRIBUTING.html#autotoc_md12',1,'Code Guidelines'],['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2CODE__OF__CONDUCT.html#autotoc_md6',1,'Enforcement Guidelines']]]
+];

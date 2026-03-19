@@ -1,18 +1,21 @@
 /**
  * @file      crun.c
- * @author    @ZouariOmar (zouariomar20@gmail.com)
+ * @author    ZouariOmar (zouariomar20@gmail.com)
  * @brief     crun source file
  * @version   0.2
  * @date      2025-11-26
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/crun/project/src/crun.c crun.c @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/src/crun.c">crun.c</a>
  */
 
-// ############################
-// ### HEADERS INCLUDE PART ###
-// ############################
-
-// Include std c header(s)
+#include "../inc/crun.h"
+#include "../common/patterns.h"
+#include "../inc/crun_audit.h"
+#include "../inc/crun_file_manager.h"
+#include "../inc/crun_json_manager.h"
+#include "../inc/crun_libcurl.h"
+#include "../inc/crun_zip_manager.h"
 #include <cjson/cJSON.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,24 +23,6 @@
 #include <sys/stat.h>
 #include <time.h>
 
-#ifdef _WIN32
-#include <process.h>
-#define __get_pid _getpid
-#else
-#include <unistd.h>
-#define __get_pid getpid
-#endif
-
-// Include custom header(s)
-#include "../common/patterns.h"
-#include "../inc/crun.h"
-#include "../inc/crun_audit.h"
-#include "../inc/crun_file_manager.h"
-#include "../inc/crun_json_manager.h"
-#include "../inc/crun_libcurl.h"
-#include "../inc/crun_zip_manager.h"
-
-// Declare and define the shared vars
 struct CrunLanguage *languages_map = NULL;
 size_t languages_map_length = 1;
 struct CrunPackage *packages_map = NULL;
@@ -53,13 +38,6 @@ static char *get_last_path_separator(char *path) {
   return separator;
 }
 
-/**
- * @brief Append one rendered menu line into a growable buffer.
- *
- * @param buffer Target growable string buffer.
- * @param line Line to append.
- * @return int EXIT_SUCCESS on success, EXIT_FAILURE on allocation failure.
- */
 static int append_menu_line(char **buffer, const char *line) {
   if (!buffer || !line)
     return EXIT_FAILURE;
@@ -76,12 +54,6 @@ static int append_menu_line(char **buffer, const char *line) {
   return EXIT_SUCCESS;
 }
 
-/**
- * @brief Run the detected init script in its own directory.
- *
- * @param init_script_path Absolute script path.
- * @return int EXIT_SUCCESS when script exits with 0, EXIT_FAILURE otherwise.
- */
 static int run_init_script(const char *init_script_path) {
   if (!init_script_path || !strlen(init_script_path))
     return EXIT_FAILURE;
@@ -108,12 +80,6 @@ static int run_init_script(const char *init_script_path) {
   return run_res == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-/**
- * @brief Ensure a directory exists.
- *
- * @param path Absolute directory path.
- * @return int EXIT_SUCCESS if directory exists/created, EXIT_FAILURE otherwise.
- */
 static int ensure_directory(const char *path) {
   if (is_file_exist(path))
     return EXIT_SUCCESS;
@@ -121,11 +87,6 @@ static int ensure_directory(const char *path) {
   return MKDIR(path) == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-/**
- * @brief Build a unique temporary workspace under crun data directory.
- *
- * @return const char* Allocated workspace path, or NULL on failure.
- */
 static const char *build_hidden_extract_directory() {
   char tmp_suffix[FILENAME_MAX] = {0};
   char workspace_suffix[FILENAME_MAX] = {0};
@@ -171,13 +132,6 @@ static const char *build_hidden_extract_directory() {
   return workspace_directory;
 }
 
-/**
- * @brief Copy extracted template output into target directory.
- *
- * @param source_directory Workspace directory.
- * @param target_directory User current directory.
- * @return int EXIT_SUCCESS on success, EXIT_FAILURE otherwise.
- */
 static int copy_extract_output_to_directory(const char *source_directory,
                                             const char *target_directory) {
   char cmd[(FILENAME_MAX * 4) + 256];
@@ -199,11 +153,6 @@ static int copy_extract_output_to_directory(const char *source_directory,
   return system(cmd) == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-/**
- * @brief Remove workspace and best-effort cleanup of parent tmp directory.
- *
- * @param hidden_extract_directory Workspace path.
- */
 static void cleanup_hidden_workspace(const char *hidden_extract_directory) {
   if (!hidden_extract_directory || !strlen(hidden_extract_directory))
     return;
@@ -231,11 +180,6 @@ static void cleanup_hidden_workspace(const char *hidden_extract_directory) {
   system(cmd);
 }
 
-/**
- * @brief Remove file if it exists.
- *
- * @param file_path Absolute file path.
- */
 static void remove_if_exist(const char *file_path) {
   if (!file_path || !is_file_exist(file_path))
     return;
@@ -244,11 +188,6 @@ static void remove_if_exist(const char *file_path) {
     crun_audit_warn("Unable to remove temporary file '%s'.", file_path);
 }
 
-/**
- * @brief Remove init scripts from workspace after execution.
- *
- * @param init_script_path Absolute path of detected init script.
- */
 static void cleanup_init_scripts(const char *init_script_path) {
   if (!init_script_path || !strlen(init_script_path))
     return;
@@ -271,9 +210,6 @@ static void cleanup_init_scripts(const char *init_script_path) {
   remove_if_exist(init_bat_file_path);
 }
 
-/**
- * @brief Cleanup helper for regular flow (without workspace).
- */
 static void cleanup_runtime_context(struct CrunRuntimeContext *ctx) {
   if (!ctx)
     return;
@@ -326,10 +262,6 @@ int crun_update() {
   free((void *)stacks_path);
   return update_res;
 }
-
-// #########################
-// ### FUNCTION DEV PART ###
-// #########################
 
 void crun() {
   CRUN_HEADER;
@@ -527,16 +459,6 @@ void get_user_choice(int *user_choice, const char *menu, const int limiter) {
   }
 }
 
-/**
- * @brief Check/Fix the `crun_stacks.json`
- *
- * @details
- * 1. Retrieve the default `crun_stacks.json` path (where suppose to be)
- * 2. Verify the existence of the file
- * 3. [-] Download the `crun_stacks.json` in the default path
- *
- * @return void
- */
 void crun_stacks_json_checker(const char *crun_stacks_json_file_path) {
   if (!is_file_exist(crun_stacks_json_file_path)) { // Download `crun_stacks_json`
     crun_audit_warn("Stacks metadata not found at '%s'.", crun_stacks_json_file_path);
@@ -671,17 +593,6 @@ char *get_packages_buffer(cJSON *root, const char *language_name) {
   return packages_buffer;
 }
 
-/**
- * @brief Free all the allocated pointers
- *
- * @details We free:
- * - languages_map
- * - language_buffer
- * - crun_stacks_json_file_path
- * - more..
- *
- * @return description
- */
 static void free_languages_map_data() {
   if (languages_map && languages_map_length > 0) {
     for (size_t i = 0; i < languages_map_length - 1; ++i) {

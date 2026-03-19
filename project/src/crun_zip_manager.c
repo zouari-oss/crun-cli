@@ -1,34 +1,22 @@
 /**
  * @file      crun_zip_manager.c
- * @author    @ZouariOmar <zouariomar20@gmail.com>
+ * @author    ZouariOmar <zouariomar20@gmail.com>
  * @brief     crun_zip_manager source file
  * @version   0.1
  * @date      2026-01-01
  * @copyright Copyright (c) 2025
- * @link      https://github.com/ZouariOmar/crun/project/src/crun_zip_manager.c crun_zip_manager.c @endlink
- * @link      https://chromium.googlesource.com/external/github.com/nmoinvaz/minizip/+/2.7.1/README.md README.md @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/src/crun_zip_manager.c">crun_zip_manager.c</a>
+ * <a href="https://chromium.googlesource.com/external/github.com/nmoinvaz/minizip/+/2.7.1/README.md">README.md</a>
  */
 
-// ############################
-// ### HEADERS INCLUDE PART ###
-// ############################
-
-// Inlcude stander header(s)
+#include "../inc/crun_zip_manager.h"
+#include "../inc/crun_audit.h"
+#include <minizip/unzip.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-
-// Include zip header(s)
-#include <minizip/unzip.h>
-
-// Include custom header(s)
-#include "../inc/crun_audit.h"
-#include "../inc/crun_zip_manager.h"
-
-// ##############################
-// ### ZIP FUNCTIONS DEV PART ###
-// ##############################
 
 static void ensure_dir(const char *path) {
   char tmp[1024];

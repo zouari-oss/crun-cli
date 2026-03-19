@@ -1,21 +1,21 @@
 /**
  * @file      crun_file_manager.h
- * @author    @ZouariOmar (zouariomar20@gmail.com)
+ * @author    ZouariOmar (zouariomar20@gmail.com)
  * @brief     File/path utilities for crun runtime data.
  * @version   0.3
  * @date      2026-03-18
  * @copyright Copyright (c) 2025
- * @link https://github.com/ZouariOmar/crun/project/inc/crun_file_manager.h crun_file_manager.h @endlink
+ *
+ * <a href="https://github.com/zouari-oss/crun-cli/project/inc/crun_file_manager.h">crun_file_manager.h</a>
  */
 
 #ifndef __CRUN_FILE_MANAGER_H__
 #define __CRUN_FILE_MANAGER_H__
 
-// ################################
-// ### HEADERS DECLARATION PART ###
-// ################################
+// #########################################
+// ### HEADERS & MACROS DECLARATION PART ###
+// #########################################
 
-// Include std header(s)
 #include <stdio.h>
 
 #ifdef _WIN32
@@ -24,6 +24,7 @@
 #define F_OK 0
 #define access _access
 #define CRUN_DEFAULT_SUFFIX_DIRECTORY "\\crun\\"
+
 #else
 #include <unistd.h>
 #define OS_HOME getenv("HOME")
@@ -34,9 +35,10 @@
 #define CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX CRUN_DEFAULT_SUFFIX_DIRECTORY "crun_stacks.json"
 #define CRUN_TMP_DIRECTORY_SUFFIX CRUN_DEFAULT_SUFFIX_DIRECTORY "tmp"
 
-// #################################
-// ### FUNCTION DECLARATION PART ###
-// #################################
+// ##################################
+// ### FUNCTIONS DECLARATION PART ###
+// ##################################
+
 /**
  * @brief Read full file content into a null-terminated buffer.
  *

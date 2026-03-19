@@ -1,0 +1,9 @@
+<map id="download_file" name="download_file">
+<area shape="rect" id="Node000001" title="Download a file from URL to a destination path." alt="" coords="5,55,105,80"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="153,5,267,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,52,155,35,151,38,99,56"/>
+<area shape="rect" id="Node000003" href="$crun__audit_8c.html#afef1fcff61b0a27e1c5ee5407bd16f49" title="Emit an informational audit event." alt="" coords="155,55,264,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,65,142,67,137,68,106,70"/>
+<area shape="rect" id="Node000004" href="$crun__libcurl_8c.html#a9e39a834923ce684a310d4aa2eee3689" title="libcurl write callback used when storing response data to a file." alt="" coords="169,104,250,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="98,78,157,98,152,100,98,84"/>
+</map>

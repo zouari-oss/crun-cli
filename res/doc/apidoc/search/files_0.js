@@ -1,0 +1,18 @@
+var searchData=
+[
+  ['code_5fof_5fconduct_2emd_0',['CODE_OF_CONDUCT.md',['../CODE__OF__CONDUCT_8md.html',1,'']]],
+  ['color_2eh_1',['color.h',['../color_8h.html',1,'']]],
+  ['contributing_2emd_2',['CONTRIBUTING.md',['../CONTRIBUTING_8md.html',1,'']]],
+  ['crun_2ec_3',['crun.c',['../crun_8c.html',1,'']]],
+  ['crun_2eh_4',['crun.h',['../crun_8h.html',1,'']]],
+  ['crun_5faudit_2ec_5',['crun_audit.c',['../crun__audit_8c.html',1,'']]],
+  ['crun_5faudit_2eh_6',['crun_audit.h',['../crun__audit_8h.html',1,'']]],
+  ['crun_5ffile_5fmanager_2ec_7',['crun_file_manager.c',['../crun__file__manager_8c.html',1,'']]],
+  ['crun_5ffile_5fmanager_2eh_8',['crun_file_manager.h',['../crun__file__manager_8h.html',1,'']]],
+  ['crun_5fjson_5fmanager_2ec_9',['crun_json_manager.c',['../crun__json__manager_8c.html',1,'']]],
+  ['crun_5fjson_5fmanager_2eh_10',['crun_json_manager.h',['../crun__json__manager_8h.html',1,'']]],
+  ['crun_5flibcurl_2ec_11',['crun_libcurl.c',['../crun__libcurl_8c.html',1,'']]],
+  ['crun_5flibcurl_2eh_12',['crun_libcurl.h',['../crun__libcurl_8h.html',1,'']]],
+  ['crun_5fzip_5fmanager_2ec_13',['crun_zip_manager.c',['../crun__zip__manager_8c.html',1,'']]],
+  ['crun_5fzip_5fmanager_2eh_14',['crun_zip_manager.h',['../crun__zip__manager_8h.html',1,'']]]
+];

@@ -1,5 +1,3 @@
-<!-- PROJECT SHIELDS -->
-
 [![Contributors](https://img.shields.io/badge/CONTRIBUTORS-01-blue?style=plastic)](https://github.com/zouari-oss/crun/graphs/contributors)
 [![Forks](https://img.shields.io/badge/FORKS-00-blue?style=plastic)](https://github.com/zouari-oss/crun/network/members)
 [![Stargazers](https://img.shields.io/badge/STARS-01-blue?style=plastic)](https://github.com/zouari-oss/crun/stargazers)
@@ -7,7 +5,6 @@
 [![GPL3.0 License](https://img.shields.io/badge/LICENSE-GPL3.0-blue?style=plastic)](LICENSE)
 [![Linkedin](https://img.shields.io/badge/Linkedin-6.9k-blue?style=plastic)](https://www.linkedin.com/in/zouari-omar)
 
-<!-- PROJECT HEADER -->
 <div align="center">
   <a href="https://github.com/zouari-oss/crun">
     <img src="res/img/logo.ico" alt="crun-logo" width="300">
@@ -16,8 +13,6 @@
   <h6>C-based project scaffolding CLI</h6>
   <br />
 </div>
-
-<!-- PROJECT LINKS -->
 
 <p align="center">
   <a href="#overview">Overview</a> •
@@ -33,8 +28,6 @@
   <a href="#contact">Contact</a> •
   <a href="#acknowledgments">Acknowledgments</a>
 </p>
-
-<!-- PROJECT TAGS -->
 
 <p align="center">
   <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white"/>

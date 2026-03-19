@@ -1,0 +1,7 @@
+<map id="get_file_data" name="get_file_data">
+<area shape="rect" id="Node000001" title="Read full file content into a null&#45;terminated buffer." alt="" coords="5,31,100,56"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="148,5,262,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,33,135,29,130,31,101,38"/>
+<area shape="rect" id="Node000003" href="$crun__file__manager_8c.html#a2731c9fe9cb74480470032277e70eb6a" title="Compute total file size for opened stream." alt="" coords="159,55,251,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="100,48,146,57,141,58,100,54"/>
+</map>

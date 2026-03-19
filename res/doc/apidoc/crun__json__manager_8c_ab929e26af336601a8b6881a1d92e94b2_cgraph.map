@@ -1,0 +1,5 @@
+<map id="get_json_root" name="get_json_root">
+<area shape="rect" id="Node000001" title="Parse JSON buffer into cJSON root object." alt="" coords="5,5,105,31"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="153,5,267,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,16,140,18,134,18,105,21"/>
+</map>

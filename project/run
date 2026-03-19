@@ -25,7 +25,7 @@
 #
 # .NOTES
 #   Version       : 1.0
-#   Author        : @ZouariOmar <zouariomar20@gmail.com>
+#   Author        : ZouariOmar <zouariomar20@gmail.com>
 #   Created       : 01/11/2025
 #   Change Log    : Initial version
 #
@@ -95,7 +95,7 @@ ${YELLOW}[OPTIONS]${RESET}
 ${YELLOW}[VERSION]${RESET}
   1.0
 ${YELLOW}[AUTHOR]${RESET}
-  @ZouariOmar <zouariomar20@gmail.com>
+  ZouariOmar <zouariomar20@gmail.com>
 ${YELLOW}[CREATED]${RESET}
   01/11/2025
 ${YELLOW}[CHANGELOG]${RESET}

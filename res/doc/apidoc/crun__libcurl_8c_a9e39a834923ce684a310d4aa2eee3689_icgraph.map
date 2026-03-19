@@ -1,0 +1,17 @@
+<map id="write_data" name="write_data">
+<area shape="rect" id="Node000001" title="libcurl write callback used when storing response data to a file." alt="" coords="615,55,696,80"/>
+<area shape="rect" id="Node000002" href="$crun__libcurl_8c.html#ac4cfc4b4e26001d55c2c22b85025418c" title="Download a file from URL to a destination path." alt="" coords="467,55,567,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="596,68,567,70,567,65,602,67"/>
+<area shape="rect" id="Node000003" href="$crun_8c.html#a88e359c112bcc1f3b2c2cb2935e3948a" title="Ensure stacks metadata file exists locally." alt="" coords="243,5,419,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="450,51,382,34,383,29,455,50"/>
+<area shape="rect" id="Node000006" href="$crun_8c.html#ad68df6c17f6bd441031a5d84b2efaf7c" title="Refresh local stacks metadata from remote source." alt="" coords="103,104,195,130"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="459,84,420,95,298,111,195,118,195,112,298,105,419,90,454,85"/>
+<area shape="rect" id="Node000007" href="$crun_8c.html#ac6dfb017ed4ffec3513f343f795a984a" title="Resolve package archive from cache or download it." alt="" coords="249,55,413,80"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="449,68,414,70,414,65,455,67"/>
+<area shape="rect" id="Node000004" href="$crun_8c.html#a4e78d8b08e65edd59c85df8fd8fb6c6f" title="Main CLI flow entrypoint." alt="" coords="126,55,172,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="264,37,173,64,172,59,269,35"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a217dbf8b442f20279ea00b898af96f52" title="CLI entry point with flag dispatch." alt="" coords="5,80,55,106"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="109,78,56,90,54,85,112,73"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="85,106,55,100,55,95,90,103"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="231,68,173,70,172,65,236,67"/>
+</map>
