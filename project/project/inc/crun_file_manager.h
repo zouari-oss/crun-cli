@@ -67,6 +67,6 @@ const long get_file_size(FILE *);
  * @param suffix Path suffix appended to OS home location.
  * @return const char* Allocated path buffer (caller frees), or NULL on failure.
  */
-const char *get_file_home_path(const char *suffix);
+const char *get_file_home_path(const char *);
 
 #endif // __CRUN_FILE_MANAGER_H__

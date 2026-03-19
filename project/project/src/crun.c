@@ -43,6 +43,39 @@ size_t languages_map_length = 1;
 struct CrunPackage *packages_map = NULL;
 size_t packages_map_length = 1;
 
+static char *get_last_path_separator(char *path) {
+  if (!path)
+    return NULL;
+
+  char *separator = strrchr(path, '/');
+  if (!separator)
+    separator = strrchr(path, '\\');
+  return separator;
+}
+
+/**
+ * @brief Append one rendered menu line into a growable buffer.
+ *
+ * @param buffer Target growable string buffer.
+ * @param line Line to append.
+ * @return int EXIT_SUCCESS on success, EXIT_FAILURE on allocation failure.
+ */
+static int append_menu_line(char **buffer, const char *line) {
+  if (!buffer || !line)
+    return EXIT_FAILURE;
+
+  const size_t line_len = strlen(line);
+  const size_t buffer_len = *buffer ? strlen(*buffer) : 0;
+  char *tmp = (char *)realloc(*buffer, buffer_len + line_len + 1);
+  if (!tmp)
+    return EXIT_FAILURE;
+
+  *buffer = tmp;
+  memcpy(*buffer + buffer_len, line, line_len);
+  (*buffer)[buffer_len + line_len] = '\0';
+  return EXIT_SUCCESS;
+}
+
 /**
  * @brief Run the detected init script in its own directory.
  *
@@ -58,9 +91,7 @@ static int run_init_script(const char *init_script_path) {
   char cmd[(FILENAME_MAX * 2) + 64];
   snprintf(init_directory, sizeof(init_directory), "%s", init_script_path);
 
-  char *separator = strrchr(init_directory, '/');
-  if (!separator)
-    separator = strrchr(init_directory, '\\');
+  char *separator = get_last_path_separator(init_directory);
   if (!separator)
     return EXIT_FAILURE;
 
@@ -187,9 +218,7 @@ static void cleanup_hidden_workspace(const char *hidden_extract_directory) {
 
   char tmp_directory[FILENAME_MAX] = {0};
   snprintf(tmp_directory, sizeof(tmp_directory), "%s", hidden_extract_directory);
-  char *separator = strrchr(tmp_directory, '/');
-  if (!separator)
-    separator = strrchr(tmp_directory, '\\');
+  char *separator = get_last_path_separator(tmp_directory);
   if (!separator)
     return;
   *separator = '\0';
@@ -227,9 +256,7 @@ static void cleanup_init_scripts(const char *init_script_path) {
   char init_directory[FILENAME_MAX] = {0};
   snprintf(init_directory, sizeof(init_directory), "%s", init_script_path);
 
-  char *separator = strrchr(init_directory, '/');
-  if (!separator)
-    separator = strrchr(init_directory, '\\');
+  char *separator = get_last_path_separator(init_directory);
   if (!separator)
     return;
 
@@ -247,25 +274,20 @@ static void cleanup_init_scripts(const char *init_script_path) {
 /**
  * @brief Cleanup helper for regular flow (without workspace).
  */
-static void cleanup_base_state(char *languages_buffer,
-                               const char *json_root_buffer,
-                               const char *stacks_path,
-                               cJSON *json_root) {
-  free_all((void *[]){languages_buffer, (void *)json_root_buffer, (void *)stacks_path}, 3);
-  cJSON_Delete(json_root);
-}
+static void cleanup_runtime_context(struct CrunRuntimeContext *ctx) {
+  if (!ctx)
+    return;
 
-/**
- * @brief Cleanup helper for workspace flow.
- */
-static void cleanup_workspace_state(char *languages_buffer,
-                                    const char *json_root_buffer,
-                                    const char *stacks_path,
-                                    const char *workspace_path,
-                                    cJSON *json_root) {
-  cleanup_hidden_workspace(workspace_path);
-  free_all((void *[]){languages_buffer, (void *)json_root_buffer, (void *)stacks_path, (void *)workspace_path}, 4);
-  cJSON_Delete(json_root);
+  cleanup_hidden_workspace(ctx->workspace_path);
+  free_all((void *[]){
+               ctx->languages_buffer,
+               ctx->packages_buffer,
+               (void *)ctx->json_root_buffer,
+               (void *)ctx->stacks_path,
+               (void *)ctx->workspace_path,
+           },
+           5);
+  cJSON_Delete(ctx->json_root);
 }
 
 void crun_help() {
@@ -313,30 +335,32 @@ void crun() {
   CRUN_HEADER;
   CRUN_BANNER;
 
-  const char *crun_stacks_json_file_path = get_file_home_path(CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX); //! Free this ptr
-  if (!crun_stacks_json_file_path) {
+  struct CrunRuntimeContext ctx = {0};
+
+  ctx.stacks_path = get_file_home_path(CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX);
+  if (!ctx.stacks_path) {
     crun_audit_error("Unable to resolve stacks metadata path.");
     return;
   }
 
-  crun_stacks_json_checker(crun_stacks_json_file_path);
-  const char *json_root_buffer = get_file_data(crun_stacks_json_file_path); //! Free this ptr
-  if (!json_root_buffer) {
+  crun_stacks_json_checker(ctx.stacks_path);
+  ctx.json_root_buffer = get_file_data(ctx.stacks_path);
+  if (!ctx.json_root_buffer) {
     crun_audit_error("Unable to read stacks metadata file.");
-    free((void *)crun_stacks_json_file_path);
+    free((void *)ctx.stacks_path);
     return;
   }
 
-  cJSON *json_root = get_json_root(json_root_buffer); //! Free this ptr
-  if (!json_root) {
-    free_all((void *[]){(void *)json_root_buffer, (void *)crun_stacks_json_file_path}, 2);
+  ctx.json_root = get_json_root(ctx.json_root_buffer);
+  if (!ctx.json_root) {
+    cleanup_runtime_context(&ctx);
     return;
   }
 
-  char *languages_buffer = get_language_buffer(json_root); //! Free this ptr
-  if (!languages_buffer || !strlen(languages_buffer)) {
+  ctx.languages_buffer = get_language_buffer(ctx.json_root);
+  if (!ctx.languages_buffer || !strlen(ctx.languages_buffer)) {
     crun_audit_error("No languages available in stacks metadata.");
-    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
@@ -344,33 +368,33 @@ void crun() {
 
   // === Get User language menu choice ===
   get_user_choice(&user_choice,
-                  languages_buffer,
+                  ctx.languages_buffer,
                   languages_map_length);
 
   if (!user_choice) { // EXIT_SUCCESS
     crun_audit_info("User exited language selection.");
-    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
   const char *selected_language_name = languages_map[user_choice - 1].name;
 
   // Get language projects
-  char *packages_buffer = get_packages_buffer(json_root, selected_language_name);
-  if (!packages_buffer || !strlen(packages_buffer)) {
+  ctx.packages_buffer = get_packages_buffer(ctx.json_root, selected_language_name);
+  if (!ctx.packages_buffer || !strlen(ctx.packages_buffer)) {
     crun_audit_error("Unable to load package templates for language '%s'.", selected_language_name);
-    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
   // === Get user package choice ===
   get_user_choice(&user_choice,
-                  packages_buffer,
+                  ctx.packages_buffer,
                   packages_map_length);
 
   if (!user_choice) { // EXIT_SUCCESS
     crun_audit_info("User exited template selection.");
-    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
@@ -379,10 +403,10 @@ void crun() {
                   packages_map[user_choice - 1].name);
 
   // See if the project exist first, otherwise download the pkg
-  const char *crun_package_file_path = download_crun_package(&packages_map[user_choice - 1]); // Free this ptr
+  const char *crun_package_file_path = download_crun_package(&packages_map[user_choice - 1]);
   if (!crun_package_file_path) {
     crun_audit_error("Failed to retrieve package archive '%s.zip'.", packages_map[user_choice - 1].name);
-    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
@@ -391,21 +415,21 @@ void crun() {
   char user_current_directory[FILENAME_MAX] = {0};
   if (!__get_current_dir(user_current_directory, FILENAME_MAX)) {
     crun_audit_error("Unable to resolve current working directory.");
-    cleanup_base_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
-  const char *hidden_extract_directory = build_hidden_extract_directory();
-  if (!hidden_extract_directory || !strlen(hidden_extract_directory)) {
+  ctx.workspace_path = build_hidden_extract_directory();
+  if (!ctx.workspace_path || !strlen(ctx.workspace_path)) {
     crun_audit_error("Unable to prepare temporary extraction workspace.");
-    cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
   char init_script_path[FILENAME_MAX] = {0};
-  if (extract_zip(crun_package_file_path, hidden_extract_directory, init_script_path, sizeof(init_script_path)) != EXIT_SUCCESS) {
+  if (extract_zip(crun_package_file_path, ctx.workspace_path, init_script_path, sizeof(init_script_path)) != EXIT_SUCCESS) {
     crun_audit_error("Failed to extract archive '%s'.", crun_package_file_path);
-    cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
@@ -415,26 +439,31 @@ void crun() {
 
     if (init_res != EXIT_SUCCESS) {
       crun_audit_error("Init script execution failed: %s", init_script_path);
-      cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
+      cleanup_runtime_context(&ctx);
       return;
     }
   } else {
     crun_audit_info("No init script detected. Continuing with extracted output.");
   }
 
-  if (copy_extract_output_to_directory(hidden_extract_directory, user_current_directory) != EXIT_SUCCESS) {
+  if (copy_extract_output_to_directory(ctx.workspace_path, user_current_directory) != EXIT_SUCCESS) {
     crun_audit_error("Failed to copy extracted output into current directory.");
-    cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
+    cleanup_runtime_context(&ctx);
     return;
   }
 
   crun_audit_info("Project scaffold ready.");
   INSTALLATION_COMPLETE_MSG;
 
-  cleanup_workspace_state(languages_buffer, json_root_buffer, crun_stacks_json_file_path, hidden_extract_directory, json_root);
+  cleanup_runtime_context(&ctx);
 }
 
 const char *download_crun_package(const struct CrunPackage *crun_package_map) {
+  if (!crun_package_map || !crun_package_map->name || !crun_package_map->url) {
+    crun_audit_error("Invalid package metadata.");
+    return NULL;
+  }
+
   const char *package_name = crun_package_map->name,
              *package_url = crun_package_map->url,
              *crun_package_file_path = NULL;
@@ -459,13 +488,19 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
 
   crun_package_file_path = get_file_home_path(crun_package_file_suffix);
   free(crun_package_file_suffix), crun_package_file_suffix = NULL; // Free `crun_package_file_suffix`
+  if (!crun_package_file_path) {
+    crun_audit_error("Unable to resolve package cache file path.");
+    return NULL;
+  }
 
   if (!is_file_exist(crun_package_file_path)) {
     crun_audit_warn("Template archive not found in cache: %s", crun_package_file_path);
     crun_audit_info("Downloading template archive '%s.zip'...", package_name);
     const int download_res = download_file(package_url, crun_package_file_path);
-    if (download_res != EXIT_SUCCESS)
+    if (download_res != EXIT_SUCCESS) {
       crun_audit_error("Failed to download package '%s.zip'.", package_name);
+      free((void *)crun_package_file_path);
+    }
 
     return download_res == EXIT_SUCCESS ? crun_package_file_path : NULL;
   }
@@ -533,38 +568,29 @@ char *get_language_buffer(cJSON *root) {
     struct CrunLanguage *tmp = (struct CrunLanguage *)realloc(languages_map,
                                                               languages_map_length * sizeof(struct CrunLanguage));
     if (!tmp)
-      return fprintf(stderr, "[ERROR] crun.c :: Can't Reallocate the `languages_map`!"), NULL;
+      return crun_audit_error("Memory allocation failed while growing language map."), NULL;
 
     languages_map = tmp;
 
     // Fill the `languages_map`
     languages_map[languages_map_length - 1].name = strdup(lang_name);
+    if (!languages_map[languages_map_length - 1].name)
+      return crun_audit_error("Memory allocation failed while storing language name."), NULL;
 
     // Allocate the `lang_line`
     lang_line = (char *)malloc(PROJECT_MENU_FIELD_LENGTH((int)languages_map_length, lang_name) * sizeof(char));
 
     if (!lang_line)
-      return fprintf(stderr, "[ERROR] crun.c :: Can't Allocate the `lang_line`!"), NULL;
+      return crun_audit_error("Memory allocation failed while building language menu."), NULL;
 
     // Fill the `lang_line`
     PROJECT_MENU_FIELD(lang_line, (int)languages_map_length++, lang_name);
-
-    // Reallocate `lang_buff`
-    size_t line_len = strlen(lang_line),
-           buff_len = lang_buff ? strlen(lang_buff) : 0;
-
-    char *buff_tmp = (char *)realloc(lang_buff, buff_len + line_len + 1);
-
-    if (!buff_tmp) {
-      fprintf(stderr, "[ERROR] crun_json_manager.c :: L209 :: Can't Reallocate the `lang_buff`!");
-      return free(lang_line), lang_line = NULL, NULL;
+    if (append_menu_line(&lang_buff, lang_line) != EXIT_SUCCESS) {
+      free(lang_line), lang_line = NULL;
+      crun_audit_error("Memory allocation failed while appending language menu line.");
+      free(lang_buff), lang_buff = NULL;
+      return NULL;
     }
-
-    lang_buff = buff_tmp;
-    lang_buff[buff_len + line_len] = '\0';
-
-    // Append `lang_line` into `buff`
-    memcpy(lang_buff + buff_len, lang_line, line_len);
 
     // Cleaning
     free(lang_line), lang_line = NULL;
@@ -608,7 +634,7 @@ char *get_packages_buffer(cJSON *root, const char *language_name) {
     struct CrunPackage *tmp = (struct CrunPackage *)realloc(packages_map,
                                                             packages_map_length * sizeof(struct CrunPackage));
     if (!tmp)
-      return fprintf(stderr, "[ERROR] crun.c :: Can't Reallocate the `packages_map`!"), NULL;
+      return crun_audit_error("Memory allocation failed while growing package map."), NULL;
 
     packages_map = tmp;
 
@@ -616,34 +642,27 @@ char *get_packages_buffer(cJSON *root, const char *language_name) {
     packages_map[packages_map_length - 1].name = strdup(name_str);
     packages_map[packages_map_length - 1].description = strdup(description_str);
     packages_map[packages_map_length - 1].url = strdup(url_str);
+    if (!packages_map[packages_map_length - 1].name ||
+        !packages_map[packages_map_length - 1].description ||
+        !packages_map[packages_map_length - 1].url)
+      return crun_audit_error("Memory allocation failed while storing package metadata."), NULL;
 
     // Allocate the `package_line`
     char *package_line = (char *)malloc(PROJECT_MENU_FIELD_LENGTH((int)packages_map_length, name_str) * sizeof(char));
 
     if (!package_line) {
-      fprintf(stderr, "[ERROR] crun_json_manager.c :: Can't Allocate the `package_line`!");
+      crun_audit_error("Memory allocation failed while building package menu.");
       return NULL;
     }
 
     // Fill the `package_line`
     PROJECT_MENU_FIELD(package_line, (int)packages_map_length++, name_str);
-
-    // Reallocate `packages_buffer`
-    size_t line_len = strlen(package_line),
-           buff_len = packages_buffer ? strlen(packages_buffer) : 0;
-
-    char *buff_tmp = (char *)realloc(packages_buffer, buff_len + line_len + 1);
-
-    if (!buff_tmp) {
-      fprintf(stderr, "[ERROR] crun_json_manager.c :: Can't Reallocate the `lang_buff`!");
-      return free(package_line), package_line = NULL, NULL;
+    if (append_menu_line(&packages_buffer, package_line) != EXIT_SUCCESS) {
+      free(package_line), package_line = NULL;
+      crun_audit_error("Memory allocation failed while appending package menu line.");
+      free(packages_buffer), packages_buffer = NULL;
+      return NULL;
     }
-
-    packages_buffer = buff_tmp;
-    packages_buffer[buff_len + line_len] = '\0';
-
-    // Append `package_line` into `packages_buffer`
-    memcpy(packages_buffer + buff_len, package_line, line_len);
 
     // Cleaning
     free(package_line), package_line = NULL;
@@ -663,8 +682,7 @@ char *get_packages_buffer(cJSON *root, const char *language_name) {
  *
  * @return description
  */
-void free_all(void **ptrs, size_t len) {
-  // Free `languages_map` items
+static void free_languages_map_data() {
   if (languages_map && languages_map_length > 0) {
     for (size_t i = 0; i < languages_map_length - 1; ++i) {
       if (languages_map[i].name)
@@ -672,12 +690,12 @@ void free_all(void **ptrs, size_t len) {
     }
   }
 
-  // Free `languages_map`
   if (languages_map)
     free(languages_map), languages_map = NULL;
   languages_map_length = 1;
+}
 
-  // Free `packages_map` items
+static void free_packages_map_data() {
   if (packages_map && packages_map_length > 0) {
     for (size_t i = 0; i < packages_map_length - 1; ++i) {
       if (packages_map[i].name)
@@ -693,6 +711,11 @@ void free_all(void **ptrs, size_t len) {
   if (packages_map)
     free(packages_map), packages_map = NULL;
   packages_map_length = 1;
+}
+
+void free_all(void **ptrs, size_t len) {
+  free_languages_map_data();
+  free_packages_map_data();
 
   // Free Other ptr(s)
   for (size_t i = 0; i < len; ++i)

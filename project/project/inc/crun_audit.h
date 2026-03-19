@@ -16,7 +16,7 @@
  * @param fmt printf-style message format.
  * @param ... Format arguments.
  */
-void crun_audit_info(const char *fmt, ...);
+void crun_audit_info(const char *, ...);
 
 /**
  * @brief Emit a warning audit event.
@@ -24,7 +24,7 @@ void crun_audit_info(const char *fmt, ...);
  * @param fmt printf-style message format.
  * @param ... Format arguments.
  */
-void crun_audit_warn(const char *fmt, ...);
+void crun_audit_warn(const char *, ...);
 
 /**
  * @brief Emit an error audit event.
@@ -32,6 +32,6 @@ void crun_audit_warn(const char *fmt, ...);
  * @param fmt printf-style message format.
  * @param ... Format arguments.
  */
-void crun_audit_error(const char *fmt, ...);
+void crun_audit_error(const char *, ...);
 
 #endif // __CRUN_AUDIT_H__

@@ -35,6 +35,6 @@ cJSON *get_json_root(const char *);
  * @param obj Object key name.
  * @return cJSON* Object node, or NULL on failure.
  */
-cJSON *get_json_object(cJSON *root, const char *obj);
+cJSON *get_json_object(cJSON *, const char *);
 
 #endif // __CRUN_JSON_MANAGER_H__

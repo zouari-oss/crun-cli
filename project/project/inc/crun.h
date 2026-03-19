@@ -37,6 +37,15 @@ struct CrunPackage {
   char *name, *description, *url;
 }; // CrunPackage Structure
 
+struct CrunRuntimeContext {
+  char *languages_buffer;
+  char *packages_buffer;
+  const char *json_root_buffer;
+  const char *stacks_path;
+  const char *workspace_path;
+  cJSON *json_root;
+}; // CrunRuntimeContext Structure
+
 /**
  * @brief Main CLI flow entrypoint.
  */
@@ -102,7 +111,5 @@ char *get_packages_buffer(cJSON *, const char *);
  * @param len Number of pointers in @p ptrs.
  */
 void free_all(void **, const size_t);
-// int generate();
-// void notify();
 
 #endif // __CRUN_H__
