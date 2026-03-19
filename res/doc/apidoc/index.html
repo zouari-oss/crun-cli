@@ -105,7 +105,7 @@ $(function(){initNavTree('index.html','',''); });
 <p><img src="https://github.com/zouari-oss/crun-cli/raw/main/res/img/screenshot.png" alt="screenshot" class="inline"/></p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Overview</h2>
-<p><b>crun-cli</b> fetches template metadata, lets you choose a language/template, downloads or reuses cached archives, executes optional init scripts, and copies the extracted scaffold into your current directory.</p>
+<p><b>crun-cli</b> fetches template metadata, lets you choose a language/template, downloads or reuses cached packages, then either extracts a ZIP scaffold (with optional init script) or installs a direct single-file template into your current directory.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Key Features</h2>
 <ul>
@@ -118,7 +118,8 @@ Key Features</h2>
 </ul>
 </li>
 <li>Init script cleanup after execution</li>
-<li>Copy extracted output only (zip artifacts are excluded)</li>
+<li>ZIP scaffold copy excludes zip artifacts</li>
+<li>Single-file template install when package is not a ZIP</li>
 <li>Timestamped audit logs in CLI and <span class="tt">~/.local/share/crun/audit.log</span></li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
@@ -154,12 +155,14 @@ Runtime Flow</h2>
 <ol type="1">
 <li>Load <span class="tt">crun_stacks.json</span> (download if missing)</li>
 <li>Select language and template</li>
-<li>Resolve template archive (cache hit or download)</li>
-<li>Extract into hidden temp workspace</li>
-<li>Run init script if present</li>
-<li>Remove <span class="tt">__init__.sh</span> / <span class="tt">__init__.bat</span></li>
-<li>Copy output to current directory (excluding <span class="tt">*.zip</span>)</li>
-<li>Clean temporary workspace</li>
+<li>Resolve template package (cache hit or download)</li>
+<li>Detect package type (ZIP vs single file)</li>
+<li>For ZIP: extract into hidden temp workspace</li>
+<li>For ZIP: run init script if present</li>
+<li>For ZIP: remove <span class="tt">__init__.sh</span> / <span class="tt">__init__.bat</span></li>
+<li>For ZIP: copy output to current directory (excluding <span class="tt">*.zip</span>)</li>
+<li>For single file: copy file directly into current directory</li>
+<li>Clean temporary workspace (ZIP path only)</li>
 </ol>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Template Sources</h2>

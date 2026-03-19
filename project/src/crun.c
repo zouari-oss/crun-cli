@@ -38,6 +38,73 @@ static char *get_last_path_separator(char *path) {
   return separator;
 }
 
+static const char *get_path_basename(const char *path) {
+  if (!path || !strlen(path))
+    return NULL;
+
+  const char *slash = strrchr(path, '/');
+  const char *backslash = strrchr(path, '\\');
+  const char *separator = slash > backslash ? slash : backslash;
+  return separator ? separator + 1 : path;
+}
+
+static int append_url_extension(const char *url, char *buffer, size_t buffer_size) {
+  if (!url || !buffer || !buffer_size)
+    return EXIT_FAILURE;
+
+  const char *basename = strrchr(url, '/');
+  basename = basename ? basename + 1 : url;
+  if (!strlen(basename))
+    return EXIT_FAILURE;
+
+  const char *fragment = strchr(basename, '#');
+  const char *query = strchr(basename, '?');
+  const char *end = basename + strlen(basename);
+  if (fragment && fragment < end)
+    end = fragment;
+  if (query && query < end)
+    end = query;
+
+  const char *dot = NULL;
+  for (const char *cursor = end; cursor > basename; --cursor) {
+    if (*(cursor - 1) == '.') {
+      dot = cursor - 1;
+      break;
+    }
+  }
+
+  if (!dot || dot == end)
+    return EXIT_FAILURE;
+
+  const size_t ext_len = (size_t)(end - dot);
+  if (ext_len + 1 > buffer_size)
+    return EXIT_FAILURE;
+
+  memcpy(buffer, dot, ext_len);
+  buffer[ext_len] = '\0';
+  return EXIT_SUCCESS;
+}
+
+static int install_single_file_template(const char *source_path, const char *target_directory) {
+  if (!source_path || !target_directory || !strlen(source_path) || !strlen(target_directory))
+    return EXIT_FAILURE;
+
+  const char *source_basename = get_path_basename(source_path);
+  if (!source_basename || !strlen(source_basename))
+    return EXIT_FAILURE;
+
+  char target_path[FILENAME_MAX] = {0};
+  snprintf(target_path, sizeof(target_path), "%s%c%s", target_directory, PATH_SEP, source_basename);
+
+  if (copy_file_to_path(source_path, target_path) != EXIT_SUCCESS) {
+    crun_audit_error("Failed to install single-file template '%s'.", source_basename);
+    return EXIT_FAILURE;
+  }
+
+  crun_audit_info("Single-file template installed: %s", target_path);
+  return EXIT_SUCCESS;
+}
+
 static int append_menu_line(char **buffer, const char *line) {
   if (!buffer || !line)
     return EXIT_FAILURE;
@@ -351,35 +418,40 @@ void crun() {
     return;
   }
 
-  ctx.workspace_path = build_hidden_extract_directory();
-  if (!ctx.workspace_path || !strlen(ctx.workspace_path)) {
-    crun_audit_error("Unable to prepare temporary extraction workspace.");
-    cleanup_runtime_context(&ctx);
-    return;
-  }
-
-  char init_script_path[FILENAME_MAX] = {0};
-  if (extract_zip(crun_package_file_path, ctx.workspace_path, init_script_path, sizeof(init_script_path)) != EXIT_SUCCESS) {
-    crun_audit_error("Failed to extract archive '%s'.", crun_package_file_path);
-    cleanup_runtime_context(&ctx);
-    return;
-  }
-
-  if (strlen(init_script_path)) {
-    const int init_res = run_init_script(init_script_path);
-    cleanup_init_scripts(init_script_path);
-
-    if (init_res != EXIT_SUCCESS) {
-      crun_audit_error("Init script execution failed: %s", init_script_path);
+  if (is_zip_archive(crun_package_file_path)) {
+    ctx.workspace_path = build_hidden_extract_directory();
+    if (!ctx.workspace_path || !strlen(ctx.workspace_path)) {
+      crun_audit_error("Unable to prepare temporary extraction workspace.");
       cleanup_runtime_context(&ctx);
       return;
     }
-  } else {
-    crun_audit_info("No init script detected. Continuing with extracted output.");
-  }
 
-  if (copy_extract_output_to_directory(ctx.workspace_path, user_current_directory) != EXIT_SUCCESS) {
-    crun_audit_error("Failed to copy extracted output into current directory.");
+    char init_script_path[FILENAME_MAX] = {0};
+    if (extract_zip(crun_package_file_path, ctx.workspace_path, init_script_path, sizeof(init_script_path)) != EXIT_SUCCESS) {
+      crun_audit_error("Failed to extract archive '%s'.", crun_package_file_path);
+      cleanup_runtime_context(&ctx);
+      return;
+    }
+
+    if (strlen(init_script_path)) {
+      const int init_res = run_init_script(init_script_path);
+      cleanup_init_scripts(init_script_path);
+
+      if (init_res != EXIT_SUCCESS) {
+        crun_audit_error("Init script execution failed: %s", init_script_path);
+        cleanup_runtime_context(&ctx);
+        return;
+      }
+    } else {
+      crun_audit_info("No init script detected. Continuing with extracted output.");
+    }
+
+    if (copy_extract_output_to_directory(ctx.workspace_path, user_current_directory) != EXIT_SUCCESS) {
+      crun_audit_error("Failed to copy extracted output into current directory.");
+      cleanup_runtime_context(&ctx);
+      return;
+    }
+  } else if (install_single_file_template(crun_package_file_path, user_current_directory) != EXIT_SUCCESS) {
     cleanup_runtime_context(&ctx);
     return;
   }
@@ -400,10 +472,14 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
              *package_url = crun_package_map->url,
              *crun_package_file_path = NULL;
 
+  char package_extension[32] = ".zip";
+  if (append_url_extension(package_url, package_extension, sizeof(package_extension)) != EXIT_SUCCESS)
+    crun_audit_warn("Package URL has no detectable extension. Falling back to '.zip' cache suffix.");
+
   size_t crun_package_file_suffix_len =
       strlen(CRUN_DEFAULT_SUFFIX_DIRECTORY) +
       strlen(package_name) +
-      strlen(".zip") + 1;
+      strlen(package_extension) + 1;
 
   char *crun_package_file_suffix = (char *)malloc(crun_package_file_suffix_len);
 
@@ -414,9 +490,10 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
 
   snprintf(crun_package_file_suffix,
            crun_package_file_suffix_len,
-           "%s%s.zip",
+           "%s%s%s",
            CRUN_DEFAULT_SUFFIX_DIRECTORY,
-           package_name);
+           package_name,
+           package_extension);
 
   crun_package_file_path = get_file_home_path(crun_package_file_suffix);
   free(crun_package_file_suffix), crun_package_file_suffix = NULL; // Free `crun_package_file_suffix`
@@ -426,18 +503,18 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
   }
 
   if (!is_file_exist(crun_package_file_path)) {
-    crun_audit_warn("Template archive not found in cache: %s", crun_package_file_path);
-    crun_audit_info("Downloading template archive '%s.zip'...", package_name);
+    crun_audit_warn("Template package not found in cache: %s", crun_package_file_path);
+    crun_audit_info("Downloading template package '%s%s'...", package_name, package_extension);
     const int download_res = download_file(package_url, crun_package_file_path);
     if (download_res != EXIT_SUCCESS) {
-      crun_audit_error("Failed to download package '%s.zip'.", package_name);
+      crun_audit_error("Failed to download package '%s%s'.", package_name, package_extension);
       free((void *)crun_package_file_path);
     }
 
     return download_res == EXIT_SUCCESS ? crun_package_file_path : NULL;
   }
 
-  crun_audit_info("Using cached template archive: %s", crun_package_file_path);
+  crun_audit_info("Using cached template package: %s", crun_package_file_path);
   return crun_package_file_path;
 }
 

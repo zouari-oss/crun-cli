@@ -126,6 +126,10 @@ Include dependency graph for crun_file_manager.c:</div>
 </map>
 </div>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3598378431513d8952d3fd6c24c16c2a" id="r_a3598378431513d8952d3fd6c24c16c2a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3598378431513d8952d3fd6c24c16c2a">CRUN_IO_BUFFER_SIZE</a>&#160;&#160;&#160;8192</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab26a1397120fc6fa01de569bd6289cbb" id="r_ab26a1397120fc6fa01de569bd6289cbb"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#ab26a1397120fc6fa01de569bd6289cbb">get_file_data</a> (const char *filename)</td></tr>
@@ -136,6 +140,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a83cee2369d526d83c62ba6687c4a7409"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build home-based absolute path using suffix.  <br /></td></tr>
 <tr class="memitem:a2731c9fe9cb74480470032277e70eb6a" id="r_a2731c9fe9cb74480470032277e70eb6a"><td class="memItemLeft">const long&#160;</td><td class="memItemRight"><a class="el" href="#a2731c9fe9cb74480470032277e70eb6a">get_file_size</a> (FILE *fp)</td></tr>
 <tr class="memdesc:a2731c9fe9cb74480470032277e70eb6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute total file size for opened stream.  <br /></td></tr>
+<tr class="memitem:a10e3e137e2dd6fc9e10b359d6f1341c1" id="r_a10e3e137e2dd6fc9e10b359d6f1341c1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a10e3e137e2dd6fc9e10b359d6f1341c1">is_zip_archive</a> (const char *filename)</td></tr>
+<tr class="memdesc:a10e3e137e2dd6fc9e10b359d6f1341c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect whether a file is a ZIP archive using its signature.  <br /></td></tr>
+<tr class="memitem:a96c1eec424edd3f514f2cfb5c1627242" id="r_a96c1eec424edd3f514f2cfb5c1627242"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a96c1eec424edd3f514f2cfb5c1627242">copy_file_to_path</a> (const char *source_path, const char *target_path)</td></tr>
+<tr class="memdesc:a96c1eec424edd3f514f2cfb5c1627242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy a file from source path to destination path.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>crun_file_manager source file </p>
@@ -144,7 +152,63 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2025-12-26 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025</dd></dl>
 <p><a href="https://github.com/zouari-oss/crun-cli/project/src/crun_file_manager.c">crun_file_manager.c</a> </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a3598378431513d8952d3fd6c24c16c2a" name="a3598378431513d8952d3fd6c24c16c2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3598378431513d8952d3fd6c24c16c2a">&#9670;&#160;</a></span>CRUN_IO_BUFFER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CRUN_IO_BUFFER_SIZE&#160;&#160;&#160;8192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a96c1eec424edd3f514f2cfb5c1627242" name="a96c1eec424edd3f514f2cfb5c1627242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96c1eec424edd3f514f2cfb5c1627242">&#9670;&#160;</a></span>copy_file_to_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int copy_file_to_path </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>source_path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>target_path</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy a file from source path to destination path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source_path</td><td>Existing file path. </td></tr>
+    <tr><td class="paramname">target_path</td><td>Destination file path. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int EXIT_SUCCESS on success, EXIT_FAILURE otherwise. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="crun__file__manager_8c_a96c1eec424edd3f514f2cfb5c1627242_cgraph.png" border="0" usemap="#acrun__file__manager_8c_a96c1eec424edd3f514f2cfb5c1627242_cgraph" loading="lazy" alt=""/></div>
+<map name="acrun__file__manager_8c_a96c1eec424edd3f514f2cfb5c1627242_cgraph" id="acrun__file__manager_8c_a96c1eec424edd3f514f2cfb5c1627242_cgraph">
+<area shape="rect" title="Copy a file from source path to destination path." alt="" coords="5,5,127,31"/>
+<area shape="rect" href="crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="175,5,289,31"/>
+<area shape="poly" title=" " alt="" coords="127,16,162,18,157,18,127,21"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ab26a1397120fc6fa01de569bd6289cbb" name="ab26a1397120fc6fa01de569bd6289cbb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab26a1397120fc6fa01de569bd6289cbb">&#9670;&#160;</a></span>get_file_data()</h2>
 
@@ -317,6 +381,54 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="main_8c.html#a217dbf8b442f20279ea00b898af96f52" title="CLI entry point with flag dispatch." alt="" coords="5,31,55,56"/>
 <area shape="poly" title=" " alt="" coords="85,45,56,46,55,41,90,42"/>
 <area shape="poly" title=" " alt="" coords="185,53,149,50,149,44,190,52"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a10e3e137e2dd6fc9e10b359d6f1341c1" name="a10e3e137e2dd6fc9e10b359d6f1341c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10e3e137e2dd6fc9e10b359d6f1341c1">&#9670;&#160;</a></span>is_zip_archive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_zip_archive </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Detect whether a file is a ZIP archive using its signature. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>Path to the file to inspect. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int Non-zero if ZIP signature is detected, zero otherwise. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="crun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_cgraph.png" border="0" usemap="#acrun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_cgraph" loading="lazy" alt=""/></div>
+<map name="acrun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_cgraph" id="acrun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_cgraph">
+<area shape="rect" title="Detect whether a file is a ZIP archive using its signature." alt="" coords="5,5,109,31"/>
+<area shape="rect" href="crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="157,5,271,31"/>
+<area shape="poly" title=" " alt="" coords="109,16,144,18,139,18,109,21"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="crun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_icgraph.png" border="0" usemap="#acrun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_icgraph" loading="lazy" alt=""/></div>
+<map name="acrun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_icgraph" id="acrun__file__manager_8c_a10e3e137e2dd6fc9e10b359d6f1341c1_icgraph">
+<area shape="rect" title="Detect whether a file is a ZIP archive using its signature." alt="" coords="197,5,300,31"/>
+<area shape="rect" href="crun_8c.html#a4e78d8b08e65edd59c85df8fd8fb6c6f" title="Main CLI flow entrypoint." alt="" coords="103,5,149,31"/>
+<area shape="poly" title=" " alt="" coords="179,18,150,21,149,16,184,18"/>
+<area shape="rect" href="main_8c.html#a217dbf8b442f20279ea00b898af96f52" title="CLI entry point with flag dispatch." alt="" coords="5,5,55,31"/>
+<area shape="poly" title=" " alt="" coords="85,19,55,21,55,16,90,17"/>
 </map>
 </div>
 

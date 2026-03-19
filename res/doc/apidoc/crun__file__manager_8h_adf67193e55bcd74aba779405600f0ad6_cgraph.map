@@ -1,0 +1,5 @@
+<map id="is_zip_archive" name="is_zip_archive">
+<area shape="rect" id="Node000001" title="Detect whether a file is a ZIP archive using its signature." alt="" coords="5,5,109,31"/>
+<area shape="rect" id="Node000002" href="$crun__audit_8c.html#ad81dedcc2926bf4f1a84f948c9ba44cb" title="Emit an error audit event." alt="" coords="157,5,271,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,16,144,18,139,18,109,21"/>
+</map>

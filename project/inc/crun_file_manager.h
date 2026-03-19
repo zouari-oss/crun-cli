@@ -71,4 +71,21 @@ const long get_file_size(FILE *);
  */
 const char *get_file_home_path(const char *);
 
+/**
+ * @brief Detect whether a file is a ZIP archive using its signature.
+ *
+ * @param filename Path to the file to inspect.
+ * @return int Non-zero if ZIP signature is detected, zero otherwise.
+ */
+int is_zip_archive(const char *);
+
+/**
+ * @brief Copy a file from source path to destination path.
+ *
+ * @param source_path Existing file path.
+ * @param target_path Destination file path.
+ * @return int EXIT_SUCCESS on success, EXIT_FAILURE otherwise.
+ */
+int copy_file_to_path(const char *, const char *);
+
 #endif // __CRUN_FILE_MANAGER_H__

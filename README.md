@@ -42,7 +42,7 @@
 
 ## Overview
 
-**crun-cli** fetches template metadata, lets you choose a language/template, downloads or reuses cached archives, executes optional init scripts, and copies the extracted scaffold into your current directory.
+**crun-cli** fetches template metadata, lets you choose a language/template, downloads or reuses cached packages, then either extracts a ZIP scaffold (with optional init script) or installs a direct single-file template into your current directory.
 
 ## Key Features
 
@@ -53,7 +53,8 @@
   - `__init__.sh` (Unix)
   - `__init__.bat` (Windows)
 - Init script cleanup after execution
-- Copy extracted output only (zip artifacts are excluded)
+- ZIP scaffold copy excludes zip artifacts
+- Single-file template install when package is not a ZIP
 - Timestamped audit logs in CLI and `~/.local/share/crun/audit.log`
 
 ## Requirements
@@ -95,12 +96,14 @@ sudo cp bin/build/crun /usr/local/bin/crun
 
 1. Load `crun_stacks.json` (download if missing)
 2. Select language and template
-3. Resolve template archive (cache hit or download)
-4. Extract into hidden temp workspace
-5. Run init script if present
-6. Remove `__init__.sh` / `__init__.bat`
-7. Copy output to current directory (excluding `*.zip`)
-8. Clean temporary workspace
+3. Resolve template package (cache hit or download)
+4. Detect package type (ZIP vs single file)
+5. For ZIP: extract into hidden temp workspace
+6. For ZIP: run init script if present
+7. For ZIP: remove `__init__.sh` / `__init__.bat`
+8. For ZIP: copy output to current directory (excluding `*.zip`)
+9. For single file: copy file directly into current directory
+10. Clean temporary workspace (ZIP path only)
 
 ## Template Sources
 
