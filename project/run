@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+# =========================================
+# .FILE
+#   run
+#
+# .SYNOPSIS
+#   CX/CXX Project Quick Runner
+#
+# .DESCRIPTION
+#   This script automates the build, clean, and run processes
+#   for a project using CMake and a specified build tool (make
+#   or ninja). It allows users to perform operations like
+#   configuring the project, building, cleaning the build
+#   directory, and running the application.
+#
+# .PARAMETER <command>
+#   The action to perform. Supported commands:
+#   build | run | clean | setup | <-h, --help>
+#
+# .INPUTS
+#   ./run <command> [option]
+#
+# .OUTPUTS
+#   bin/*
+#
+# .NOTES
+#   Version       : 1.0
+#   Author        : @ZouariOmar <zouariomar20@gmail.com>
+#   Created       : 01/11/2025
+#   Change Log    : Initial version
+#
+# .EXAMPLE
+#   ./run i clean
+# =========================================
+
+# Load custom colors
+[[ -s ${HOME}/.bash/.bash_colors ]] && source "${HOME}/.bash/.bash_colors"
+
+###########################
+### Configuration part ###
+##########################
+EXIT_SUCCESS=0
+EXIT_FAILED=1
+APP_NAME='crun'
+APP_BUILD_DIR='bin/build'
+CMAKE_LISTS_APP_DIR='conf'
+CMAKE_GENERATOR='Ninja'
+CMAE_BUILD_BIN='ninja'
+TEST_BIN='ctest'
+TEST_BUILD_DIR="$APP_BUILD_DIR/test"
+
+# Aliases for common commands
+declare -A COMMANDS
+COMMANDS["i"]="${CMAE_BUILD_BIN} -C ${APP_BUILD_DIR}"                                      # Interact with the builder file (e.g build.ninja, makefile)
+COMMANDS["r"]="./${APP_BUILD_DIR}/${APP_NAME}"                                             # Run App
+COMMANDS["rt"]="${TEST_BIN} --test-dir $TEST_BUILD_DIR"                                    # Run App Test(s)
+COMMANDS["rb"]="cmake -S ${CMAKE_LISTS_APP_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}" # Root build
+COMMANDS["rc"]="rm -rf ${APP_BUILD_DIR}"                                                   # Root Clean
+
+# Main func to execute shortcuts
+function run_cmd() {
+  if [[ $1 == "--help" ]] || [[ $1 == "-h" ]]; then
+    help
+  fi
+
+  local key="$1"
+  shift
+
+  if [[ -n "${COMMANDS[${key}]}" ]]; then
+    ${COMMANDS[${key}]} "$@"
+    exit ${EXIT_SUCCESS}
+  fi
+
+  usage "${RED}[ERROR] Unknown shortcut ${key}${RESET}"
+  exit ${EXIT_FAILED}
+
+}
+
+help() {
+  echo -e "${YELLOW}[FILE]${RESET}
+  run
+${YELLOW}[LINK]${RESET}
+  https://github.com/ZouariOmar
+${YELLOW}[BRIEF]${RESET}
+  CX/CXX Project Quick Runner
+${YELLOW}[USAGE]${RESET}
+  ./run <command> [option]
+${YELLOW}[OPTIONS]${RESET}
+  i           -- ${CMAE_BUILD_BIN} -C ${APP_BUILD_DIR}
+  r           -- ${APP_BUILD_DIR}/${APP_NAME}
+  rb          -- cmake -S ${CMAKE_LISTS_APP_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}
+  rc          -- rm -rf ${APP_BUILD_DIR}
+  rt          -- ${TEST_BIN} --test-dir $TEST_BUILD_DIR
+  -h | --help -- help
+${YELLOW}[VERSION]${RESET}
+  1.0
+${YELLOW}[AUTHOR]${RESET}
+  @ZouariOmar <zouariomar20@gmail.com>
+${YELLOW}[CREATED]${RESET}
+  01/11/2025
+${YELLOW}[CHANGELOG]${RESET}
+  1.0"
+  exit ${EXIT_SUCCESS}
+}
+
+usage() {
+  if [ ! -z "$1" ]; then
+    echo -e "$1"
+  fi
+  echo -e "${BLUE}[INFO]Try './run --help' for more information.${RESET}"
+}
+
+if [[ $# -lt 1 ]]; then
+  usage "${RED}[ERROR] run: you must specify the option with there args.${RESET}"
+  exit 1
+fi
+
+run_cmd "$@"
