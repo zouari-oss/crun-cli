@@ -17,6 +17,7 @@
 #include "../inc/crun_libcurl.h"
 #include "../inc/crun_zip_manager.h"
 #include <cjson/cJSON.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -83,6 +84,24 @@ static int append_url_extension(const char *url, char *buffer, size_t buffer_siz
   memcpy(buffer, dot, ext_len);
   buffer[ext_len] = '\0';
   return EXIT_SUCCESS;
+}
+
+static int ends_with_ignore_case(const char *value, const char *suffix) {
+  if (!value || !suffix)
+    return 0;
+
+  const size_t value_len = strlen(value);
+  const size_t suffix_len = strlen(suffix);
+  if (suffix_len == 0 || value_len < suffix_len)
+    return 0;
+
+  const char *value_end = value + (value_len - suffix_len);
+  for (size_t i = 0; i < suffix_len; ++i) {
+    if (tolower((unsigned char)value_end[i]) != tolower((unsigned char)suffix[i]))
+      return 0;
+  }
+
+  return 1;
 }
 
 static int install_single_file_template(const char *source_path, const char *target_directory) {
@@ -476,10 +495,13 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
   if (append_url_extension(package_url, package_extension, sizeof(package_extension)) != EXIT_SUCCESS)
     crun_audit_warn("Package URL has no detectable extension. Falling back to '.zip' cache suffix.");
 
+  const int should_append_extension = !ends_with_ignore_case(package_name, package_extension);
+  const char *effective_extension = should_append_extension ? package_extension : "";
+
   size_t crun_package_file_suffix_len =
       strlen(CRUN_DEFAULT_SUFFIX_DIRECTORY) +
       strlen(package_name) +
-      strlen(package_extension) + 1;
+      strlen(effective_extension) + 1;
 
   char *crun_package_file_suffix = (char *)malloc(crun_package_file_suffix_len);
 
@@ -490,10 +512,10 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
 
   snprintf(crun_package_file_suffix,
            crun_package_file_suffix_len,
-           "%s%s%s",
-           CRUN_DEFAULT_SUFFIX_DIRECTORY,
-           package_name,
-           package_extension);
+            "%s%s%s",
+            CRUN_DEFAULT_SUFFIX_DIRECTORY,
+            package_name,
+            effective_extension);
 
   crun_package_file_path = get_file_home_path(crun_package_file_suffix);
   free(crun_package_file_suffix), crun_package_file_suffix = NULL; // Free `crun_package_file_suffix`
@@ -504,10 +526,10 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
 
   if (!is_file_exist(crun_package_file_path)) {
     crun_audit_warn("Template package not found in cache: %s", crun_package_file_path);
-    crun_audit_info("Downloading template package '%s%s'...", package_name, package_extension);
+    crun_audit_info("Downloading template package '%s%s'...", package_name, effective_extension);
     const int download_res = download_file(package_url, crun_package_file_path);
     if (download_res != EXIT_SUCCESS) {
-      crun_audit_error("Failed to download package '%s%s'.", package_name, package_extension);
+      crun_audit_error("Failed to download package '%s%s'.", package_name, effective_extension);
       free((void *)crun_package_file_path);
     }
 
@@ -577,7 +599,7 @@ char *get_language_buffer(cJSON *root) {
       return crun_audit_error("Memory allocation failed while storing language name."), NULL;
 
     // Allocate the `lang_line`
-    lang_line = (char *)malloc(PROJECT_MENU_FIELD_LENGTH((int)languages_map_length, lang_name) * sizeof(char));
+    lang_line = (char *)malloc((PROJECT_MENU_FIELD_LENGTH((int)languages_map_length, lang_name) + 1) * sizeof(char));
 
     if (!lang_line)
       return crun_audit_error("Memory allocation failed while building language menu."), NULL;
@@ -647,7 +669,7 @@ char *get_packages_buffer(cJSON *root, const char *language_name) {
       return crun_audit_error("Memory allocation failed while storing package metadata."), NULL;
 
     // Allocate the `package_line`
-    char *package_line = (char *)malloc(PROJECT_MENU_FIELD_LENGTH((int)packages_map_length, name_str) * sizeof(char));
+    char *package_line = (char *)malloc((PROJECT_MENU_FIELD_LENGTH((int)packages_map_length, name_str) + 1) * sizeof(char));
 
     if (!package_line) {
       crun_audit_error("Memory allocation failed while building package menu.");
