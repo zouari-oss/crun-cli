@@ -1,23 +1,4 @@
 var searchData=
 [
-  ['c_5fstd_5f11_0',['C_STD_11',['../CMakeCCompilerId_8c.html#a7c35af7e67642a2c62eb27dd81be11b2',1,'CMakeCCompilerId.c']]],
-  ['c_5fstd_5f17_1',['C_STD_17',['../CMakeCCompilerId_8c.html#aa8cd9c2c76dde36abac0bd7698090693',1,'CMakeCCompilerId.c']]],
-  ['c_5fstd_5f23_2',['C_STD_23',['../CMakeCCompilerId_8c.html#a81af617e8f7b5417689ca478ce9f4d69',1,'CMakeCCompilerId.c']]],
-  ['c_5fstd_5f99_3',['C_STD_99',['../CMakeCCompilerId_8c.html#af6079dc519dac099ee85a1df6ae5e5e8',1,'CMakeCCompilerId.c']]],
-  ['c_5fversion_4',['C_VERSION',['../CMakeCCompilerId_8c.html#adaee3ee7c5a7a22451ea25e762e1d7d5',1,'CMakeCCompilerId.c']]],
-  ['compiler_5fid_5',['COMPILER_ID',['../CMakeCCompilerId_8c.html#a81dee0709ded976b2e0319239f72d174',1,'COMPILER_ID:&#160;CMakeCCompilerId.c'],['../CMakeCXXCompilerId_8cpp.html#a81dee0709ded976b2e0319239f72d174',1,'COMPILER_ID:&#160;CMakeCXXCompilerId.cpp']]],
-  ['crun_5fbanner_6',['CRUN_BANNER',['../patterns_8h.html#aba935aa6821847c3ecf631acee94784d',1,'patterns.h']]],
-  ['crun_5fdefault_5fsuffix_5fdirectory_7',['CRUN_DEFAULT_SUFFIX_DIRECTORY',['../crun__file__manager_8h.html#aef3cdab16696ab71b78652da74f48dc2',1,'crun_file_manager.h']]],
-  ['crun_5fheader_8',['CRUN_HEADER',['../patterns_8h.html#a8d9c36f11e9ba75efc775ef8af8d9d40',1,'patterns.h']]],
-  ['crun_5fstacks_5fjson_5ffile_5fdefault_5fsuffix_9',['CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX',['../crun__file__manager_8h.html#abb9586c871029643c7c209a6e630cac7',1,'crun_file_manager.h']]],
-  ['crun_5fstacks_5fjson_5ffile_5furl_10',['CRUN_STACKS_JSON_FILE_URL',['../crun__file__manager_8h.html#af641f2c1fd053a9ed2aaed7800187d4d',1,'crun_file_manager.h']]],
-  ['crun_5ftmp_5fdirectory_5fsuffix_11',['CRUN_TMP_DIRECTORY_SUFFIX',['../crun__file__manager_8h.html#a2448bf02ddf078f989f72f7dce210ea7',1,'crun_file_manager.h']]],
-  ['cxx_5fstd_12',['CXX_STD',['../CMakeCXXCompilerId_8cpp.html#a34cc889e576a1ae6c84ae9e0a851ba21',1,'CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f11_13',['CXX_STD_11',['../CMakeCXXCompilerId_8cpp.html#a2c21af1889e9ca5cda36069184cc3234',1,'CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f14_14',['CXX_STD_14',['../CMakeCXXCompilerId_8cpp.html#a39fb4789a452bfb5df17d40f640dd720',1,'CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f17_15',['CXX_STD_17',['../CMakeCXXCompilerId_8cpp.html#ae17f1ae0bf56cf631eadff4f73e96ff9',1,'CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f20_16',['CXX_STD_20',['../CMakeCXXCompilerId_8cpp.html#aa52ec6104623a66734cc5d5d28733bed',1,'CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f23_17',['CXX_STD_23',['../CMakeCXXCompilerId_8cpp.html#ae5e2d955d2884c65b7de2e1ad29a4f1d',1,'CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f98_18',['CXX_STD_98',['../CMakeCXXCompilerId_8cpp.html#a2454727f55dd7af9210ab341ca8be2c8',1,'CMakeCXXCompilerId.cpp']]],
-  ['cyan_19',['cyan',['../color_8h.html#aee63ed202c647f085cfc57577055a531',1,'color.h']]]
+  ['def_0',['def',['../color_8h.html#a64d516b4117c9d3d79afc82f5e4cf4fc',1,'color.h']]]
 ];

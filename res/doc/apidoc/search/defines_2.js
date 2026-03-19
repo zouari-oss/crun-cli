@@ -1,12 +1,10 @@
 var searchData=
 [
-  ['bgblue_0',['bgBlue',['../color_8h.html#a6f2a8027ad99fb119368a6ded38a7683',1,'color.h']]],
-  ['bgcyan_1',['bgCyan',['../color_8h.html#ad538ee0ec35f33a6398a20f4399e56c9',1,'color.h']]],
-  ['bggreen_2',['bgGreen',['../color_8h.html#a2eb4ead825fe79fbc3ca5eaddd16e651',1,'color.h']]],
-  ['bgmagenta_3',['bgMagenta',['../color_8h.html#a5def6f8bb5f15226f09363ede73d8347',1,'color.h']]],
-  ['bgred_4',['bgRed',['../color_8h.html#a6ecc9a8be40a0cc32dcf26a6d25e29a7',1,'color.h']]],
-  ['bgwhite_5',['bgWhite',['../color_8h.html#ad9574eaa74a92bb2a1b7bd13ae8a0a1a',1,'color.h']]],
-  ['bgyellow_6',['bgYellow',['../color_8h.html#a70d8846a8991df17cee47ffdc3e30f63',1,'color.h']]],
-  ['black_7',['black',['../color_8h.html#ac28df5fb2095879dde9f0798fea73623',1,'color.h']]],
-  ['bleu_8',['bleu',['../color_8h.html#a21e8b9034a9931792f37fc967bfdb5cd',1,'color.h']]]
+  ['crun_5fbanner_0',['CRUN_BANNER',['../patterns_8h.html#aba935aa6821847c3ecf631acee94784d',1,'patterns.h']]],
+  ['crun_5fdefault_5fsuffix_5fdirectory_1',['CRUN_DEFAULT_SUFFIX_DIRECTORY',['../crun__file__manager_8h.html#aef3cdab16696ab71b78652da74f48dc2',1,'crun_file_manager.h']]],
+  ['crun_5fheader_2',['CRUN_HEADER',['../patterns_8h.html#a8d9c36f11e9ba75efc775ef8af8d9d40',1,'patterns.h']]],
+  ['crun_5fstacks_5fjson_5ffile_5fdefault_5fsuffix_3',['CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX',['../crun__file__manager_8h.html#abb9586c871029643c7c209a6e630cac7',1,'crun_file_manager.h']]],
+  ['crun_5fstacks_5fjson_5ffile_5furl_4',['CRUN_STACKS_JSON_FILE_URL',['../crun__file__manager_8h.html#af641f2c1fd053a9ed2aaed7800187d4d',1,'crun_file_manager.h']]],
+  ['crun_5ftmp_5fdirectory_5fsuffix_5',['CRUN_TMP_DIRECTORY_SUFFIX',['../crun__file__manager_8h.html#a2448bf02ddf078f989f72f7dce210ea7',1,'crun_file_manager.h']]],
+  ['cyan_6',['cyan',['../color_8h.html#aee63ed202c647f085cfc57577055a531',1,'color.h']]]
 ];
