@@ -32,24 +32,24 @@ include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS}
 
 # Set sources files
 set(SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/main.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_libcurl.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_audit.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_json_manager.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_file_manager.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/src/crun_zip_manager.c)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/main.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/crun.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/crun_libcurl.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/crun_audit.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/crun_json_manager.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/crun_file_manager.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/crun_zip_manager.c)
 
 # Set headers files
 set(HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/patterns.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/common/color.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_libcurl.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_audit.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_json_manager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_file_manager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../project/inc/crun_zip_manager.h)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/patterns.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/color.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_libcurl.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_audit.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_json_manager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_file_manager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_zip_manager.h)
 
 # Generate Crun
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
