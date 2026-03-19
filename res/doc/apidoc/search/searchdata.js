@@ -4,8 +4,8 @@ var indexSectionsWithContent =
   1: "cd",
   2: "cmprs",
   3: "cdefgimw",
-  4: "djlnpsuw",
-  5: "_bcdeghimoprwy",
+  4: "dijlnpsuw",
+  5: "_abcdeghimoprswy",
   6: "123456789abcdefghiklmoprstuvx"
 };
 

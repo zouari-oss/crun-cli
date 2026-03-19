@@ -2,15 +2,15 @@
 [![Forks](https://img.shields.io/badge/FORKS-00-blue?style=plastic)](https://github.com/zouari-oss/crun/network/members)
 [![Stargazers](https://img.shields.io/badge/STARS-01-blue?style=plastic)](https://github.com/zouari-oss/crun/stargazers)
 [![Issues](https://img.shields.io/badge/ISSUES-00-blue?style=plastic)](https://github.com/zouari-oss/crun/issues)
-[![GPL3.0 License](https://img.shields.io/badge/LICENSE-GPL3.0-blue?style=plastic)](LICENSE)
+[![GPL3.0 License](https://img.shields.io/badge/LICENSE-GPL3.0-blue?style=plastic)](https://raw.githubusercontent.com/zouari-oss/crun-cli/refs/heads/main/LICENSE)
 [![Linkedin](https://img.shields.io/badge/Linkedin-6.9k-blue?style=plastic)](https://www.linkedin.com/in/zouari-omar)
 
 <div align="center">
   <a href="https://github.com/zouari-oss/crun">
-    <img src="res/img/logo.ico" alt="crun-logo" width="300">
+    <img src="https://github.com/zouari-oss/crun-cli/raw/main/res/img/logo.ico" alt="crun-logo" width="300">
   </a>
   <h1>Crun CLI</h1>
-  <h6>C-based project scaffolding CLI</h6>
+  <h4>C-based project scaffolding CLI</h4>
   <br />
 </div>
 
@@ -38,7 +38,7 @@
   <img src="https://img.shields.io/badge/Open%20Source-3DA639?style=for-the-badge&logo=opensourceinitiative&logoColor=white"/>
 </p>
 
-![screenshot](imgs/crun.png)
+![screenshot](https://github.com/zouari-oss/crun-cli/raw/main/res/img/screenshot.png)
 
 ## Overview
 

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['magenta_0',['magenta',['../color_8h.html#aec378d18c614bc816f159b45a6e11f14',1,'color.h']]],
-  ['mkdir_1',['MKDIR',['../crun__zip__manager_8h.html#a33f0483b64221b258b080bba5882cf3c',1,'crun_zip_manager.h']]]
+  ['installation_5fcomplete_5fmsg_0',['INSTALLATION_COMPLETE_MSG',['../patterns_8h.html#ad35db4cae8e1ca7abd5bfbb5f110aa26',1,'patterns.h']]]
 ];

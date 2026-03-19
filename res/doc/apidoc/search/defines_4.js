@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['exit_5ffailure_0',['EXIT_FAILURE',['../crun__libcurl_8h.html#a73efe787c131b385070f25d18b7c9aa4',1,'crun_libcurl.h']]],
-  ['exit_5fsuccess_1',['EXIT_SUCCESS',['../crun__libcurl_8h.html#a687984f47d8cce148d1b914d2b79612a',1,'crun_libcurl.h']]]
+  ['dec_0',['DEC',['../CMakeCCompilerId_8c.html#ad1280362da42492bbc11aa78cbf776ad',1,'DEC:&#160;CMakeCCompilerId.c'],['../CMakeCXXCompilerId_8cpp.html#ad1280362da42492bbc11aa78cbf776ad',1,'DEC:&#160;CMakeCXXCompilerId.cpp']]],
+  ['def_1',['def',['../color_8h.html#a64d516b4117c9d3d79afc82f5e4cf4fc',1,'color.h']]]
 ];
