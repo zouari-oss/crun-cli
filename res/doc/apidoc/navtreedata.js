@@ -98,7 +98,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"CMakeCCompilerId_8c.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

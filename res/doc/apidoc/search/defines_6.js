@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['help_5fmsg_0',['HELP_MSG',['../patterns_8h.html#ae163198bf08f6e5245ca18c680b49b9f',1,'patterns.h']]],
-  ['hex_1',['HEX',['../CMakeCCompilerId_8c.html#a46d5d95daa1bef867bd0179594310ed5',1,'CMakeCCompilerId.c']]]
+  ['installation_5fcomplete_5fmsg_0',['INSTALLATION_COMPLETE_MSG',['../patterns_8h.html#ad35db4cae8e1ca7abd5bfbb5f110aa26',1,'patterns.h']]]
 ];
