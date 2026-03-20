@@ -27,15 +27,12 @@
 # .NOTES
 #   Version       : 1.0
 #   Author        : ZouariOmar <zouariomar20@gmail.com>
-#   Created       : 01/11/2025
+#   Created       : 2025-11-01
 #   Change Log    : Initial version
 #
 # .EXAMPLE
 #   ./run i clean
 # =========================================
-
-# Load custom colors
-[[ -s ${HOME}/.bash/.bash_colors ]] && source "${HOME}/.bash/.bash_colors"
 
 ##########################
 ### Configuration part ###
@@ -95,13 +92,20 @@ run_document() {
 ### !Custom function part ###
 #############################
 
+#################################################################################################
+############## DON'T TOUCH THIS PART >>> ONLY IF YOU KNOW WHAT YOU’RE DOING :) <<< ##############
+#################################################################################################
+
+# Load custom colors
+[[ -s ${HOME}/.bash/.bash_colors ]] && source "${HOME}/.bash/.bash_colors"
+
 # Aliases for common commands
 declare -A COMMANDS
-COMMANDS["i"]="${CMAKE_BUILD_BIN} -C ${APP_BUILD_DIR}"                                # Interact with the builder file (e.g build.ninja, makefile)
+COMMANDS["i"]="${CMAKE_BUILD_BIN} -C ${APP_BUILD_DIR}"                                # Interact with builder
 COMMANDS["r"]="./${APP_BUILD_DIR}/${APP_NAME}"                                        # Run App
-COMMANDS["rt"]="${TEST_BIN} --test-dir $TEST_BUILD_DIR"                               # Run App Test(s)
 COMMANDS["rb"]="cmake -S ${CMAKE_CONF_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}" # Root build
 COMMANDS["rc"]="rm -rf ${APP_BUILD_DIR}"                                              # Root Clean
+COMMANDS["rt"]="${TEST_BIN} --test-dir $TEST_BUILD_DIR"                               # Run App Test(s)
 COMMANDS["pkg"]="cpack --config ${APP_BUILD_DIR}/CPackConfig.cmake -B ${APP_PKG_DIR}" # Packaging
 COMMANDS["doc"]="run_document"                                                        # Documentation
 
@@ -120,11 +124,23 @@ function run_cmd() {
       exit 1
   fi
 
-  usage "${RED}[ERROR]${RESET} Unknown shortcut ${key}"
+  usage "${RED}[ERROR]${RESET} Unknown shortcut ${key}!"
   exit 1
 
 }
 
+# --------------------------------------------------------------------
+# .FUNCTION
+#   help
+# .SYNOPSIS
+#   Display usage information for the script
+# .DESCRIPTION
+#   Prints a short description, usage instructions, and author info.
+# .AUTHOR
+#   @ZouariOmar (zouariomar20@gmail.com)
+# .CREATED
+#   2025-11-01
+# --------------------------------------------------------------------
 help() {
   echo -e "${YELLOW}[FILE]${RESET}
   run
@@ -140,7 +156,9 @@ ${YELLOW}[OPTIONS]${RESET}
   rb          -- cmake -S ${CMAKE_LISTS_APP_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}
   rc          -- rm -rf ${APP_BUILD_DIR}
   rt          -- ${TEST_BIN} --test-dir $TEST_BUILD_DIR
-  -h | --help -- help
+  pkg         -- cpack --config ${APP_BUILD_DIR}/CPackConfig.cmake -B ${APP_PKG_DIR}
+  doc         -- run_document() >> Documentation
+  -h | --help -- help :)
 ${YELLOW}[VERSION]${RESET}
   1.0
 ${YELLOW}[AUTHOR]${RESET}
@@ -148,19 +166,31 @@ ${YELLOW}[AUTHOR]${RESET}
 ${YELLOW}[CREATED]${RESET}
   01/11/2025
 ${YELLOW}[CHANGELOG]${RESET}
-  1.0"
+  1.1"
   exit 0
 }
 
+# -----------------------------------------
+# .FUNCTION
+#   usage
+# .SYNOPSIS
+#   Display concise usage instructions
+# .DESCRIPTION
+#   Prints a short one-liner showing how to run the script and its options.
+# .AUTHOR
+#   @ZouariOmar (zouariomar20@gmail.com)
+# .CREATED
+#   2025-11-01
+# -----------------------------------------
 usage() {
   if [ ! -z "$1" ]; then
     echo -e "$1"
   fi
-  echo -e "${BLUE}[INFO]Try './run --help' for more information.${RESET}"
+  echo -e "${BLUE}[INFO]${RESET} Try './run --help' for more information."
 }
 
 if [[ $# -lt 1 ]]; then
-  usage "${RED}[ERROR] run: you must specify the option with there args.${RESET}"
+  usage "${RED}[ERROR]${RESET} Must specify command!"
   exit 1
 fi
 
