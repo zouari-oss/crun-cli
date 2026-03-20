@@ -1,9 +1,11 @@
-<map id="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_file_manager.h" name="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_file_manager.h">
-<area shape="rect" id="Node000001" title="File/path utilities for crun runtime data." alt="" coords="213,5,397,76"/>
-<area shape="rect" id="Node000002" href="$crun_8c.html" title="crun source file" alt="" coords="5,132,189,187"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,83,147,133,144,129,228,85"/>
-<area shape="rect" id="Node000003" href="$crun__audit_8c.html" title="crun audit/logging helpers implementation" alt="" coords="213,124,397,195"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="307,89,307,125,303,122,303,93"/>
-<area shape="rect" id="Node000004" href="$crun__file__manager_8c.html" title="crun_file_manager source file" alt="" coords="421,124,605,195"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="381,81,454,124,448,123,380,87"/>
+<map id="crun_file_manager.h" name="crun_file_manager.h">
+<area shape="rect" id="Node000001" title="File/path utilities for crun runtime data." alt="" coords="131,5,267,31"/>
+<area shape="rect" id="Node000002" href="$crun_8c.html" title="crun source file" alt="" coords="5,79,62,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,40,63,81,61,76,156,35"/>
+<area shape="rect" id="Node000003" href="$crun__audit_8c.html" title="crun audit/logging helpers implementation" alt="" coords="85,79,176,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,41,144,81,141,76,175,43"/>
+<area shape="rect" id="Node000004" href="$crun__file__manager_8c.html" title="crun_file_manager source file" alt="" coords="200,79,336,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="222,39,259,79,254,78,220,44"/>
+<area shape="rect" id="Node000005" href="$crun__libcurl_8c.html" title="crun_libcurl source file" alt="" coords="361,79,458,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="250,34,376,78,371,79,249,39"/>
 </map>

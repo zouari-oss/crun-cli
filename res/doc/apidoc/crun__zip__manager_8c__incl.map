@@ -1,22 +1,22 @@
-<map id="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/src/crun_zip_manager.c" name="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/src/crun_zip_manager.c">
-<area shape="rect" id="Node000001" title="crun_zip_manager source file" alt="" coords="356,5,539,76"/>
-<area shape="rect" id="Node000002" href="$crun__zip__manager_8h.html" title="ZIP extraction helpers." alt="" coords="5,124,173,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="355,69,151,122,149,117,356,63"/>
-<area shape="rect" id="Node000005" href="$crun__audit_8h.html" title="Audit logging API for CLI/file outputs." alt="" coords="197,124,320,150"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="380,76,297,119,295,114,375,78"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="273,198,350,223"/>
-<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="422,76,332,188,329,184,417,77"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="395,124,500,150"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="449,74,450,110,445,107,446,78"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="525,124,584,150"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="488,74,532,114,526,113,486,79"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="608,124,671,150"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="519,74,604,117,599,117,518,79"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="695,124,758,150"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="540,70,683,120,677,120,539,76"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="47,198,115,223"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,148,86,183,82,181,86,152"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="138,198,205,223"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="104,148,149,187,144,188,102,153"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="268,147,296,186,291,184,266,152"/>
+<map id="crun_zip_manager.c" name="crun_zip_manager.c">
+<area shape="rect" id="Node000001" title="crun_zip_manager source file" alt="" coords="380,5,516,31"/>
+<area shape="rect" id="Node000002" href="$crun__zip__manager_8h.html" title="ZIP extraction helpers." alt="" coords="5,79,173,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="386,34,166,78,164,73,387,29"/>
+<area shape="rect" id="Node000005" href="$crun__audit_8h.html" title="Audit logging API for CLI/file outputs." alt="" coords="197,79,320,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="418,31,305,76,304,71,413,32"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="273,153,350,178"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="436,30,386,81,332,143,329,138,382,77,432,33"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="395,79,500,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="449,29,450,65,445,62,446,33"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="525,79,584,105"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="466,29,526,70,521,70,465,34"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="608,79,671,105"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="481,29,597,73,591,74,480,34"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="695,79,758,105"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="496,29,682,78,677,79,496,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="47,153,115,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,103,86,138,82,136,86,107"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="138,153,205,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="104,103,149,142,144,143,102,108"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="268,102,296,141,291,139,266,107"/>
 </map>

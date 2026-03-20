@@ -7,7 +7,7 @@
 
 <div align="center">
   <a href="https://github.com/zouari-oss/crun">
-    <img src="https://github.com/zouari-oss/crun-cli/raw/main/res/img/logo.ico" alt="crun-logo" width="300">
+    <img src="https://github.com/zouari-oss/crun-cli/raw/main/res/img/logo.png" alt="crun-logo" width="300">
   </a>
   <h1>Crun CLI</h1>
   <h4>C-based project scaffolding CLI</h4>

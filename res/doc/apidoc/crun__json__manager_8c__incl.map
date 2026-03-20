@@ -1,16 +1,16 @@
-<map id="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/src/crun_json_manager.c" name="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/src/crun_json_manager.c">
-<area shape="rect" id="Node000001" title="crun_json_manager source file" alt="" coords="171,5,354,76"/>
-<area shape="rect" id="Node000002" href="$crun__json__manager_8h.html" title="JSON parsing helpers for stacks metadata." alt="" coords="88,124,264,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,75,199,114,196,110,229,78"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,198,115,223"/>
-<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="169,65,121,89,98,106,78,126,65,153,61,183,56,182,60,152,74,122,94,102,118,85,172,61"/>
-<area shape="rect" id="Node000005" href="$crun__audit_8h.html" title="Audit logging API for CLI/file outputs." alt="" coords="288,124,410,150"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="295,74,330,113,325,112,294,79"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="435,124,498,150"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="338,74,429,117,424,117,338,79"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,150,94,192,91,187,154,151"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="146,198,206,223"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="178,148,178,183,174,181,174,152"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="311,198,388,223"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="351,148,351,183,347,180,347,152"/>
+<map id="crun_json_manager.c" name="crun_json_manager.c">
+<area shape="rect" id="Node000001" title="crun_json_manager source file" alt="" coords="190,5,335,31"/>
+<area shape="rect" id="Node000002" href="$crun__json__manager_8h.html" title="JSON parsing helpers for stacks metadata." alt="" coords="88,79,264,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,30,204,71,201,67,246,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,115,178"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="188,26,160,34,130,45,102,60,78,81,70,93,65,108,61,138,56,136,59,106,65,91,74,77,99,56,128,40,159,29,192,24"/>
+<area shape="rect" id="Node000005" href="$crun__audit_8h.html" title="Audit logging API for CLI/file outputs." alt="" coords="288,79,410,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="278,29,326,69,321,69,277,34"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="435,79,498,105"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="298,29,423,74,418,75,297,34"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,105,94,147,91,142,154,106"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="146,153,206,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="178,103,178,138,174,136,174,107"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="311,153,388,178"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="351,103,351,138,347,135,347,107"/>
 </map>

@@ -52,5 +52,7 @@ var searchData=
   ['crunruntimecontext_49',['CrunRuntimeContext',['../structCrunRuntimeContext.html',1,'']]],
   ['csp_50',['8. &lt;b&gt;Content Security Policy (CSP)&lt;/b&gt;',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2SECURITY.html#autotoc_md43',1,'']]],
   ['csrf_20protection_51',['5. &lt;b&gt;Cross-Site Request Forgery (CSRF) Protection&lt;/b&gt;',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2SECURITY.html#autotoc_md40',1,'']]],
-  ['cyan_52',['cyan',['../color_8h.html#aee63ed202c647f085cfc57577055a531',1,'color.h']]]
+  ['curl_5fca_5fcert_5fname_52',['CURL_CA_CERT_NAME',['../crun__libcurl_8h.html#a9d031227fb58e59e67c5a87232d8b02c',1,'crun_libcurl.h']]],
+  ['curl_5fca_5fcert_5fremote_5fpath_53',['CURL_CA_CERT_REMOTE_PATH',['../crun__libcurl_8h.html#a8e539b513b94541022177543918d261f',1,'crun_libcurl.h']]],
+  ['cyan_54',['cyan',['../color_8h.html#aee63ed202c647f085cfc57577055a531',1,'color.h']]]
 ];

@@ -1,5 +1,5 @@
-<map id="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_libcurl.h" name="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_libcurl.h">
-<area shape="rect" id="Node000001" title="Network download helpers built on top of libcurl." alt="" coords="5,5,189,76"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="67,124,127,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,74,99,109,95,107,95,78"/>
+<map id="crun_libcurl.h" name="crun_libcurl.h">
+<area shape="rect" id="Node000001" title="Network download helpers built on top of libcurl." alt="" coords="5,5,103,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="24,79,84,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="56,29,57,64,51,63,52,33"/>
 </map>

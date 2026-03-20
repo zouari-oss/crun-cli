@@ -1,7 +1,7 @@
-<map id="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_file_manager.h" name="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_file_manager.h">
-<area shape="rect" id="Node000001" title="File/path utilities for crun runtime data." alt="" coords="5,5,189,76"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="25,124,84,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,75,68,111,64,108,79,78"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="108,124,174,150"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,74,132,110,126,109,112,79"/>
+<map id="crun_file_manager.h" name="crun_file_manager.h">
+<area shape="rect" id="Node000001" title="File/path utilities for crun runtime data." alt="" coords="10,5,146,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,65,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,30,52,67,48,64,68,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="88,79,155,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="86,29,109,65,104,66,84,34"/>
 </map>

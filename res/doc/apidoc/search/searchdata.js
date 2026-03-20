@@ -5,7 +5,7 @@ var indexSectionsWithContent =
   2: "cmprs",
   3: "cdefgimw",
   4: "djlnpsuw",
-  5: "_bcdeghimoprwy",
+  5: "_bcdghimoprwy",
   6: "123456789abcdefghiklmoprstuvx"
 };
 

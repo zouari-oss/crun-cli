@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Crun
+Comment=C-based project scaffolding CLI
+Exec=crun
+Icon=logo
+Terminal=true
+Type=Application
+Categories=Development;Utility;

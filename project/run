@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2329,SC1091
 # =========================================
 # .FILE
 #   run
@@ -36,26 +37,73 @@
 # Load custom colors
 [[ -s ${HOME}/.bash/.bash_colors ]] && source "${HOME}/.bash/.bash_colors"
 
-###########################
+##########################
 ### Configuration part ###
 ##########################
+
 APP_NAME='crun'
 APP_BUILD_DIR='bin/build'
-APP_RELEASE_DIR='bin/release'
+APP_VERSION='v1.4.0-3'
+APP_PKG_DIR="${APP_BUILD_DIR}/pkg"
+
 CMAKE_CONF_DIR='conf'
 CMAKE_GENERATOR='Ninja'
-CMAE_BUILD_BIN='ninja'
+CMAKE_BUILD_BIN='ninja'
+
+DOXYFILE_FILE_DIR="../res/doc"
+
 TEST_BIN='ctest'
 TEST_BUILD_DIR="$APP_BUILD_DIR/test"
 
+###########################
+### !Configuration part ###
+###########################
+
+############################
+### Custom function part ###
+############################
+
+run_document() {
+  # Generate html docs
+  cd "${DOXYFILE_FILE_DIR}" && doxygen && cd ../../project || exit 1
+
+  # Ensure apidoc folder exists
+  mkdir -p "${DOXYFILE_FILE_DIR}/apidoc"
+
+  # Move new html docs into apidoc
+  if [ -d "${DOXYFILE_FILE_DIR}/html" ]; then
+    rm -rf "${DOXYFILE_FILE_DIR}/apidoc/"*
+    mv "${DOXYFILE_FILE_DIR}/html/"* "${DOXYFILE_FILE_DIR}/apidoc/"
+  else
+    echo -e "${YELLOW}[WARNING]${RESET} HTML documentation not generated!"
+  fi
+
+  # Move generated .pdf to project folder with versioned name
+  if [ -d "${DOXYFILE_FILE_DIR}/latex" ]; then
+    make -C "${DOXYFILE_FILE_DIR}/latex"
+    mv "${DOXYFILE_FILE_DIR}/latex/refman.pdf" \
+      "${DOXYFILE_FILE_DIR}/crun-cli-${APP_VERSION}.pdf"
+  else
+    echo -e "${YELLOW}[WARNING]${RESET} LaTeX/PDF documentation not generated!"
+  fi
+
+  # Clean up
+  rm -rf "${DOXYFILE_FILE_DIR}/html" "${DOXYFILE_FILE_DIR}/latex"
+}
+
+#############################
+### !Custom function part ###
+#############################
+
 # Aliases for common commands
 declare -A COMMANDS
-COMMANDS["i"]="${CMAE_BUILD_BIN} -C ${APP_BUILD_DIR}"                                     # Interact with the builder file (e.g build.ninja, makefile)
-COMMANDS["r"]="./${APP_BUILD_DIR}/${APP_NAME}"                                            # Run App
-COMMANDS["rt"]="${TEST_BIN} --test-dir $TEST_BUILD_DIR"                                   # Run App Test(s)
-COMMANDS["rb"]="cmake -S ${CMAKE_CONF_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}"     # Root build
-COMMANDS["rc"]="rm -rf ${APP_BUILD_DIR}"                                                  # Root Clean
-COMMANDS["pkg"]="cpack --config ${APP_BUILD_DIR}/CPackConfig.cmake -B ${APP_RELEASE_DIR}" # Packaging
+COMMANDS["i"]="${CMAKE_BUILD_BIN} -C ${APP_BUILD_DIR}"                                # Interact with the builder file (e.g build.ninja, makefile)
+COMMANDS["r"]="./${APP_BUILD_DIR}/${APP_NAME}"                                        # Run App
+COMMANDS["rt"]="${TEST_BIN} --test-dir $TEST_BUILD_DIR"                               # Run App Test(s)
+COMMANDS["rb"]="cmake -S ${CMAKE_CONF_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}" # Root build
+COMMANDS["rc"]="rm -rf ${APP_BUILD_DIR}"                                              # Root Clean
+COMMANDS["pkg"]="cpack --config ${APP_BUILD_DIR}/CPackConfig.cmake -B ${APP_PKG_DIR}" # Packaging
+COMMANDS["doc"]="run_document"                                                        # Documentation
 
 # Main func to execute shortcuts
 function run_cmd() {
@@ -72,7 +120,7 @@ function run_cmd() {
       exit 1
   fi
 
-  usage "${RED}[ERROR] Unknown shortcut ${key}${RESET}"
+  usage "${RED}[ERROR]${RESET} Unknown shortcut ${key}"
   exit 1
 
 }
@@ -87,7 +135,7 @@ ${YELLOW}[BRIEF]${RESET}
 ${YELLOW}[USAGE]${RESET}
   ./run <command> [option]
 ${YELLOW}[OPTIONS]${RESET}
-  i           -- ${CMAE_BUILD_BIN} -C ${APP_BUILD_DIR}
+  i           -- ${CMAKE_BUILD_BIN} -C ${APP_BUILD_DIR}
   r           -- ${APP_BUILD_DIR}/${APP_NAME}
   rb          -- cmake -S ${CMAKE_LISTS_APP_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}
   rc          -- rm -rf ${APP_BUILD_DIR}

@@ -1,15 +1,15 @@
-<map id="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_audit.h" name="/home/zouari_omar/Desktop/projects/zouari&#45;oss/crun/crun&#45;cli/project/inc/crun_audit.h">
-<area shape="rect" id="Node000001" title="Audit logging API for CLI/file outputs." alt="" coords="525,5,709,76"/>
-<area shape="rect" id="Node000002" href="$crun_8c.html" title="crun source file" alt="" coords="5,132,189,187"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="508,60,363,90,202,127,178,133,176,128,200,121,362,84,513,59"/>
-<area shape="rect" id="Node000003" href="$crun__audit_8c.html" title="crun audit/logging helpers implementation" alt="" coords="213,124,397,195"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="514,81,398,126,396,121,508,82"/>
-<area shape="rect" id="Node000004" href="$crun__file__manager_8c.html" title="crun_file_manager source file" alt="" coords="421,124,605,195"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="579,86,545,126,542,121,574,89"/>
-<area shape="rect" id="Node000005" href="$crun__json__manager_8c.html" title="crun_json_manager source file" alt="" coords="629,124,813,195"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="659,85,693,124,688,123,657,90"/>
-<area shape="rect" id="Node000006" href="$crun__libcurl_8c.html" title="crun_libcurl source file" alt="" coords="837,124,1021,195"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="723,79,840,124,835,124,722,84"/>
-<area shape="rect" id="Node000007" href="$crun__zip__manager_8c.html" title="crun_zip_manager source file" alt="" coords="1045,124,1229,195"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="724,57,872,84,1034,121,1047,127,1042,127,1032,127,871,90,724,62"/>
+<map id="crun_audit.h" name="crun_audit.h">
+<area shape="rect" id="Node000001" title="Audit logging API for CLI/file outputs." alt="" coords="304,5,395,31"/>
+<area shape="rect" id="Node000002" href="$crun_8c.html" title="crun source file" alt="" coords="5,79,62,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,34,74,82,63,85,61,79,73,76,288,29"/>
+<area shape="rect" id="Node000003" href="$crun__audit_8c.html" title="crun audit/logging helpers implementation" alt="" coords="85,79,176,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="301,36,169,81,167,76,295,36"/>
+<area shape="rect" id="Node000004" href="$crun__file__manager_8c.html" title="crun_file_manager source file" alt="" coords="200,79,336,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,41,283,81,280,76,322,42"/>
+<area shape="rect" id="Node000005" href="$crun__json__manager_8c.html" title="crun_json_manager source file" alt="" coords="360,79,504,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="376,39,421,79,416,78,374,44"/>
+<area shape="rect" id="Node000006" href="$crun__libcurl_8c.html" title="crun_libcurl source file" alt="" coords="529,79,626,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="403,33,541,78,536,79,402,39"/>
+<area shape="rect" id="Node000007" href="$crun__zip__manager_8c.html" title="crun_zip_manager source file" alt="" coords="651,79,787,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="410,29,659,78,654,79,410,34"/>
 </map>

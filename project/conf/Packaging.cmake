@@ -1,13 +1,20 @@
 include(InstallRequiredSystemLibraries)
 
-# Basic package info
+# Package info
 set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_PACKAGE_CONTACT ${HOMEPAGE_URL})
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${DESCRIPTION})
+set(CPACK_PACKAGE_ICON "logo.png")
 
-# Generators
-set(CPACK_GENERATOR "ZIP;TGZ;DEB;RPM")
+# Generator
+set(CPACK_GENERATOR "ZIP;TGZ;DEB;RPM;AppImage")
+
+# Install prefix
+set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+
+# Verbose
+set(CPACK_VERBOSE ON)
 
 # DEB
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Zouari Omar")
@@ -18,17 +25,24 @@ set(CPACK_RPM_PACKAGE_LICENSE "GPL-3.0")
 set(CPACK_RPM_PACKAGE_GROUP "Applications/System")
 set(CPACK_RPM_PACKAGE_REQUIRES "libcurl, cjson, minizip")
 
-# Install prefix
-set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
-
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+# AppImage
+set(CPACK_APPIMAGE_DESKTOP_FILE "crun.desktop")
+set(CPACK_APPIMAGE_ICON ${CPACK_PACKAGE_ICON})
 
 # File name format
 set(CPACK_PACKAGE_FILE_NAME
-    "${PROJECT_NAME}_${PROJECT_VERSION}_${CMAKE_SYSTEM_NAME}"
+    "${PROJECT_NAME}_${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}-${CMAKE_PROJECT_VERSION_TWEAK}_${CMAKE_SYSTEM_NAME}_${CMAKE_SYSTEM_PROCESSOR}"
 )
 
-# Enable verbose out
-set(CPACK_VERBOSE ON)
 
+# Install rules
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+install(FILES ${CMAKE_SOURCE_DIR}/../res/app/${CPACK_APPIMAGE_DESKTOP_FILE} DESTINATION share)
+install(FILES ${CMAKE_SOURCE_DIR}/../res/img/${CPACK_APPIMAGE_ICON} DESTINATION share)
+install(FILES /usr/local/lib/libcjson.so.1 DESTINATION lib)
+install(FILES /usr/lib/libminizip.so.1 DESTINATION lib)
+install(FILES /usr/lib/libcurl.so.4 DESTINATION lib)
+install(PROGRAMS ${CMAKE_SOURCE_DIR}/../script/AppRun DESTINATION ../../)
+
+# Include CPack once
 include(CPack)
