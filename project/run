@@ -39,8 +39,6 @@
 ###########################
 ### Configuration part ###
 ##########################
-EXIT_SUCCESS=0
-EXIT_FAILED=1
 APP_NAME='crun'
 APP_BUILD_DIR='bin/build'
 CMAKE_LISTS_APP_DIR='conf'
@@ -67,12 +65,13 @@ function run_cmd() {
   shift
 
   if [[ -n "${COMMANDS[${key}]}" ]]; then
-    ${COMMANDS[${key}]} "$@"
-    exit ${EXIT_SUCCESS}
+    ${COMMANDS[${key}]} "$@" &&
+      exit 0 ||
+      exit 1
   fi
 
   usage "${RED}[ERROR] Unknown shortcut ${key}${RESET}"
-  exit ${EXIT_FAILED}
+  exit 1
 
 }
 
@@ -100,7 +99,7 @@ ${YELLOW}[CREATED]${RESET}
   01/11/2025
 ${YELLOW}[CHANGELOG]${RESET}
   1.0"
-  exit ${EXIT_SUCCESS}
+  exit 0
 }
 
 usage() {

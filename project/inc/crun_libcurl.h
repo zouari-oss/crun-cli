@@ -11,12 +11,13 @@
 
 #ifndef __CRUN_LIBCURL_H__
 #define __CRUN_LIBCURL_H__
-#define EXIT_SUCCESS 0
-#define EXIT_FAILURE 1
 
 // #########################################
 // ### HEADERS & MACROS DECLARATION PART ###
 // #########################################
+
+#define CURL_CA_CERT_NAME "cacert-2026-03-19.pem"
+#define CURL_CA_CERT_REMOTE_PATH "https://curl.se/ca/" CURL_CA_CERT_NAME
 
 #include <stdio.h>
 

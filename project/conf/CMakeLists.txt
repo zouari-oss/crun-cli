@@ -8,13 +8,13 @@ project(
     "C-based project scaffolding CLI"
   VERSION 1.4.0
   HOMEPAGE_URL https://github.com/ZouariOmar/crun
-  LANGUAGES C CXX)
+  LANGUAGES C)
 
-# Set the CMake version
-set(CMAKE_CX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Set the C version
+set(CMAKE_C_STANDARD 23)
 
-# Set compiler flags -- add_compile_options(-Wall -Wextra)
+# Set compiler flags
+# add_compile_options(-Wall -Wextra)
 
 # Generate release product
 set(CMAKE_BUILD_TYPE Release)
@@ -22,12 +22,13 @@ set(CMAKE_BUILD_TYPE Release)
 # Find packages
 find_package(CURL REQUIRED)
 find_package(cJSON REQUIRED)
+find_package(PkgConfig REQUIRED)
 
 # Find modules
 pkg_check_modules(MINIZIP REQUIRED minizip)
 
 # Include packages
-include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS}
+include_directories(${CURL_INCLUDE_DIRS} ${CJSON_INCLUDE_DIRS}
                     ${MINIZIP_INCLUDE_DIRS})
 
 # Set sources files
