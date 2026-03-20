@@ -4,6 +4,7 @@ var crun_8c =
     [ "crun_help", "crun_8c.html#a696bb6580ef844f94e118ec4c3c4e3da", null ],
     [ "crun_stacks_json_checker", "crun_8c.html#a88e359c112bcc1f3b2c2cb2935e3948a", null ],
     [ "crun_update", "crun_8c.html#ad68df6c17f6bd441031a5d84b2efaf7c", null ],
+    [ "crun_version", "crun_8c.html#a0fd32aa72cd11ca689693b708a33e1b1", null ],
     [ "download_crun_package", "crun_8c.html#ac6dfb017ed4ffec3513f343f795a984a", null ],
     [ "free_all", "crun_8c.html#acfed3e1485a662e71d7e6a04960ce116", null ],
     [ "get_language_buffer", "crun_8c.html#a58d2b1f863b37c0e608f16863201d767", null ],

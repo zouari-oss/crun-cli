@@ -16,5 +16,7 @@ var searchData=
   ['standards_13',['Our Standards',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2CODE__OF__CONDUCT.html#autotoc_md2',1,'']]],
   ['started_14',['Getting Started',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2CONTRIBUTING.html#autotoc_md10',1,'']]],
   ['started_15',['started',['../structDownloadProgress.html#a250ed06b1fa1d465a14c981b9bcc8b54',1,'DownloadProgress']]],
-  ['supported_20versions_16',['Supported Versions',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2SECURITY.html#autotoc_md33',1,'']]]
+  ['stringify_16',['STRINGIFY',['../CMakeCCompilerId_8c.html#a43e1cad902b6477bec893cb6430bd6c8',1,'CMakeCCompilerId.c']]],
+  ['stringify_5fhelper_17',['STRINGIFY_HELPER',['../CMakeCCompilerId_8c.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'CMakeCCompilerId.c']]],
+  ['supported_20versions_18',['Supported Versions',['../md__2home_2zouari__omar_2Desktop_2projects_2zouari-oss_2crun_2crun-cli_2SECURITY.html#autotoc_md33',1,'']]]
 ];

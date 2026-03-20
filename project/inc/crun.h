@@ -62,6 +62,11 @@ struct CrunRuntimeContext {
 void crun();
 
 /**
+ * @brief Print app version
+ */
+void crun_version();
+
+/**
  * @brief Print command-line usage/help.
  */
 void crun_help();

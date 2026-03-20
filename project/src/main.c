@@ -24,6 +24,9 @@ int main(int argc, const char **argv) {
   if (argc == 1)
     return crun(), EXIT_SUCCESS;
 
+  if (!strcmp(argv[1], "--version"))
+    return crun_version(), EXIT_SUCCESS;
+
   if (!strcmp(argv[1], "--help") || !strcmp(argv[1], "-h"))
     return crun_help(), EXIT_SUCCESS;
 

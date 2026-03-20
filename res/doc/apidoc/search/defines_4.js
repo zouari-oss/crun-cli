@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['gray_0',['gray',['../color_8h.html#aedfcdb6062c4b7ae552ab7889043f8e2',1,'color.h']]],
-  ['green_1',['green',['../color_8h.html#a7027592d032f7d20b38a1304ae3da2a2',1,'color.h']]]
+  ['dec_0',['DEC',['../CMakeCCompilerId_8c.html#ad1280362da42492bbc11aa78cbf776ad',1,'CMakeCCompilerId.c']]],
+  ['def_1',['def',['../color_8h.html#a64d516b4117c9d3d79afc82f5e4cf4fc',1,'color.h']]]
 ];

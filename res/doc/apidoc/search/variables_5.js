@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['stacks_5fpath_0',['stacks_path',['../structCrunRuntimeContext.html#aa4628ee27eae704eb2323ef9bfc35e1f',1,'CrunRuntimeContext']]],
-  ['started_1',['started',['../structDownloadProgress.html#a250ed06b1fa1d465a14c981b9bcc8b54',1,'DownloadProgress']]]
+  ['packages_5fbuffer_0',['packages_buffer',['../structCrunRuntimeContext.html#a26d28f9bb23ac0087798e8130af671dd',1,'CrunRuntimeContext']]],
+  ['packages_5fmap_1',['packages_map',['../crun_8c.html#aec32816a542c81b2db466500846cd8a3',1,'crun.c']]],
+  ['packages_5fmap_5flength_2',['packages_map_length',['../crun_8c.html#abc165aedd4d2487a74be5f16d7999544',1,'crun.c']]]
 ];

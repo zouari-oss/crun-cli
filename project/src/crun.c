@@ -312,6 +312,10 @@ static void cleanup_runtime_context(struct CrunRuntimeContext *ctx) {
   cJSON_Delete(ctx->json_root);
 }
 
+void crun_version() {
+  VERSION_MSG;
+}
+
 void crun_help() {
   HELP_MSG;
 }
@@ -512,10 +516,10 @@ const char *download_crun_package(const struct CrunPackage *crun_package_map) {
 
   snprintf(crun_package_file_suffix,
            crun_package_file_suffix_len,
-            "%s%s%s",
-            CRUN_DEFAULT_SUFFIX_DIRECTORY,
-            package_name,
-            effective_extension);
+           "%s%s%s",
+           CRUN_DEFAULT_SUFFIX_DIRECTORY,
+           package_name,
+           effective_extension);
 
   crun_package_file_path = get_file_home_path(crun_package_file_suffix);
   free(crun_package_file_suffix), crun_package_file_suffix = NULL; // Free `crun_package_file_suffix`

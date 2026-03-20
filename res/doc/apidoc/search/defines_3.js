@@ -1,4 +1,22 @@
 var searchData=
 [
-  ['def_0',['def',['../color_8h.html#a64d516b4117c9d3d79afc82f5e4cf4fc',1,'color.h']]]
+  ['c_5fstd_5f11_0',['C_STD_11',['../CMakeCCompilerId_8c.html#a7c35af7e67642a2c62eb27dd81be11b2',1,'CMakeCCompilerId.c']]],
+  ['c_5fstd_5f17_1',['C_STD_17',['../CMakeCCompilerId_8c.html#aa8cd9c2c76dde36abac0bd7698090693',1,'CMakeCCompilerId.c']]],
+  ['c_5fstd_5f23_2',['C_STD_23',['../CMakeCCompilerId_8c.html#a81af617e8f7b5417689ca478ce9f4d69',1,'CMakeCCompilerId.c']]],
+  ['c_5fstd_5f99_3',['C_STD_99',['../CMakeCCompilerId_8c.html#af6079dc519dac099ee85a1df6ae5e5e8',1,'CMakeCCompilerId.c']]],
+  ['c_5fversion_4',['C_VERSION',['../CMakeCCompilerId_8c.html#adaee3ee7c5a7a22451ea25e762e1d7d5',1,'CMakeCCompilerId.c']]],
+  ['compiler_5fid_5',['COMPILER_ID',['../CMakeCCompilerId_8c.html#a81dee0709ded976b2e0319239f72d174',1,'CMakeCCompilerId.c']]],
+  ['crun_5fauthor_6',['CRUN_AUTHOR',['../patterns_8h.html#a9165f03727567905330247b95d9b5cee',1,'patterns.h']]],
+  ['crun_5fbanner_7',['CRUN_BANNER',['../patterns_8h.html#aba935aa6821847c3ecf631acee94784d',1,'patterns.h']]],
+  ['crun_5fdefault_5fsuffix_5fdirectory_8',['CRUN_DEFAULT_SUFFIX_DIRECTORY',['../crun__file__manager_8h.html#aef3cdab16696ab71b78652da74f48dc2',1,'crun_file_manager.h']]],
+  ['crun_5fheader_9',['CRUN_HEADER',['../patterns_8h.html#a8d9c36f11e9ba75efc775ef8af8d9d40',1,'patterns.h']]],
+  ['crun_5fio_5fbuffer_5fsize_10',['CRUN_IO_BUFFER_SIZE',['../crun__file__manager_8c.html#a3598378431513d8952d3fd6c24c16c2a',1,'crun_file_manager.c']]],
+  ['crun_5frepository_11',['CRUN_REPOSITORY',['../patterns_8h.html#a0e1ed100e6375cf08aee0fa20a4f0dd3',1,'patterns.h']]],
+  ['crun_5fstacks_5fjson_5ffile_5fdefault_5fsuffix_12',['CRUN_STACKS_JSON_FILE_DEFAULT_SUFFIX',['../crun__file__manager_8h.html#abb9586c871029643c7c209a6e630cac7',1,'crun_file_manager.h']]],
+  ['crun_5fstacks_5fjson_5ffile_5furl_13',['CRUN_STACKS_JSON_FILE_URL',['../crun__file__manager_8h.html#af641f2c1fd053a9ed2aaed7800187d4d',1,'crun_file_manager.h']]],
+  ['crun_5ftmp_5fdirectory_5fsuffix_14',['CRUN_TMP_DIRECTORY_SUFFIX',['../crun__file__manager_8h.html#a2448bf02ddf078f989f72f7dce210ea7',1,'crun_file_manager.h']]],
+  ['crun_5fversion_15',['CRUN_VERSION',['../patterns_8h.html#a7f6cb24d9f62ca8942c3d0ae8e5b6553',1,'patterns.h']]],
+  ['curl_5fca_5fcert_5fname_16',['CURL_CA_CERT_NAME',['../crun__libcurl_8h.html#a9d031227fb58e59e67c5a87232d8b02c',1,'crun_libcurl.h']]],
+  ['curl_5fca_5fcert_5fremote_5fpath_17',['CURL_CA_CERT_REMOTE_PATH',['../crun__libcurl_8h.html#a8e539b513b94541022177543918d261f',1,'crun_libcurl.h']]],
+  ['cyan_18',['cyan',['../color_8h.html#aee63ed202c647f085cfc57577055a531',1,'color.h']]]
 ];
