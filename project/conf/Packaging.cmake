@@ -1,0 +1,34 @@
+include(InstallRequiredSystemLibraries)
+
+# Basic package info
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_CONTACT ${HOMEPAGE_URL})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${DESCRIPTION})
+
+# Generators
+set(CPACK_GENERATOR "ZIP;TGZ;DEB;RPM")
+
+# DEB
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Zouari Omar")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libcurl4, libcjson1, libminizip1")
+
+# RPM
+set(CPACK_RPM_PACKAGE_LICENSE "GPL-3.0")
+set(CPACK_RPM_PACKAGE_GROUP "Applications/System")
+set(CPACK_RPM_PACKAGE_REQUIRES "libcurl, cjson, minizip")
+
+# Install prefix
+set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+
+# File name format
+set(CPACK_PACKAGE_FILE_NAME
+    "${PROJECT_NAME}_${PROJECT_VERSION}_${CMAKE_SYSTEM_NAME}"
+)
+
+# Enable verbose out
+set(CPACK_VERBOSE ON)
+
+include(CPack)

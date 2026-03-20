@@ -7,7 +7,7 @@ project(
   DESCRIPTION
     "C-based project scaffolding CLI"
   VERSION 1.4.0
-  HOMEPAGE_URL https://github.com/ZouariOmar/crun
+  HOMEPAGE_URL https://github.com/zouari-oss/crun-cli
   LANGUAGES C)
 
 # Set the C version
@@ -58,3 +58,6 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 # Link packages after creating the executable
 target_link_libraries(${PROJECT_NAME} PRIVATE CURL::libcurl ${CJSON_LIBRARIES}
                                               ${MINIZIP_LIBRARIES})
+
+# Include `Packaging.cmake`
+include(Packaging.cmake)

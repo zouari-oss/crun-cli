@@ -41,7 +41,8 @@
 ##########################
 APP_NAME='crun'
 APP_BUILD_DIR='bin/build'
-CMAKE_LISTS_APP_DIR='conf'
+APP_RELEASE_DIR='bin/release'
+CMAKE_CONF_DIR='conf'
 CMAKE_GENERATOR='Ninja'
 CMAE_BUILD_BIN='ninja'
 TEST_BIN='ctest'
@@ -49,11 +50,12 @@ TEST_BUILD_DIR="$APP_BUILD_DIR/test"
 
 # Aliases for common commands
 declare -A COMMANDS
-COMMANDS["i"]="${CMAE_BUILD_BIN} -C ${APP_BUILD_DIR}"                                      # Interact with the builder file (e.g build.ninja, makefile)
-COMMANDS["r"]="./${APP_BUILD_DIR}/${APP_NAME}"                                             # Run App
-COMMANDS["rt"]="${TEST_BIN} --test-dir $TEST_BUILD_DIR"                                    # Run App Test(s)
-COMMANDS["rb"]="cmake -S ${CMAKE_LISTS_APP_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}" # Root build
-COMMANDS["rc"]="rm -rf ${APP_BUILD_DIR}"                                                   # Root Clean
+COMMANDS["i"]="${CMAE_BUILD_BIN} -C ${APP_BUILD_DIR}"                                     # Interact with the builder file (e.g build.ninja, makefile)
+COMMANDS["r"]="./${APP_BUILD_DIR}/${APP_NAME}"                                            # Run App
+COMMANDS["rt"]="${TEST_BIN} --test-dir $TEST_BUILD_DIR"                                   # Run App Test(s)
+COMMANDS["rb"]="cmake -S ${CMAKE_CONF_DIR} -B ${APP_BUILD_DIR} -G ${CMAKE_GENERATOR}"     # Root build
+COMMANDS["rc"]="rm -rf ${APP_BUILD_DIR}"                                                  # Root Clean
+COMMANDS["pkg"]="cpack --config ${APP_BUILD_DIR}/CPackConfig.cmake -B ${APP_RELEASE_DIR}" # Packaging
 
 # Main func to execute shortcuts
 function run_cmd() {
