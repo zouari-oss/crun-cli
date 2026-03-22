@@ -1,7 +1,8 @@
-# Set the cmake min version
+# === Cmake info ===
 cmake_minimum_required(VERSION 4.2.3)
+# === !Cmake info ===
 
-# Set the project name
+# === Project info ===
 project(
   crun
   VERSION 1.4.0.3
@@ -9,11 +10,9 @@ project(
   HOMEPAGE_URL https://github.com/zouari-oss/crun-cli
   LANGUAGES C
 )
+# === !Project info ===
 
-# =======================
 # === Setting section ===
-# =======================
-
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_BUILD_TYPE Release)
 set(SOURCES
@@ -33,29 +32,31 @@ set(HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_json_manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_file_manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc/crun_zip_manager.h)
-
-# ========================
 # === !Setting section ===
-# ========================
 
-# Find packages
+# === Find packages part ===
 find_package(CURL REQUIRED)
 find_package(cJSON REQUIRED)
 find_package(PkgConfig REQUIRED)
-
-# Find modules
 pkg_check_modules(MINIZIP REQUIRED minizip)
+# === !Find packages part ===
 
-# Include packages
-include_directories(${CURL_INCLUDE_DIRS} ${CJSON_INCLUDE_DIRS}
-                    ${MINIZIP_INCLUDE_DIRS})
-
-# Generate Crun
+# === Exec inline command ===
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+# === !Exec inline command ===
 
-# Link packages after creating the executable
-target_link_libraries(${PROJECT_NAME} PRIVATE CURL::libcurl ${CJSON_LIBRARIES}
-                                              ${MINIZIP_LIBRARIES})
+# === Linkers part ===
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CURL_INCLUDE_DIRS}
+    ${CJSON_INCLUDE_DIRS}
+    ${MINIZIP_INCLUDE_DIRS}
+)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+                      CURL::libcurl
+                      ${CJSON_LIBRARIES}
+                      ${MINIZIP_LIBRARIES})
+# === !Linkers part ===
 
-# Include `Packaging.cmake`
+# === Include(s) part
 include(Packaging.cmake)
+# === !Include(s) part
